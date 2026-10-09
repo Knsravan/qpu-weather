@@ -30,6 +30,19 @@ def _connect_service(token: str | None, instance: str | None):
     return QiskitRuntimeService(**kwargs)
 
 
+def check_quota(service) -> None:
+    """Stop early if IBM reports no QPU time left. Never blocks if usage can't be read."""
+    try:
+        remaining = service.usage().get("usage_remaining_seconds")
+    except Exception:
+        return
+    if remaining is not None and remaining <= 0:
+        raise SystemExit(
+            "IBM instance has no QPU time left (usage_remaining_seconds=0); "
+            "it resets when IBM makes more time available. Stopping before submitting jobs."
+        )
+
+
 def get_backend(name: str | None = None, simulate: bool = False) -> BackendHandle:
     """Return a backend.
 
@@ -57,4 +70,5 @@ def get_backend(name: str | None = None, simulate: bool = False) -> BackendHandl
         backend = service.backend(name)
     else:
         backend = service.least_busy(operational=True, simulator=False)
+    check_quota(service)
     return BackendHandle(backend, backend.name, False)

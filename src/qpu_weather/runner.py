@@ -5,7 +5,34 @@ from __future__ import annotations
 from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
+import time
+
 CREG = "c"
+QUEUE_TIMEOUT_S = 600  # give up if a job has not started running after 10 minutes
+
+
+class QueueTimeout(RuntimeError):
+    """A job never left the queue (busy device, or the instance is out of QPU time)."""
+
+
+def wait_until_running(job, timeout_s=QUEUE_TIMEOUT_S, poll_s=15, sleep=time.sleep, clock=time.monotonic):
+    """Return once `job` is running/finished; cancel it and raise QueueTimeout if it stays queued."""
+    start = clock()
+    while True:
+        status = str(getattr(job.status(), "name", job.status())).upper()
+        if status not in ("INITIALIZING", "QUEUED", "VALIDATING"):
+            return status
+        if clock() - start > timeout_s:
+            try:
+                job.cancel()
+            except Exception:
+                pass
+            raise QueueTimeout(
+                f"job {job.job_id()} still {status} after {timeout_s}s; cancelled it. "
+                "The device may be busy, or the IBM instance may be out of QPU time "
+                "(check the instance usage page)."
+            )
+        sleep(poll_s)
 
 
 def transpile_with_layout(circuits, backend, layout, optimization_level=1):
@@ -43,6 +70,7 @@ def run_counts(backend, circuits: list[QuantumCircuit], shots: int, simulated: b
 
     sampler = SamplerV2(mode=backend)
     job = sampler.run(circuits, shots=shots)
+    wait_until_running(job)
     result = job.result()
     return [getattr(result[i].data, CREG).get_counts() for i in range(len(circuits))], job.job_id()
 

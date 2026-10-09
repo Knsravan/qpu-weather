@@ -15,3 +15,17 @@ def test_connect_without_token_uses_saved_account():
     with mock.patch("qiskit_ibm_runtime.QiskitRuntimeService") as svc:
         _connect_service(None, "crn:abc")
         svc.assert_called_with()
+
+
+def test_check_quota_stops_when_zero_and_ignores_unreadable():
+    import pytest
+    from qpu_weather.backend import check_quota
+
+    svc = mock.Mock()
+    svc.usage.return_value = {"usage_remaining_seconds": 0}
+    with pytest.raises(SystemExit):
+        check_quota(svc)
+    svc.usage.return_value = {"usage_remaining_seconds": 120}
+    check_quota(svc)
+    svc.usage.side_effect = RuntimeError("no api")
+    check_quota(svc)
