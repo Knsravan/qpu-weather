@@ -1,0 +1,1594 @@
+{
+ "schema": 1,
+ "timestamp_utc": "2026-10-09T14:41:55+00:00",
+ "backend": "ibm_fez",
+ "simulated": false,
+ "shots": 4000,
+ "chain_len": 5,
+ "calibration": {
+  "qubits": [
+   {
+    "qubit": 0,
+    "p01": 0.0085,
+    "p10": 0.03149999999999997,
+    "readout_error": 0.019999999999999987,
+    "gate_error_1q": 0.009198808496981292,
+    "reported_readout_error": 0.0205078125,
+    "reported_gate_error_1q": 0.0016484727826683173
+   },
+   {
+    "qubit": 1,
+    "p01": 0.0765,
+    "p10": 0.04700000000000004,
+    "readout_error": 0.06175000000000002,
+    "gate_error_1q": 0.0049102094740840485,
+    "reported_readout_error": 0.06201171875,
+    "reported_gate_error_1q": 0.0003806704831889462
+   },
+   {
+    "qubit": 2,
+    "p01": 0.001,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.0035000000000000027,
+    "gate_error_1q": 0.008639376765205653,
+    "reported_readout_error": 0.0037841796875,
+    "reported_gate_error_1q": 0.00019035257573069152
+   },
+   {
+    "qubit": 3,
+    "p01": 0.032,
+    "p10": 0.030000000000000027,
+    "readout_error": 0.031000000000000014,
+    "gate_error_1q": 0.003286231423165753,
+    "reported_readout_error": 0.02734375,
+    "reported_gate_error_1q": 0.00018874571934064503
+   },
+   {
+    "qubit": 4,
+    "p01": 0.003,
+    "p10": 0.0044999999999999485,
+    "readout_error": 0.0037499999999999743,
+    "gate_error_1q": 0.007534298539599638,
+    "reported_readout_error": 0.003662109375,
+    "reported_gate_error_1q": 0.00027525723581665906
+   },
+   {
+    "qubit": 5,
+    "p01": 0.0,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.004249999999999976,
+    "gate_error_1q": 0.004306225933936814,
+    "reported_readout_error": 0.01611328125,
+    "reported_gate_error_1q": 0.0005434677290974463
+   },
+   {
+    "qubit": 6,
+    "p01": 0.0,
+    "p10": 0.0044999999999999485,
+    "readout_error": 0.0022499999999999742,
+    "gate_error_1q": 0.0037762165012992233,
+    "reported_readout_error": 0.00439453125,
+    "reported_gate_error_1q": 0.0002459616376814376
+   },
+   {
+    "qubit": 7,
+    "p01": 0.004,
+    "p10": 0.03149999999999997,
+    "readout_error": 0.017749999999999988,
+    "gate_error_1q": 0.002740079152930175,
+    "reported_readout_error": 0.018310546875,
+    "reported_gate_error_1q": 0.0004157431522222636
+   },
+   {
+    "qubit": 8,
+    "p01": 0.003,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.006500000000000004,
+    "gate_error_1q": 0.002756675739399528,
+    "reported_readout_error": 0.0032958984375,
+    "reported_gate_error_1q": 0.0004189731502300493
+   },
+   {
+    "qubit": 9,
+    "p01": 0.005,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.005500000000000003,
+    "gate_error_1q": 0.0038359556969017605,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.0003059351113588158
+   },
+   {
+    "qubit": 10,
+    "p01": 0.0075,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.006999999999999975,
+    "gate_error_1q": 0.018460227671587504,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.00016488962657371502
+   },
+   {
+    "qubit": 11,
+    "p01": 0.062,
+    "p10": 0.04949999999999999,
+    "readout_error": 0.055749999999999994,
+    "gate_error_1q": 0.0031821291722047285,
+    "reported_readout_error": 0.0311279296875,
+    "reported_gate_error_1q": 0.0014727545756664311
+   },
+   {
+    "qubit": 12,
+    "p01": 0.0135,
+    "p10": 0.01849999999999996,
+    "readout_error": 0.01599999999999998,
+    "gate_error_1q": 0.002474661071480977,
+    "reported_readout_error": 0.0184326171875,
+    "reported_gate_error_1q": 0.0004738037359858927
+   },
+   {
+    "qubit": 13,
+    "p01": 0.0005,
+    "p10": 0.01749999999999996,
+    "readout_error": 0.00899999999999998,
+    "gate_error_1q": 0.004804183669853024,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.00036940712948277783
+   },
+   {
+    "qubit": 14,
+    "p01": 0.0005,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.0034999999999999754,
+    "gate_error_1q": 0.0013180212760298682,
+    "reported_readout_error": 0.0057373046875,
+    "reported_gate_error_1q": 0.00025031573500977703
+   },
+   {
+    "qubit": 15,
+    "p01": 0.01,
+    "p10": 0.022499999999999964,
+    "readout_error": 0.016249999999999983,
+    "gate_error_1q": 0.01218615370563958,
+    "reported_readout_error": 0.0142822265625,
+    "reported_gate_error_1q": 0.00017408771239476077
+   },
+   {
+    "qubit": 16,
+    "p01": 0.0005,
+    "p10": 0.01849999999999996,
+    "readout_error": 0.00949999999999998,
+    "gate_error_1q": 0.010783528940674358,
+    "reported_readout_error": 0.0069580078125,
+    "reported_gate_error_1q": 0.00039429889941109536
+   },
+   {
+    "qubit": 17,
+    "p01": 0.002,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.006500000000000005,
+    "gate_error_1q": 0.0034907471239856713,
+    "reported_readout_error": 0.00634765625,
+    "reported_gate_error_1q": 0.00027876898205308695
+   },
+   {
+    "qubit": 18,
+    "p01": 0.003,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.005000000000000003,
+    "gate_error_1q": 0.001541153874856982,
+    "reported_readout_error": 0.005126953125,
+    "reported_gate_error_1q": 0.0003126366878619633
+   },
+   {
+    "qubit": 19,
+    "p01": 0.0235,
+    "p10": 0.02300000000000002,
+    "readout_error": 0.02325000000000001,
+    "gate_error_1q": 0.004596680644187723,
+    "reported_readout_error": 0.022216796875,
+    "reported_gate_error_1q": 0.0009304390072650305
+   },
+   {
+    "qubit": 20,
+    "p01": 0.0035,
+    "p10": 0.012499999999999956,
+    "readout_error": 0.007999999999999978,
+    "gate_error_1q": 0.004073964616200687,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.0004374368832999217
+   },
+   {
+    "qubit": 21,
+    "p01": 0.012,
+    "p10": 0.019000000000000017,
+    "readout_error": 0.015500000000000009,
+    "gate_error_1q": 0.0011626149746304382,
+    "reported_readout_error": 0.015380859375,
+    "reported_gate_error_1q": 0.0003261834091673732
+   },
+   {
+    "qubit": 22,
+    "p01": 0.0025,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.006499999999999977,
+    "gate_error_1q": 0.00829897531094359,
+    "reported_readout_error": 0.0042724609375,
+    "reported_gate_error_1q": 0.000232050506937799
+   },
+   {
+    "qubit": 23,
+    "p01": 0.0005,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.003999999999999976,
+    "gate_error_1q": 0.014062717520588075,
+    "reported_readout_error": 0.0042724609375,
+    "reported_gate_error_1q": 0.00028081652691154784
+   },
+   {
+    "qubit": 24,
+    "p01": 0.002,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.007500000000000006,
+    "gate_error_1q": 0.0012235316311336453,
+    "reported_readout_error": 0.00439453125,
+    "reported_gate_error_1q": 0.00036770936976109834
+   },
+   {
+    "qubit": 25,
+    "p01": 0.0015,
+    "p10": 0.011499999999999955,
+    "readout_error": 0.006499999999999977,
+    "gate_error_1q": 0.002798066839913127,
+    "reported_readout_error": 0.0050048828125,
+    "reported_gate_error_1q": 0.00018248721564964612
+   },
+   {
+    "qubit": 26,
+    "p01": 0.003,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.005749999999999976,
+    "gate_error_1q": 0.014202001059070102,
+    "reported_readout_error": 0.005126953125,
+    "reported_gate_error_1q": 0.00027050246859622697
+   },
+   {
+    "qubit": 27,
+    "p01": 0.006,
+    "p10": 0.025000000000000022,
+    "readout_error": 0.01550000000000001,
+    "gate_error_1q": 0.012554353630876869,
+    "reported_readout_error": 0.01123046875,
+    "reported_gate_error_1q": 0.005022312172328405
+   },
+   {
+    "qubit": 28,
+    "p01": 0.0,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.005249999999999977,
+    "gate_error_1q": 0.008008546752866552,
+    "reported_readout_error": 0.0047607421875,
+    "reported_gate_error_1q": 0.00024043389660145044
+   },
+   {
+    "qubit": 29,
+    "p01": 0.013,
+    "p10": 0.021499999999999964,
+    "readout_error": 0.01724999999999998,
+    "gate_error_1q": 0.00680738853847318,
+    "reported_readout_error": 0.01611328125,
+    "reported_gate_error_1q": 0.00029916668828905283
+   },
+   {
+    "qubit": 30,
+    "p01": 0.0025,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.006250000000000005,
+    "gate_error_1q": 0.004114064203129986,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.00024168197767958832
+   },
+   {
+    "qubit": 31,
+    "p01": 0.006,
+    "p10": 0.01749999999999996,
+    "readout_error": 0.01174999999999998,
+    "gate_error_1q": 0.006525236755927977,
+    "reported_readout_error": 0.0087890625,
+    "reported_gate_error_1q": 0.0005447849230350256
+   },
+   {
+    "qubit": 32,
+    "p01": 0.0655,
+    "p10": 0.04500000000000004,
+    "readout_error": 0.05525000000000002,
+    "gate_error_1q": 0.019955263735483952,
+    "reported_readout_error": 0.046142578125,
+    "reported_gate_error_1q": 0.0005814563666876506
+   },
+   {
+    "qubit": 33,
+    "p01": 0.0075,
+    "p10": 0.02949999999999997,
+    "readout_error": 0.018499999999999985,
+    "gate_error_1q": 0.022886630549271536,
+    "reported_readout_error": 0.0172119140625,
+    "reported_gate_error_1q": 0.0002735318733078242
+   },
+   {
+    "qubit": 34,
+    "p01": 0.003,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.006500000000000004,
+    "gate_error_1q": 0.0205111745780302,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.0005753754616828387
+   },
+   {
+    "qubit": 35,
+    "p01": 0.0255,
+    "p10": 0.026499999999999968,
+    "readout_error": 0.02599999999999998,
+    "gate_error_1q": 0.0033600908036971466,
+    "reported_readout_error": 0.0433349609375,
+    "reported_gate_error_1q": 0.0002885360400786597
+   },
+   {
+    "qubit": 36,
+    "p01": 0.003,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.0067499999999999765,
+    "gate_error_1q": 0.0029027352511193927,
+    "reported_readout_error": 0.0072021484375,
+    "reported_gate_error_1q": 0.000524371439435684
+   },
+   {
+    "qubit": 37,
+    "p01": 0.0015,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.004750000000000003,
+    "gate_error_1q": 0.0035099133192270093,
+    "reported_readout_error": 0.0096435546875,
+    "reported_gate_error_1q": 0.00038614363130037437
+   },
+   {
+    "qubit": 38,
+    "p01": 0.0095,
+    "p10": 0.020000000000000018,
+    "readout_error": 0.01475000000000001,
+    "gate_error_1q": 0.0037467836642063324,
+    "reported_readout_error": 0.0166015625,
+    "reported_gate_error_1q": 0.00034861864300047847
+   },
+   {
+    "qubit": 39,
+    "p01": 0.014,
+    "p10": 0.016000000000000014,
+    "readout_error": 0.015000000000000006,
+    "gate_error_1q": 0.004127575971910047,
+    "reported_readout_error": 0.013671875,
+    "reported_gate_error_1q": 0.0005724118991534606
+   },
+   {
+    "qubit": 40,
+    "p01": 0.0025,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.01099999999999998,
+    "gate_error_1q": 0.009296421670915489,
+    "reported_readout_error": 0.011962890625,
+    "reported_gate_error_1q": 0.00039309503103438306
+   },
+   {
+    "qubit": 41,
+    "p01": 0.0565,
+    "p10": 0.0665,
+    "readout_error": 0.0615,
+    "gate_error_1q": 0.0009378343864295813,
+    "reported_readout_error": 0.0511474609375,
+    "reported_gate_error_1q": 0.00020077633565709837
+   },
+   {
+    "qubit": 42,
+    "p01": 0.0015,
+    "p10": 0.024499999999999966,
+    "readout_error": 0.012999999999999984,
+    "gate_error_1q": 0.013084983275576612,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.000362402381138741
+   },
+   {
+    "qubit": 43,
+    "p01": 0.032,
+    "p10": 0.10799999999999998,
+    "readout_error": 0.06999999999999999,
+    "gate_error_1q": 0.0019669627146255975,
+    "reported_readout_error": 0.0858154296875,
+    "reported_gate_error_1q": 0.0003193647545633912
+   },
+   {
+    "qubit": 44,
+    "p01": 0.0005,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.005750000000000005,
+    "gate_error_1q": 0.013921424304634944,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.00031931237471637775
+   },
+   {
+    "qubit": 45,
+    "p01": 0.0095,
+    "p10": 0.02300000000000002,
+    "readout_error": 0.01625000000000001,
+    "gate_error_1q": 0.003946390654772092,
+    "reported_readout_error": 0.023193359375,
+    "reported_gate_error_1q": 0.00025988157412529613
+   },
+   {
+    "qubit": 46,
+    "p01": 0.0085,
+    "p10": 0.01200000000000001,
+    "readout_error": 0.010250000000000006,
+    "gate_error_1q": 0.003425629809882147,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.00046739687871631637
+   },
+   {
+    "qubit": 47,
+    "p01": 0.0255,
+    "p10": 0.024499999999999966,
+    "readout_error": 0.02499999999999998,
+    "gate_error_1q": 0.004821634265284036,
+    "reported_readout_error": 0.0191650390625,
+    "reported_gate_error_1q": 0.0008955210077955762
+   },
+   {
+    "qubit": 48,
+    "p01": 0.005,
+    "p10": 0.0050000000000000044,
+    "readout_error": 0.005000000000000003,
+    "gate_error_1q": 0.002809417034885908,
+    "reported_readout_error": 0.004638671875,
+    "reported_gate_error_1q": 0.0003091662718535619
+   },
+   {
+    "qubit": 49,
+    "p01": 0.0385,
+    "p10": 0.04249999999999998,
+    "readout_error": 0.040499999999999994,
+    "gate_error_1q": 0.009707278136027009,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.0007695744572500897
+   },
+   {
+    "qubit": 50,
+    "p01": 0.0,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.003249999999999975,
+    "gate_error_1q": 0.002799828122552528,
+    "reported_readout_error": 0.003173828125,
+    "reported_gate_error_1q": 0.00037593435726437924
+   },
+   {
+    "qubit": 51,
+    "p01": 0.04,
+    "p10": 0.02749999999999997,
+    "readout_error": 0.03374999999999999,
+    "gate_error_1q": 0.004622872344587581,
+    "reported_readout_error": 0.03759765625,
+    "reported_gate_error_1q": 0.00033040568720026786
+   },
+   {
+    "qubit": 52,
+    "p01": 0.016,
+    "p10": 0.026000000000000023,
+    "readout_error": 0.02100000000000001,
+    "gate_error_1q": 0.0012708296901291494,
+    "reported_readout_error": 0.021240234375,
+    "reported_gate_error_1q": 0.00032766063990762165
+   },
+   {
+    "qubit": 53,
+    "p01": 0.0345,
+    "p10": 0.04400000000000004,
+    "readout_error": 0.03925000000000002,
+    "gate_error_1q": 0.0053175019806904755,
+    "reported_readout_error": 0.040283203125,
+    "reported_gate_error_1q": 0.00027033809546243766
+   },
+   {
+    "qubit": 54,
+    "p01": 0.0005,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.004750000000000004,
+    "gate_error_1q": 0.006764458849614963,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.0007302379050107505
+   },
+   {
+    "qubit": 55,
+    "p01": 0.0585,
+    "p10": 0.04800000000000004,
+    "readout_error": 0.05325000000000002,
+    "gate_error_1q": 0.0009166338953797704,
+    "reported_readout_error": 0.0484619140625,
+    "reported_gate_error_1q": 0.0004102647433612064
+   },
+   {
+    "qubit": 56,
+    "p01": 0.0045,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.008750000000000006,
+    "gate_error_1q": 0.005789971965248775,
+    "reported_readout_error": 0.0079345703125,
+    "reported_gate_error_1q": 0.0004080005855370361
+   },
+   {
+    "qubit": 57,
+    "p01": 0.0035,
+    "p10": 0.011499999999999955,
+    "readout_error": 0.007499999999999977,
+    "gate_error_1q": 0.007288362576032603,
+    "reported_readout_error": 0.00927734375,
+    "reported_gate_error_1q": 0.00148994920390713
+   },
+   {
+    "qubit": 58,
+    "p01": 0.0015,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.005999999999999977,
+    "gate_error_1q": 0.009433517146978265,
+    "reported_readout_error": 0.0078125,
+    "reported_gate_error_1q": 0.00039959432671193693
+   },
+   {
+    "qubit": 59,
+    "p01": 0.0045,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.005250000000000003,
+    "gate_error_1q": 0.006349692874123458,
+    "reported_readout_error": 0.0052490234375,
+    "reported_gate_error_1q": 0.0008152630280522327
+   },
+   {
+    "qubit": 60,
+    "p01": 0.018,
+    "p10": 0.03300000000000003,
+    "readout_error": 0.025500000000000016,
+    "gate_error_1q": 0.0078061984062101075,
+    "reported_readout_error": 0.03125,
+    "reported_gate_error_1q": 0.00035160991505725595
+   },
+   {
+    "qubit": 61,
+    "p01": 0.0265,
+    "p10": 0.03749999999999998,
+    "readout_error": 0.03199999999999999,
+    "gate_error_1q": 0.005959142801868933,
+    "reported_readout_error": 0.0361328125,
+    "reported_gate_error_1q": 0.00021944101819620945
+   },
+   {
+    "qubit": 62,
+    "p01": 0.008,
+    "p10": 0.025499999999999967,
+    "readout_error": 0.016749999999999984,
+    "gate_error_1q": 0.002699947107354772,
+    "reported_readout_error": 0.0166015625,
+    "reported_gate_error_1q": 0.0002790737408814041
+   },
+   {
+    "qubit": 63,
+    "p01": 0.0455,
+    "p10": 0.03700000000000003,
+    "readout_error": 0.041250000000000016,
+    "gate_error_1q": 0.0053449946573720375,
+    "reported_readout_error": 0.084228515625,
+    "reported_gate_error_1q": 0.000569426370476047
+   },
+   {
+    "qubit": 64,
+    "p01": 0.0035,
+    "p10": 0.02749999999999997,
+    "readout_error": 0.015499999999999984,
+    "gate_error_1q": 0.0038215980968033803,
+    "reported_readout_error": 0.0042724609375,
+    "reported_gate_error_1q": 0.0004121121556335932
+   },
+   {
+    "qubit": 65,
+    "p01": 0.0605,
+    "p10": 0.06299999999999994,
+    "readout_error": 0.06174999999999997,
+    "gate_error_1q": 0.007246125524814184,
+    "reported_readout_error": 0.0635986328125,
+    "reported_gate_error_1q": 0.0004700501171098168
+   },
+   {
+    "qubit": 66,
+    "p01": 0.0065,
+    "p10": 0.0044999999999999485,
+    "readout_error": 0.005499999999999974,
+    "gate_error_1q": 0.007023121144991928,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.0003162791725123912
+   },
+   {
+    "qubit": 67,
+    "p01": 0.031,
+    "p10": 0.038000000000000034,
+    "readout_error": 0.03450000000000002,
+    "gate_error_1q": 0.011049238840831088,
+    "reported_readout_error": 0.0362548828125,
+    "reported_gate_error_1q": 0.0004179839552229314
+   },
+   {
+    "qubit": 68,
+    "p01": 0.0045,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.006499999999999976,
+    "gate_error_1q": 0.0034586726380186894,
+    "reported_readout_error": 0.0089111328125,
+    "reported_gate_error_1q": 0.0003397013132476825
+   },
+   {
+    "qubit": 69,
+    "p01": 0.0065,
+    "p10": 0.01849999999999996,
+    "readout_error": 0.01249999999999998,
+    "gate_error_1q": 0.002847626566470307,
+    "reported_readout_error": 0.015869140625,
+    "reported_gate_error_1q": 0.0004779887276829039
+   },
+   {
+    "qubit": 70,
+    "p01": 0.0005,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.005250000000000005,
+    "gate_error_1q": 0.0055656158776178355,
+    "reported_readout_error": 0.0050048828125,
+    "reported_gate_error_1q": 0.0004148829388442621
+   },
+   {
+    "qubit": 71,
+    "p01": 0.0005,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.009999999999999981,
+    "gate_error_1q": 0.005919481497558499,
+    "reported_readout_error": 0.0064697265625,
+    "reported_gate_error_1q": 0.0004062687333877302
+   },
+   {
+    "qubit": 72,
+    "p01": 0.327,
+    "p10": 0.32999999999999996,
+    "readout_error": 0.3285,
+    "gate_error_1q": 0.0056994370004676,
+    "reported_readout_error": 0.3316650390625,
+    "reported_gate_error_1q": 1.0
+   },
+   {
+    "qubit": 73,
+    "p01": 0.0135,
+    "p10": 0.021499999999999964,
+    "readout_error": 0.01749999999999998,
+    "gate_error_1q": 0.009638959760477461,
+    "reported_readout_error": 0.009521484375,
+    "reported_gate_error_1q": 0.0003218500517683671
+   },
+   {
+    "qubit": 74,
+    "p01": 0.0065,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.007250000000000003,
+    "gate_error_1q": 0.01012748486373638,
+    "reported_readout_error": 0.0076904296875,
+    "reported_gate_error_1q": 0.0004257626361613194
+   },
+   {
+    "qubit": 75,
+    "p01": 0.0025,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.004999999999999976,
+    "gate_error_1q": 0.0020738546615436393,
+    "reported_readout_error": 0.1705322265625,
+    "reported_gate_error_1q": 0.0003573634163379401
+   },
+   {
+    "qubit": 76,
+    "p01": 0.023,
+    "p10": 0.02400000000000002,
+    "readout_error": 0.02350000000000001,
+    "gate_error_1q": 0.0029443833059391578,
+    "reported_readout_error": 0.0225830078125,
+    "reported_gate_error_1q": 0.0004506261479862569
+   },
+   {
+    "qubit": 77,
+    "p01": 0.0085,
+    "p10": 0.017000000000000015,
+    "readout_error": 0.012750000000000008,
+    "gate_error_1q": 0.0008683612937502305,
+    "reported_readout_error": 0.0069580078125,
+    "reported_gate_error_1q": 0.00031663894742616936
+   },
+   {
+    "qubit": 78,
+    "p01": 0.0095,
+    "p10": 0.017000000000000015,
+    "readout_error": 0.013250000000000008,
+    "gate_error_1q": 0.004786955136244941,
+    "reported_readout_error": 0.013427734375,
+    "reported_gate_error_1q": 0.00033671756560824925
+   },
+   {
+    "qubit": 79,
+    "p01": 0.0035,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.005250000000000003,
+    "gate_error_1q": 0.002169049522773303,
+    "reported_readout_error": 0.0064697265625,
+    "reported_gate_error_1q": 0.0003461715443701891
+   },
+   {
+    "qubit": 80,
+    "p01": 0.0085,
+    "p10": 0.01749999999999996,
+    "readout_error": 0.01299999999999998,
+    "gate_error_1q": 0.0056522437603605535,
+    "reported_readout_error": 0.0140380859375,
+    "reported_gate_error_1q": 0.0003836353976274543
+   },
+   {
+    "qubit": 81,
+    "p01": 0.0195,
+    "p10": 0.02749999999999997,
+    "readout_error": 0.023499999999999986,
+    "gate_error_1q": 0.005357367136455626,
+    "reported_readout_error": 0.0228271484375,
+    "reported_gate_error_1q": 0.0002226128575647367
+   },
+   {
+    "qubit": 82,
+    "p01": 0.0055,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.007750000000000004,
+    "gate_error_1q": 0.0007458303680727418,
+    "reported_readout_error": 0.0096435546875,
+    "reported_gate_error_1q": 0.00019147028020925614
+   },
+   {
+    "qubit": 83,
+    "p01": 0.136,
+    "p10": 0.137,
+    "readout_error": 0.1365,
+    "gate_error_1q": 0.005665771699481126,
+    "reported_readout_error": 0.128662109375,
+    "reported_gate_error_1q": 0.00019586283757138317
+   },
+   {
+    "qubit": 84,
+    "p01": 0.002,
+    "p10": 0.0024999999999999467,
+    "readout_error": 0.0022499999999999734,
+    "gate_error_1q": 0.0073032942033890436,
+    "reported_readout_error": 0.0030517578125,
+    "reported_gate_error_1q": 0.000571420986926835
+   },
+   {
+    "qubit": 85,
+    "p01": 0.0025,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.006499999999999977,
+    "gate_error_1q": 0.007195335896641897,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.0003542380296859124
+   },
+   {
+    "qubit": 86,
+    "p01": 0.0035,
+    "p10": 0.005499999999999949,
+    "readout_error": 0.0044999999999999745,
+    "gate_error_1q": 0.008096438423469299,
+    "reported_readout_error": 0.0050048828125,
+    "reported_gate_error_1q": 0.0002659913416877278
+   },
+   {
+    "qubit": 87,
+    "p01": 0.0465,
+    "p10": 0.039000000000000035,
+    "readout_error": 0.04275000000000002,
+    "gate_error_1q": 0.0054690362286574645,
+    "reported_readout_error": 0.0355224609375,
+    "reported_gate_error_1q": 0.0002628233437426912
+   },
+   {
+    "qubit": 88,
+    "p01": 0.0025,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.006499999999999977,
+    "gate_error_1q": 0.010432683936440479,
+    "reported_readout_error": 0.0057373046875,
+    "reported_gate_error_1q": 0.0003445198535604846
+   },
+   {
+    "qubit": 89,
+    "p01": 0.014,
+    "p10": 0.015000000000000013,
+    "readout_error": 0.014500000000000006,
+    "gate_error_1q": 0.00769286366738231,
+    "reported_readout_error": 0.009765625,
+    "reported_gate_error_1q": 0.0002593670112626125
+   },
+   {
+    "qubit": 90,
+    "p01": 0.0,
+    "p10": 0.11650000000000005,
+    "readout_error": 0.058250000000000024,
+    "gate_error_1q": 0.015843307167947795,
+    "reported_readout_error": 0.0042724609375,
+    "reported_gate_error_1q": 0.0006727814140117032
+   },
+   {
+    "qubit": 91,
+    "p01": 0.0165,
+    "p10": 0.02300000000000002,
+    "readout_error": 0.01975000000000001,
+    "gate_error_1q": 0.0031276614454998075,
+    "reported_readout_error": 0.015625,
+    "reported_gate_error_1q": 0.0003429362846722562
+   },
+   {
+    "qubit": 92,
+    "p01": 0.008,
+    "p10": 0.016000000000000014,
+    "readout_error": 0.012000000000000007,
+    "gate_error_1q": 0.005621964513406574,
+    "reported_readout_error": 0.013427734375,
+    "reported_gate_error_1q": 0.0004219797512672102
+   },
+   {
+    "qubit": 93,
+    "p01": 0.069,
+    "p10": 0.033499999999999974,
+    "readout_error": 0.05124999999999999,
+    "gate_error_1q": 0.009964507416947987,
+    "reported_readout_error": 0.03369140625,
+    "reported_gate_error_1q": 0.0007727194480283856
+   },
+   {
+    "qubit": 94,
+    "p01": 0.0065,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.007999999999999976,
+    "gate_error_1q": 0.00088849473274355,
+    "reported_readout_error": 0.0089111328125,
+    "reported_gate_error_1q": 0.0003093657456103408
+   },
+   {
+    "qubit": 95,
+    "p01": 0.0015,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.006250000000000005,
+    "gate_error_1q": 0.005855648856637474,
+    "reported_readout_error": 0.0059814453125,
+    "reported_gate_error_1q": 0.00036358029782050384
+   },
+   {
+    "qubit": 96,
+    "p01": 0.002,
+    "p10": 0.014499999999999957,
+    "readout_error": 0.00824999999999998,
+    "gate_error_1q": 0.000609192337985065,
+    "reported_readout_error": 0.0235595703125,
+    "reported_gate_error_1q": 0.00030860645172863335
+   },
+   {
+    "qubit": 97,
+    "p01": 0.0085,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.010750000000000006,
+    "gate_error_1q": 0.004985455284092444,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.0004053164031571541
+   },
+   {
+    "qubit": 98,
+    "p01": 0.004,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.006500000000000004,
+    "gate_error_1q": 0.009511598529114651,
+    "reported_readout_error": 0.0062255859375,
+    "reported_gate_error_1q": 0.000301070052770227
+   },
+   {
+    "qubit": 99,
+    "p01": 0.0145,
+    "p10": 0.031000000000000028,
+    "readout_error": 0.022750000000000013,
+    "gate_error_1q": 0.002608066561420097,
+    "reported_readout_error": 0.0225830078125,
+    "reported_gate_error_1q": 0.0002562026484557186
+   },
+   {
+    "qubit": 100,
+    "p01": 0.012,
+    "p10": 0.018000000000000016,
+    "readout_error": 0.015000000000000008,
+    "gate_error_1q": 0.004950268458002283,
+    "reported_readout_error": 0.036376953125,
+    "reported_gate_error_1q": 0.0012089514289990656
+   },
+   {
+    "qubit": 101,
+    "p01": 0.049,
+    "p10": 0.06000000000000005,
+    "readout_error": 0.05450000000000003,
+    "gate_error_1q": 0.0059614853911409416,
+    "reported_readout_error": 0.0465087890625,
+    "reported_gate_error_1q": 0.0005443714422805442
+   },
+   {
+    "qubit": 102,
+    "p01": 0.166,
+    "p10": 0.15849999999999997,
+    "readout_error": 0.16225,
+    "gate_error_1q": 0.0026988414052979692,
+    "reported_readout_error": 0.13134765625,
+    "reported_gate_error_1q": 0.0021928682852281486
+   },
+   {
+    "qubit": 103,
+    "p01": 0.006,
+    "p10": 0.012499999999999956,
+    "readout_error": 0.009249999999999977,
+    "gate_error_1q": 0.0077512876888764515,
+    "reported_readout_error": 0.0115966796875,
+    "reported_gate_error_1q": 0.0003039442747816402
+   },
+   {
+    "qubit": 104,
+    "p01": 0.002,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.0057499999999999765,
+    "gate_error_1q": 0.005770384492389868,
+    "reported_readout_error": 0.0076904296875,
+    "reported_gate_error_1q": 0.00021935997850969666
+   },
+   {
+    "qubit": 105,
+    "p01": 0.01,
+    "p10": 0.01749999999999996,
+    "readout_error": 0.013749999999999981,
+    "gate_error_1q": 0.008597036297186555,
+    "reported_readout_error": 0.0120849609375,
+    "reported_gate_error_1q": 0.000387236718718735
+   },
+   {
+    "qubit": 106,
+    "p01": 0.0075,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.007250000000000003,
+    "gate_error_1q": 0.002541625180245588,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.00021193972405545415
+   },
+   {
+    "qubit": 107,
+    "p01": 0.0035,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.006250000000000004,
+    "gate_error_1q": 0.009871933375103503,
+    "reported_readout_error": 0.0059814453125,
+    "reported_gate_error_1q": 0.0003250946824765152
+   },
+   {
+    "qubit": 108,
+    "p01": 0.0045,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.006750000000000004,
+    "gate_error_1q": 0.0056481826218126585,
+    "reported_readout_error": 0.0059814453125,
+    "reported_gate_error_1q": 0.0007914562020747089
+   },
+   {
+    "qubit": 109,
+    "p01": 0.004,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.008500000000000006,
+    "gate_error_1q": 0.012228852256995326,
+    "reported_readout_error": 0.009033203125,
+    "reported_gate_error_1q": 0.00019869921677355117
+   },
+   {
+    "qubit": 110,
+    "p01": 0.0055,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.007999999999999976,
+    "gate_error_1q": 0.0021552254217267475,
+    "reported_readout_error": 0.0040283203125,
+    "reported_gate_error_1q": 0.00032262451455173345
+   },
+   {
+    "qubit": 111,
+    "p01": 0.0025,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.005250000000000004,
+    "gate_error_1q": 0.005161945459782102,
+    "reported_readout_error": 0.0079345703125,
+    "reported_gate_error_1q": 0.00025235791818074675
+   },
+   {
+    "qubit": 112,
+    "p01": 0.008,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.008000000000000004,
+    "gate_error_1q": 0.0038058747756647415,
+    "reported_readout_error": 0.0123291015625,
+    "reported_gate_error_1q": 0.00022759576776018242
+   },
+   {
+    "qubit": 113,
+    "p01": 0.04,
+    "p10": 0.0685,
+    "readout_error": 0.05425000000000001,
+    "gate_error_1q": 0.004266700791273115,
+    "reported_readout_error": 0.058349609375,
+    "reported_gate_error_1q": 0.00034510861266034477
+   },
+   {
+    "qubit": 114,
+    "p01": 0.0065,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.008499999999999976,
+    "gate_error_1q": 0.0027281985418795562,
+    "reported_readout_error": 0.0072021484375,
+    "reported_gate_error_1q": 0.0004176108526114543
+   },
+   {
+    "qubit": 115,
+    "p01": 0.005,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.008000000000000005,
+    "gate_error_1q": 0.003355062231813255,
+    "reported_readout_error": 0.0277099609375,
+    "reported_gate_error_1q": 0.00030083487430199423
+   },
+   {
+    "qubit": 116,
+    "p01": 0.004,
+    "p10": 0.03300000000000003,
+    "readout_error": 0.018500000000000016,
+    "gate_error_1q": 0.0060388678056298994,
+    "reported_readout_error": 0.017822265625,
+    "reported_gate_error_1q": 0.00018604157370426488
+   },
+   {
+    "qubit": 117,
+    "p01": 0.003,
+    "p10": 0.015499999999999958,
+    "readout_error": 0.009249999999999979,
+    "gate_error_1q": 0.002056546235077339,
+    "reported_readout_error": 0.011474609375,
+    "reported_gate_error_1q": 0.0002567244517674941
+   },
+   {
+    "qubit": 118,
+    "p01": 0.0035,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.005250000000000003,
+    "gate_error_1q": 0.0008856990326436831,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.00036512562895835957
+   },
+   {
+    "qubit": 119,
+    "p01": 0.003,
+    "p10": 0.011499999999999955,
+    "readout_error": 0.007249999999999977,
+    "gate_error_1q": 0.004643190893287796,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.0006604496365107842
+   },
+   {
+    "qubit": 120,
+    "p01": 0.0105,
+    "p10": 0.020499999999999963,
+    "readout_error": 0.015499999999999983,
+    "gate_error_1q": 0.0021924608296584047,
+    "reported_readout_error": 0.018798828125,
+    "reported_gate_error_1q": 0.0002128113375133725
+   },
+   {
+    "qubit": 121,
+    "p01": 0.002,
+    "p10": 0.026499999999999968,
+    "readout_error": 0.014249999999999985,
+    "gate_error_1q": 0.0027403431612610385,
+    "reported_readout_error": 0.0091552734375,
+    "reported_gate_error_1q": 0.0001745986195272245
+   },
+   {
+    "qubit": 122,
+    "p01": 0.0065,
+    "p10": 0.005499999999999949,
+    "readout_error": 0.005999999999999974,
+    "gate_error_1q": 0.012119523966723,
+    "reported_readout_error": 0.007080078125,
+    "reported_gate_error_1q": 0.0005341731732383205
+   },
+   {
+    "qubit": 123,
+    "p01": 0.0035,
+    "p10": 0.01200000000000001,
+    "readout_error": 0.007750000000000005,
+    "gate_error_1q": 0.002607700628170173,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.0002024817663224997
+   },
+   {
+    "qubit": 124,
+    "p01": 0.0,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.004249999999999976,
+    "gate_error_1q": 0.00655621399460693,
+    "reported_readout_error": 0.0029296875,
+    "reported_gate_error_1q": 0.0002447995713770709
+   },
+   {
+    "qubit": 125,
+    "p01": 0.0085,
+    "p10": 0.01649999999999996,
+    "readout_error": 0.01249999999999998,
+    "gate_error_1q": 0.005035204871223331,
+    "reported_readout_error": 0.016845703125,
+    "reported_gate_error_1q": 0.00021051465037020907
+   },
+   {
+    "qubit": 126,
+    "p01": 0.0235,
+    "p10": 0.08699999999999997,
+    "readout_error": 0.05524999999999998,
+    "gate_error_1q": 0.0026156087301801856,
+    "reported_readout_error": 0.0546875,
+    "reported_gate_error_1q": 0.0011577305970848922
+   },
+   {
+    "qubit": 127,
+    "p01": 0.0075,
+    "p10": 0.018000000000000016,
+    "readout_error": 0.012750000000000008,
+    "gate_error_1q": 0.01295197799850678,
+    "reported_readout_error": 0.0162353515625,
+    "reported_gate_error_1q": 0.00024985181210437614
+   },
+   {
+    "qubit": 128,
+    "p01": 0.0125,
+    "p10": 0.020000000000000018,
+    "readout_error": 0.016250000000000007,
+    "gate_error_1q": 0.0053848222729115935,
+    "reported_readout_error": 0.0164794921875,
+    "reported_gate_error_1q": 0.00027273496798025943
+   },
+   {
+    "qubit": 129,
+    "p01": 0.004,
+    "p10": 0.01849999999999996,
+    "readout_error": 0.01124999999999998,
+    "gate_error_1q": 0.0037072408054114048,
+    "reported_readout_error": 0.0130615234375,
+    "reported_gate_error_1q": 0.00022878509995737675
+   },
+   {
+    "qubit": 130,
+    "p01": 0.004,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.005500000000000003,
+    "gate_error_1q": 0.005866616365156951,
+    "reported_readout_error": 0.003173828125,
+    "reported_gate_error_1q": 0.00044541958388674983
+   },
+   {
+    "qubit": 131,
+    "p01": 0.0645,
+    "p10": 0.09299999999999997,
+    "readout_error": 0.07874999999999999,
+    "gate_error_1q": 0.0026218032485966214,
+    "reported_readout_error": 0.0655517578125,
+    "reported_gate_error_1q": 0.00016557132282379674
+   },
+   {
+    "qubit": 132,
+    "p01": 0.0015,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.004499999999999975,
+    "gate_error_1q": 0.005900530283220018,
+    "reported_readout_error": 0.0057373046875,
+    "reported_gate_error_1q": 0.00020499705507378416
+   },
+   {
+    "qubit": 133,
+    "p01": 0.0055,
+    "p10": 0.019000000000000017,
+    "readout_error": 0.012250000000000007,
+    "gate_error_1q": 0.0026136871882326274,
+    "reported_readout_error": 0.0115966796875,
+    "reported_gate_error_1q": 0.0001681361444636287
+   },
+   {
+    "qubit": 134,
+    "p01": 0.0005,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.004499999999999976,
+    "gate_error_1q": 0.0015369899726451752,
+    "reported_readout_error": 0.0028076171875,
+    "reported_gate_error_1q": 0.00038133794846938917
+   },
+   {
+    "qubit": 135,
+    "p01": 0.041,
+    "p10": 0.03400000000000003,
+    "readout_error": 0.03750000000000002,
+    "gate_error_1q": 0.004686932893274487,
+    "reported_readout_error": 0.0355224609375,
+    "reported_gate_error_1q": 0.00037441493348729256
+   },
+   {
+    "qubit": 136,
+    "p01": 0.003,
+    "p10": 0.02100000000000002,
+    "readout_error": 0.012000000000000009,
+    "gate_error_1q": 0.0042916520898428345,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.0002736394899814077
+   },
+   {
+    "qubit": 137,
+    "p01": 0.001,
+    "p10": 0.0050000000000000044,
+    "readout_error": 0.0030000000000000022,
+    "gate_error_1q": 0.004350063692929784,
+    "reported_readout_error": 0.0045166015625,
+    "reported_gate_error_1q": 0.00029778551905037767
+   },
+   {
+    "qubit": 138,
+    "p01": 0.0085,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.008750000000000004,
+    "gate_error_1q": 0.011183666614995591,
+    "reported_readout_error": 0.0078125,
+    "reported_gate_error_1q": 0.00035649309958722106
+   },
+   {
+    "qubit": 139,
+    "p01": 0.018,
+    "p10": 0.026499999999999968,
+    "readout_error": 0.022249999999999985,
+    "gate_error_1q": 0.0024161058542324643,
+    "reported_readout_error": 0.0115966796875,
+    "reported_gate_error_1q": 0.0005024030194344507
+   },
+   {
+    "qubit": 140,
+    "p01": 0.0045,
+    "p10": 0.016000000000000014,
+    "readout_error": 0.010250000000000007,
+    "gate_error_1q": 0.004943146192781578,
+    "reported_readout_error": 0.0120849609375,
+    "reported_gate_error_1q": 0.00028364673341112293
+   },
+   {
+    "qubit": 141,
+    "p01": 0.0025,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.004250000000000003,
+    "gate_error_1q": 0.005650555920029943,
+    "reported_readout_error": 0.006591796875,
+    "reported_gate_error_1q": 0.00019854156616620902
+   },
+   {
+    "qubit": 142,
+    "p01": 0.0395,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.024499999999999977,
+    "gate_error_1q": 0.005532759033375134,
+    "reported_readout_error": 0.0062255859375,
+    "reported_gate_error_1q": 0.0002398677804809262
+   },
+   {
+    "qubit": 143,
+    "p01": 0.0,
+    "p10": 0.011499999999999955,
+    "readout_error": 0.005749999999999977,
+    "gate_error_1q": 0.0073646582069772926,
+    "reported_readout_error": 0.00439453125,
+    "reported_gate_error_1q": 0.0002032634566782734
+   },
+   {
+    "qubit": 144,
+    "p01": 0.002,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.005000000000000004,
+    "gate_error_1q": 0.0022152102326953305,
+    "reported_readout_error": 0.003662109375,
+    "reported_gate_error_1q": 0.0003526948456800577
+   },
+   {
+    "qubit": 145,
+    "p01": 0.0075,
+    "p10": 0.015000000000000013,
+    "readout_error": 0.011250000000000007,
+    "gate_error_1q": 0.006003877322468987,
+    "reported_readout_error": 0.01123046875,
+    "reported_gate_error_1q": 0.00015136175333519823
+   },
+   {
+    "qubit": 146,
+    "p01": 0.002,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.004749999999999976,
+    "gate_error_1q": 0.0027534995362382686,
+    "reported_readout_error": 0.0045166015625,
+    "reported_gate_error_1q": 0.00041925636352375896
+   },
+   {
+    "qubit": 147,
+    "p01": 0.005,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.007249999999999977,
+    "gate_error_1q": 0.006690294871106506,
+    "reported_readout_error": 0.0052490234375,
+    "reported_gate_error_1q": 0.000385839899780941
+   },
+   {
+    "qubit": 148,
+    "p01": 0.006,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.006500000000000003,
+    "gate_error_1q": 0.010104930378384003,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.0005321026829299976
+   },
+   {
+    "qubit": 149,
+    "p01": 0.0415,
+    "p10": 0.0625,
+    "readout_error": 0.052000000000000005,
+    "gate_error_1q": 0.0019504669231920069,
+    "reported_readout_error": 0.05322265625,
+    "reported_gate_error_1q": 0.001454628574640632
+   },
+   {
+    "qubit": 150,
+    "p01": 0.001,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.003749999999999975,
+    "gate_error_1q": 0.002936100466580438,
+    "reported_readout_error": 0.0037841796875,
+    "reported_gate_error_1q": 0.0007497019761618788
+   },
+   {
+    "qubit": 151,
+    "p01": 0.0035,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.007250000000000005,
+    "gate_error_1q": 0.006080499216320034,
+    "reported_readout_error": 0.008056640625,
+    "reported_gate_error_1q": 0.0002669610556312302
+   },
+   {
+    "qubit": 152,
+    "p01": 0.0015,
+    "p10": 0.012499999999999956,
+    "readout_error": 0.006999999999999978,
+    "gate_error_1q": 0.0021394122916784664,
+    "reported_readout_error": 0.0057373046875,
+    "reported_gate_error_1q": 0.00044543825846352623
+   },
+   {
+    "qubit": 153,
+    "p01": 0.0165,
+    "p10": 0.02400000000000002,
+    "readout_error": 0.02025000000000001,
+    "gate_error_1q": 0.005589379602991995,
+    "reported_readout_error": 0.0211181640625,
+    "reported_gate_error_1q": 0.00033456452262648764
+   },
+   {
+    "qubit": 154,
+    "p01": 0.002,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.005249999999999976,
+    "gate_error_1q": 0.0016982888932998152,
+    "reported_readout_error": 0.0062255859375,
+    "reported_gate_error_1q": 0.0002802714029809792
+   },
+   {
+    "qubit": 155,
+    "p01": 0.0075,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.01349999999999998,
+    "gate_error_1q": 0.003407384058951912,
+    "reported_readout_error": 0.0145263671875,
+    "reported_gate_error_1q": 0.0002087857458021487
+   }
+  ],
+  "shots": 2000,
+  "job_id": "db4fqdcvf2bc73cuht70",
+  "x_repeats": 100
+ },
+ "calibration_summary": {
+  "median_readout_measured_over_reported": 1.004566862514689,
+  "median_gate1q_measured_over_reported": 13.246909444496158,
+  "worst_readout_qubits": [
+   {
+    "qubit": 90,
+    "measured": 0.058250000000000024,
+    "reported": 0.0042724609375
+   },
+   {
+    "qubit": 49,
+    "measured": 0.040499999999999994,
+    "reported": 0.01025390625
+   },
+   {
+    "qubit": 142,
+    "measured": 0.024499999999999977,
+    "reported": 0.0062255859375
+   },
+   {
+    "qubit": 64,
+    "measured": 0.015499999999999984,
+    "reported": 0.0042724609375
+   },
+   {
+    "qubit": 42,
+    "measured": 0.012999999999999984,
+    "reported": 0.005859375
+   }
+  ]
+ },
+ "layouts": {
+  "naive": {
+   "chain": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cost": 0.23424102509413333
+  },
+  "best": {
+   "chain": [
+    24,
+    25,
+    37,
+    45,
+    46
+   ],
+   "cost": 0.0998876581441003
+  }
+ },
+ "results": [
+  {
+   "layout": "naive",
+   "benchmark": "ghz",
+   "chain": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "scores": {
+    "raw": 0.8200000000000001,
+    "readout": 0.882739582567375,
+    "zne": 0.8996458333333339,
+    "readout+zne": 0.966104344826159,
+    "raw_by_factor": {
+     "1": 0.8200000000000001,
+     "3": 0.65675,
+     "5": 0.49824999999999997
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 34.855323648541614,
+    "zne": 44.247685185185496,
+    "readout+zne": 81.16908045897723
+   }
+  },
+  {
+   "layout": "naive",
+   "benchmark": "mirror",
+   "chain": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "scores": {
+    "raw": 0.78125,
+    "readout": 0.8827990933683464,
+    "zne": 0.8469791666666672,
+    "readout+zne": 0.9588635141377364,
+    "raw_by_factor": {
+     "1": 0.78125,
+     "3": 0.62125,
+     "5": 0.4955
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 46.42244268267263,
+    "zne": 30.047619047619282,
+    "readout+zne": 81.19474932010806
+   }
+  },
+  {
+   "layout": "best",
+   "benchmark": "ghz",
+   "chain": [
+    24,
+    25,
+    37,
+    45,
+    46
+   ],
+   "scores": {
+    "raw": 0.9095,
+    "readout": 0.9471113343286515,
+    "zne": 0.9429166666666674,
+    "readout+zne": 0.9814314637083598,
+    "raw_by_factor": {
+     "1": 0.9095,
+     "3": 0.846,
+     "5": 0.7785
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 41.559485446023736,
+    "zne": 36.92449355432864,
+    "readout+zne": 79.48228034072903
+   }
+  },
+  {
+   "layout": "best",
+   "benchmark": "mirror",
+   "chain": [
+    24,
+    25,
+    37,
+    45,
+    46
+   ],
+   "scores": {
+    "raw": 0.90975,
+    "readout": 0.929886470003576,
+    "zne": 0.9432500000000005,
+    "readout+zne": 0.9643864004008247,
+    "raw_by_factor": {
+     "1": 0.90975,
+     "3": 0.82775,
+     "5": 0.76375
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 22.311878120305916,
+    "zne": 37.119113573407766,
+    "readout+zne": 60.53894781254815
+   }
+  }
+ ],
+ "benchmark_job_id": "db4fqhamb58s73894uhg",
+ "methods": [
+  "raw",
+  "readout",
+  "zne",
+  "readout+zne"
+ ],
+ "notes": "Score = probability of the known-correct output (1.0 is perfect). Two-qubit gate errors used for chain selection are vendor-reported, not yet measured."
+}
