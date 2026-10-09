@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.pytest_cache/
+.env
+# Never commit tokens
+*.token
+# Simulator runs are for development only and must not be published as results
+data/simulated/

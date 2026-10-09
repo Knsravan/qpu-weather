@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qpu-weather"
+version = "0.1.0"
+description = "A daily, independent weather report for real quantum computers: measures actual qubit errors, tracks drift, and ranks error-mitigation methods with evidence."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "qiskit>=1.2",
+    "qiskit-ibm-runtime>=0.30",
+    "numpy>=1.24",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "qiskit-aer>=0.14"]
+
+[project.scripts]
+qpu-weather = "qpu_weather.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
