@@ -144,14 +144,14 @@ async function main() {
   cards.push($("div", { class: "card", style: "grid-column:1/-1" },
     $("h2", {}, "Five best and five worst qubits today"),
     $("table", {},
-      $("thead", {}, $("tr", {}, ["Qubit", "Readout (measured)", "Readout (reported)", "1q gate (measured)", "1q gate (reported)"]
+      $("thead", {}, $("tr", {}, ["Qubit", "Readout (measured)", "Readout (reported)", "1q gate sequence (measured)", "1q gate (IBM reported)"]
         .map((h, i) => $("th", i ? { class: "n" } : {}, h)))),
       $("tbody", {}, pick.map(q => $("tr", {}, $("td", {}, "q" + q.q),
         [q.ro, q.ro_rep, q.g1, q.g1_rep].map(v => $("td", { class: "n" }, pct(v)))))))));
 
   app.replaceChildren($("div", { class: "grid" }, cards),
     $("p", { class: "muted", style: "margin-top:16px" },
-      "Scores are the probability of the known-correct output. Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking)."));
+      "Scores are the probability of the known-correct output. The "1q gate sequence" column is the decay over 100 repeated gates on all qubits at once, so it also contains qubit decay and crosstalk; it is NOT comparable with IBM\u2019s single-gate figure (it is used only to rank qubits). Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking)."));
 }
 main();
 </script>

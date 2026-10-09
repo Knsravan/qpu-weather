@@ -90,7 +90,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 - `readout+zne` — same extrapolation on the readout-mitigated scores.
 `improvement_vs_raw_pct` = (raw_error − method_error) / raw_error × 100, where error = 1 − score.
 
-**Step 5 — Save + publish.** CLI writes `data/runs/<timestamp>_<backend>.json`; `qpu-weather aggregate` builds a slim `docs/data/history.json`; the dashboard (`docs/index.html`) reads it. The GitHub Action (`daily.yml`) does run → aggregate → commit, daily at 03:17 UTC and on manual trigger.
+**Step 5 — Save + publish.** CLI writes `data/runs/<timestamp>_<backend>.json`; `qpu-weather aggregate` builds a slim `docs/data/history.json`; the dashboard (`docs/index.html`) reads it. The GitHub Action (`daily.yml`, workflow name "Quantum weather report") does run → aggregate → commit, weekly (Mondays 03:17 UTC) and on manual trigger. Free-plan QPU time is limited, so daily would not fit.
 
 ## 7. Run file schema (`data/runs/*.json`)
 `schema`, `timestamp_utc`, `backend`, `simulated`, `shots`, `chain_len`, `calibration` {`qubits`[ {`qubit`, `p01`, `p10`, `readout_error`, `gate_error_1q`, `reported_readout_error`, `reported_gate_error_1q`} ], `shots`, `job_id`, `x_repeats`}, `calibration_summary`, `layouts` {`naive`|`best`: {`chain`, `cost`}}, `results`[ {`layout`, `benchmark`, `chain`, `scores` {`raw`, `readout`, `zne`, `readout+zne`, `raw_by_factor`}, `improvement_vs_raw_pct`} ], `benchmark_job_id`, `methods`, `notes`.
@@ -101,7 +101,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 
 ## 9. Honest limitations (keep these visible)
 - 2-qubit gate errors used for chain selection are **measured with a repeated-gate decay test** (Step 1b): a quick estimate with crosstalk, validated **only on the simulator** (median measured/reported ≈ 0.9 there). Real-hardware behaviour unknown; `max(z, x)` can still under-read errors of other types.
-- 1q gate error is estimated from long parallel X sequences, so it includes crosstalk.
+- The 1q gate number is decay over 100 parallel X gates, so it includes qubit decay and crosstalk; on real hardware it was ~13x IBM's single-gate figure and uncorrelated. Not comparable with IBM's number; used only to rank qubits.
 - Results describe one device on one day; do not over-generalize.
 - Passing benchmark scores is not a proof of anything beyond those circuits.
 - Calibration circuits span the full device width; confirm this is fine on real hardware and within free-plan QPU time.
@@ -109,15 +109,18 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 - ZNE uses simple linear extrapolation over factors 1/3/5; with noisy data it can overshoot (clipped to [0, 1]).
 - Free-plan quota changes; do not assume limits. Default run is small (2 jobs).
 
-## 10. Status (as of 2026-10-09)
+## 10. Status (as of 2026-10-09, updated after first real run)
 Done:
+- **First real-hardware run succeeded** (run #4, `ibm_fez`, 2026-10-09; file in `data/runs/`): auth with only `IBM_QUANTUM_TOKEN` worked (`IBM_INSTANCE` optional), `SamplerV2` results through the `c` register worked, readout error matched IBM (median 1.00x), best chain beat naive, readout+zne best in all four cases. The first attempts failed on a deleted/invalid API key and an exhausted instance quota, which led to the quota guard and queue timeout.
+- Workflow is now **weekly** (Mondays 03:17 UTC), 45 min timeout, with `check_quota` + `wait_until_running` (10 min queue limit).
 - Full code (`src/qpu_weather/`), **27 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
 - End-to-end pipeline verified **only on a local noisy simulator** (FakeLagosV2 via Aer). On it, independent measurement matched the simulator's reported numbers (~0.99×) and readout mitigation clearly beat raw — evidence the logic works, **not** evidence about real hardware.
 - Pushed to GitHub; Pages dashboard live and correctly showing the empty state.
 
 NOT done / unverified:
-- **The real-hardware path has never run.** Owner still needed to add the `IBM_QUANTUM_TOKEN` repo secret and trigger the first workflow run (Actions → "Daily quantum weather report" → Run workflow).
-- Pages deployment was confirmed by the owner's screenshot; nothing has been published beyond the empty state.
+- **2-qubit measurement (`twoq.py`) has not yet run on real hardware** (only on the simulator); it was added after the first real run.
+- First-run caveat: the 1q gate-sequence number (X^100) was ~13x IBM's figure and uncorrelated with it, so it is relabelled and only used for ranking. Do not present it as measured-vs-reported.
+- Only one real run exists: no drift history yet.
 
 ## 11. Repo layout
 ```
@@ -152,8 +155,8 @@ python -m http.server -d docs                   # view dashboard locally
 Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 qubits).
 
 ## 13. Next steps (in order)
-1. **First real run.** Get the workflow green: verify auth (add optional `IBM_INSTANCE` support if IBM requires it), confirm `SamplerV2` result access through the `c` register works on real devices, confirm `translate_only` preserves the physical layout, check QPU seconds used, consider calibrating only a candidate subset of qubits if the full-width job is too costly. Fix what breaks and add a regression test per fix where possible.
-2. When real data lands: run `qpu-weather aggregate`, confirm the dashboard renders it, update the README status line.
+1. ~~First real run~~ Done (see Status). Remaining: watch QPU seconds used per run on the IBM usage page, and confirm the 2-qubit measurement works on real hardware (first run that includes `twoq.py`).
+2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
 3. ~~Measure 2-qubit gate error directly~~ Done on the simulator (`twoq.py`, used in chain selection); still unverified on real hardware. Possible upgrade: randomized benchmarking.
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.

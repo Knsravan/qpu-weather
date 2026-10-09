@@ -1,4 +1,4 @@
-name: Daily quantum weather report
+name: Quantum weather report
 
 on:
   schedule:
