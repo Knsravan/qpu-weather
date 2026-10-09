@@ -18,11 +18,24 @@ class BackendHandle:
             self.target_backend = self.backend
 
 
+def _connect_service(token: str | None, instance: str | None):
+    """Connect to IBM. `instance` (a CRN or name) is optional; IBM may require it."""
+    from qiskit_ibm_runtime import QiskitRuntimeService
+
+    if not token:
+        return QiskitRuntimeService()
+    kwargs = {"channel": "ibm_quantum_platform", "token": token}
+    if instance:
+        kwargs["instance"] = instance
+    return QiskitRuntimeService(**kwargs)
+
+
 def get_backend(name: str | None = None, simulate: bool = False) -> BackendHandle:
     """Return a backend.
 
     Real mode needs an IBM Quantum token in the IBM_QUANTUM_TOKEN environment
-    variable (or a previously saved QiskitRuntimeService account). If `name` is
+    variable (or a previously saved QiskitRuntimeService account). An optional
+    IBM_INSTANCE variable selects the IBM instance (CRN) if one is required. If `name` is
     None the least busy operational real device is used.
 
     Simulate mode builds a noisy local simulator from a fake IBM device. It exists
@@ -39,11 +52,7 @@ def get_backend(name: str | None = None, simulate: bool = False) -> BackendHandl
 
     from qiskit_ibm_runtime import QiskitRuntimeService
 
-    token = os.environ.get("IBM_QUANTUM_TOKEN")
-    if token:
-        service = QiskitRuntimeService(channel="ibm_quantum_platform", token=token)
-    else:
-        service = QiskitRuntimeService()
+    service = _connect_service(os.environ.get("IBM_QUANTUM_TOKEN"), os.environ.get("IBM_INSTANCE"))
     if name:
         backend = service.backend(name)
     else:

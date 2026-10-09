@@ -30,6 +30,7 @@ jobs:
       - name: Run experiment on a real IBM quantum computer
         env:
           IBM_QUANTUM_TOKEN: ${{ secrets.IBM_QUANTUM_TOKEN }}
+          IBM_INSTANCE: ${{ secrets.IBM_INSTANCE }}   # optional, only if IBM requires it
           IBM_BACKEND: ${{ vars.IBM_BACKEND }}   # optional, empty = least busy
         run: |
           if [ -z "$IBM_QUANTUM_TOKEN" ]; then
