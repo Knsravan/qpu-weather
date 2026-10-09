@@ -100,7 +100,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 `docs/index.html`: single static file, vanilla JS + inline SVG, no libraries, light/dark aware. Cards: today's advice (best chain), measured-vs-reported ratio, which-fix-works-best table (average score on the best chain across all runs), drift line chart (median readout error measured vs reported), five best/worst qubits. Empty state when no runs. Live on GitHub Pages (`/docs` of `main`).
 
 ## 9. Honest limitations (keep these visible)
-- 2-qubit gate errors used for chain selection are **measured with a repeated-gate decay test** (Step 1b): a quick estimate with crosstalk, validated **only on the simulator** (median measured/reported ≈ 0.9 there). Real-hardware behaviour unknown; `max(z, x)` can still under-read errors of other types.
+- 2-qubit gate errors used for chain selection are **measured with a repeated-gate decay test** (Step 1b): a quick estimate with crosstalk. Simulator: median measured/reported ≈ 0.9. **Real hardware (`ibm_fez`, run 2, CZ gate, 176 edges): median 2.6× IBM's figure, correlation 0.73** — good for ranking edges, not an absolute error rate (it includes decoherence and parallel-edge crosstalk). The |0> test was nearly blind to CZ (median 0.01%); the |+> test carried the signal (0.85%), which is why both are run.
 - The 1q gate number is decay over 100 parallel X gates, so it includes qubit decay and crosstalk; on real hardware it was ~13x IBM's single-gate figure and uncorrelated. Not comparable with IBM's number; used only to rank qubits.
 - Results describe one device on one day; do not over-generalize.
 - Passing benchmark scores is not a proof of anything beyond those circuits.
@@ -118,7 +118,8 @@ Done:
 - Pushed to GitHub; Pages dashboard live and correctly showing the empty state.
 
 NOT done / unverified:
-- **2-qubit measurement (`twoq.py`) has not yet run on real hardware** (only on the simulator); it was added after the first real run.
+- 2-qubit measurement (`twoq.py`) ran on real hardware in run #5 (176 edges measured; see limitations for how to read it). Chain picks differ between runs 7 minutes apart ([24,25,37,45,46] before it, [94,95,99,115,114] with it), so the 'best chain' is a per-run recommendation, not a stable property.
+- Run #5 also showed readout+zne mirror score of exactly 1.000 on the best chain: that is ZNE's extrapolation clipped at 1.0, not a perfect chip.
 - First-run caveat: the 1q gate-sequence number (X^100) was ~13x IBM's figure and uncorrelated with it, so it is relabelled and only used for ranking. Do not present it as measured-vs-reported.
 - Only one real run exists: no drift history yet.
 
@@ -155,7 +156,7 @@ python -m http.server -d docs                   # view dashboard locally
 Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 qubits).
 
 ## 13. Next steps (in order)
-1. ~~First real run~~ Done (see Status). Remaining: watch QPU seconds used per run on the IBM usage page, and confirm the 2-qubit measurement works on real hardware (first run that includes `twoq.py`).
+1. ~~First real run~~ Done (see Status). Remaining: watch QPU seconds used per run on the IBM usage page.
 2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
 3. ~~Measure 2-qubit gate error directly~~ Done on the simulator (`twoq.py`, used in chain selection); still unverified on real hardware. Possible upgrade: randomized benchmarking.
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
