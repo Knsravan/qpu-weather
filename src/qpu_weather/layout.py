@@ -6,7 +6,7 @@ TWO_Q_GATES = ("ecr", "cz", "cx")
 
 
 def edge_errors(target) -> dict[tuple[int, int], float]:
-    """Vendor-reported 2-qubit gate error per undirected edge (not yet measured by us)."""
+    """Vendor-reported 2-qubit gate error per undirected edge (experiment.py overrides with measured)."""
     out: dict[tuple[int, int], float] = {}
     for gate in TWO_Q_GATES:
         if gate not in target.operation_names:

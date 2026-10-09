@@ -77,7 +77,9 @@ Entry point: `experiment.run_experiment(handle, shots=4000, cal_shots=2000, chai
 - `xrep`: X applied 100 times (identity in theory), barriers between gates, then measure.
 Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio = P(0 after X^100) / P(0 baseline); gate_error = 1 − ratio^(1/100). Compared with the vendor values in `backend.target` (`measure` error and `x`/`sx` error). `summarize_vs_reported` gives the median measured/reported ratio and the five worst qubits. Calibration uses an identity layout and optimization level 0.
 
-**Step 2 — Choose qubits (`layout.py`).** Enumerate every simple path of `chain_len` connected qubits in the coupling map. Cost = sum over qubits of (measured readout error + 3 × measured 1q gate error) + sum over edges of vendor-reported 2-qubit error. `naive` = first chain by qubit index (the baseline a careless user gets); `best` = lowest cost.
+**Step 1b — 2-qubit gate error (`twoq.py`, runs in the same calibration job).** Every 2-qubit gate (ecr/cz/cx) is its own inverse, so K=20 repeats should do nothing. Edges sharing no qubit are tested in parallel (greedy layers). Two tests per edge: all qubits start in |0> (sees bit-flip errors) and in |+> via H (sees phase/dephasing errors; needs an H-H baseline circuit). Readout error of the two qubits is undone first (otherwise a misread 1 hides decay). Survival ratio vs the zero-gate baseline gives error = 1 − ratio^(1/K); we keep `max(z, x)` as `gate_error_2q` and store both (`_z`, `_x`) in `calibration.edges`. It is an estimate: includes crosstalk, and is not randomized benchmarking.
+
+**Step 2 — Choose qubits (`layout.py`).** Enumerate every simple path of `chain_len` connected qubits in the coupling map. Cost = sum over qubits of (measured readout error + 3 × measured 1q gate error) + sum over edges of MEASURED 2-qubit error (vendor value only as fallback; see Step 1b). `naive` = first chain by qubit index (the baseline a careless user gets); `best` = lowest cost.
 
 **Step 3 — Benchmarks (`benchmarks.py`).** `ghz(n)` (ideal outputs all-0s/all-1s) and `mirror(n, layers=3, seed=11)` (ideal all-0s). Score = probability mass on the ideal outputs (1.0 = perfect). Each is transpiled onto each chain at optimization level 1, then folded at factors **1, 3, 5**. All circuits (2 layouts × 2 benchmarks × 3 factors = 12) run in **one** job. A barrier inside the mirror circuit stops the compiler cancelling it against its inverse.
 
@@ -98,7 +100,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 `docs/index.html`: single static file, vanilla JS + inline SVG, no libraries, light/dark aware. Cards: today's advice (best chain), measured-vs-reported ratio, which-fix-works-best table (average score on the best chain across all runs), drift line chart (median readout error measured vs reported), five best/worst qubits. Empty state when no runs. Live on GitHub Pages (`/docs` of `main`).
 
 ## 9. Honest limitations (keep these visible)
-- 2-qubit gate errors used for chain selection are **vendor-reported**, not measured.
+- 2-qubit gate errors used for chain selection are **measured with a repeated-gate decay test** (Step 1b): a quick estimate with crosstalk, validated **only on the simulator** (median measured/reported ≈ 0.9 there). Real-hardware behaviour unknown; `max(z, x)` can still under-read errors of other types.
 - 1q gate error is estimated from long parallel X sequences, so it includes crosstalk.
 - Results describe one device on one day; do not over-generalize.
 - Passing benchmark scores is not a proof of anything beyond those circuits.
@@ -109,7 +111,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 
 ## 10. Status (as of 2026-10-09)
 Done:
-- Full code (`src/qpu_weather/`), **16 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
+- Full code (`src/qpu_weather/`), **27 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
 - End-to-end pipeline verified **only on a local noisy simulator** (FakeLagosV2 via Aer). On it, independent measurement matched the simulator's reported numbers (~0.99×) and readout mitigation clearly beat raw — evidence the logic works, **not** evidence about real hardware.
 - Pushed to GitHub; Pages dashboard live and correctly showing the empty state.
 
@@ -124,6 +126,7 @@ src/qpu_weather/
                   (BackendHandle: .backend = where it runs, .target_backend = what it is transpiled against)
   runner.py       transpile_with_layout, translate_only, run_counts (SamplerV2 real / backend.run sim), job_info
   calibration.py  per-qubit readout + 1q gate error, measured vs vendor-reported
+  twoq.py         2-qubit gate error by repeated-gate decay (z and x tests, readout-corrected)
   layout.py       all_chains / naive_chain / best_chain, edge_errors
   benchmarks.py   ghz, mirror, score_counts; classical register named "c"
   mitigation.py   fold_global, zne_extrapolate, confusion_matrix, apply_readout_mitigation
@@ -151,7 +154,7 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 ## 13. Next steps (in order)
 1. **First real run.** Get the workflow green: verify auth (add optional `IBM_INSTANCE` support if IBM requires it), confirm `SamplerV2` result access through the `c` register works on real devices, confirm `translate_only` preserves the physical layout, check QPU seconds used, consider calibrating only a candidate subset of qubits if the full-width job is too costly. Fix what breaks and add a regression test per fix where possible.
 2. When real data lands: run `qpu-weather aggregate`, confirm the dashboard renders it, update the README status line.
-3. Measure 2-qubit gate error directly (interleaved/repeated CX or ECR decay) and use it in `layout.py` instead of vendor values.
+3. ~~Measure 2-qubit gate error directly~~ Done on the simulator (`twoq.py`, used in chain selection); still unverified on real hardware. Possible upgrade: randomized benchmarking.
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.
 6. Pin the repo on Kns's GitHub profile once real results exist; add a short results section (real numbers only) to the README.

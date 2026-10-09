@@ -27,7 +27,7 @@
 - **ZNE:** deliberately add noise by folding the circuit (`C → C C† C`, 1×/3×/5× noise), then extrapolate the score back to zero noise. Folding happens *after* compilation so the compiler can't cancel it.
 
 ## Honest limitations
-- Two-qubit gate errors used when choosing chains are **vendor-reported**, not yet measured by this tool (on the roadmap).
+- Two-qubit gate errors used when choosing chains are **measured by this tool with a simple repeated-gate decay test** (see `twoq.py`). It is a quick estimate, not randomized benchmarking: it includes crosstalk from edges tested in parallel, and vendor values are only a fallback. So far it has only been checked on a local simulator.
 - One-qubit gate error is estimated from long X-gate sequences run in parallel, so it includes some crosstalk.
 - Free IBM plans have limited monthly QPU time. A default run is small (2 jobs), but check your quota.
 - Results describe the specific device and day. Don't over-generalize.
@@ -71,7 +71,7 @@ tests/             unit + end-to-end tests
 ```
 
 ## Roadmap
-- Measure two-qubit gate error directly (randomized benchmarking / interleaved CX)
+- Upgrade the two-qubit gate error measurement to randomized benchmarking / interleaved CX
 - Add dynamical decoupling and Pauli twirling to the mitigation comparison
 - More devices and per-day stability scores for each qubit
 

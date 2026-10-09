@@ -55,7 +55,12 @@ def run_experiment(
     summary = summarize_vs_reported(cal)
 
     # 2. choose qubit chains: a naive baseline vs the healthiest by MEASURED error
-    edges = edge_errors(target)
+    edges = edge_errors(target)  # vendor-reported
+    measured_2q = {
+        (min(e["a"], e["b"]), max(e["a"], e["b"])): e["gate_error_2q"]
+        for e in cal.get("edges", [])
+    }
+    edges = {**edges, **measured_2q}  # prefer what we measured; fall back to vendor value
     q_cost = {q["qubit"]: q["readout_error"] + 3 * q["gate_error_1q"] for q in cal["qubits"]}
     layouts = {
         "naive": naive_chain(edges, chain_len),
@@ -105,5 +110,6 @@ def run_experiment(
         "benchmark_job_id": job_id,
         "methods": list(METHODS),
         "notes": "Score = probability of the known-correct output (1.0 is perfect). "
-        "Two-qubit gate errors used for chain selection are vendor-reported, not yet measured.",
+        "Two-qubit gate errors used for chain selection are measured by repeated-gate decay "
+        "(includes crosstalk from parallel edges); vendor values are only a fallback.",
     }

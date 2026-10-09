@@ -151,7 +151,7 @@ async function main() {
 
   app.replaceChildren($("div", { class: "grid" }, cards),
     $("p", { class: "muted", style: "margin-top:16px" },
-      "Scores are the probability of the known-correct output. Two-qubit gate errors used for choosing a chain are vendor-reported (not yet independently measured)."));
+      "Scores are the probability of the known-correct output. Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking)."));
 }
 main();
 </script>

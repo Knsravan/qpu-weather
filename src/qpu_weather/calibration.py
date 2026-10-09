@@ -4,6 +4,7 @@ We do NOT trust the numbers a vendor publishes. For every qubit we measure:
   * readout error  - prepare |0> and |1>, see how often we read the wrong bit
   * 1-qubit gate error - apply X an even number of times (ideally identity) and
     measure how much the |0> population decays versus a zero-gate baseline
+  * 2-qubit gate error - see twoq.py (repeat each 2-qubit gate and watch the decay)
 Then we compare against the vendor-reported values from the backend's target.
 """
 
@@ -14,6 +15,14 @@ from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
 
 from .backend import BackendHandle
 from .runner import CREG, job_info, run_counts, transpile_with_layout
+from .twoq import (
+    TWO_Q_REPEATS,
+    edge_errors_from_counts,
+    edge_gate_map,
+    edge_layers,
+    layer_circuits,
+    plus_baseline,
+)
 
 X_REPEATS = 100  # even -> identity in theory
 
@@ -71,8 +80,17 @@ def _reported(target, n: int):
 def run_calibration(handle: BackendHandle, shots: int = 2000) -> dict:
     target = handle.target_backend.target
     n = handle.target_backend.num_qubits
+    gate, edge_map = edge_gate_map(target)
+    layers = edge_layers(edge_map)
+    directed = {e: v[1] for e, v in edge_map.items()}
     circs = transpile_with_layout(
-        _circuits(n), handle.target_backend, list(range(n)), optimization_level=0
+        _circuits(n)
+        + [plus_baseline(n)]
+        + layer_circuits(n, layers, gate, directed, basis="z")
+        + layer_circuits(n, layers, gate, directed, basis="x"),
+        handle.target_backend,
+        list(range(n)),
+        optimization_level=0,
     )
     counts_list, job_id = job_info(run_counts(handle.backend, circs, shots, handle.simulated))
     p1_prep0 = _p_one(counts_list[0], n)  # P(read 1 | prepared 0)
@@ -101,7 +119,26 @@ def run_calibration(handle: BackendHandle, shots: int = 2000) -> dict:
                 "reported_gate_error_1q": rep_g1[q],
             }
         )
-    return {"qubits": qubits, "shots": shots, "job_id": job_id, "x_repeats": X_REPEATS}
+    edges = edge_errors_from_counts(
+        layers,
+        counts_list[4 : 4 + len(layers)],
+        counts_list[0],
+        counts_list[4 + len(layers) :],
+        counts_list[3],
+        n,
+        TWO_Q_REPEATS,
+        {e: v[0] for e, v in edge_map.items()},
+        readout={q: (float(p01[q]), float(p10[q])) for q in range(n)},
+    )
+    return {
+        "qubits": qubits,
+        "edges": edges,
+        "two_q_gate": gate,
+        "two_q_repeats": TWO_Q_REPEATS,
+        "shots": shots,
+        "job_id": job_id,
+        "x_repeats": X_REPEATS,
+    }
 
 
 def summarize_vs_reported(cal: dict) -> dict:
@@ -123,7 +160,13 @@ def summarize_vs_reported(cal: dict) -> dict:
         key=lambda q: q["readout_error"] / q["reported_readout_error"],
         reverse=True,
     )[:5]
+    ratios_2q = [
+        e["gate_error_2q"] / e["reported_gate_error_2q"]
+        for e in cal.get("edges", [])
+        if e["reported_gate_error_2q"]
+    ]
     return {
+        "median_gate2q_measured_over_reported": med(ratios_2q),
         "median_readout_measured_over_reported": med(ratios_ro),
         "median_gate1q_measured_over_reported": med(ratios_g),
         "worst_readout_qubits": [
