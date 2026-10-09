@@ -38,7 +38,7 @@
 <body>
 <main>
   <h1>Quantum Weather Report</h1>
-  <p class="sub">An independent daily check of a real IBM quantum computer: how it actually behaves, and which fixes help most.</p>
+  <p class="sub">An independent, regularly repeated check of a real IBM quantum computer: how it actually behaves, and which fixes help most.</p>
   <div id="app"><div class="card empty">Loading…</div></div>
 </main>
 <script>
@@ -151,7 +151,7 @@ async function main() {
 
   app.replaceChildren($("div", { class: "grid" }, cards),
     $("p", { class: "muted", style: "margin-top:16px" },
-      "Scores are the probability of the known-correct output. The "1q gate sequence" column is the decay over 100 repeated gates on all qubits at once, so it also contains qubit decay and crosstalk; it is NOT comparable with IBM\u2019s single-gate figure (it is used only to rank qubits). Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking)."));
+      "Scores are the probability of the known-correct output. The \u201c1q gate sequence\u201d column is the decay over 100 repeated gates on all qubits at once, so it also contains qubit decay and crosstalk; it is NOT comparable with IBM\u2019s single-gate figure (it is used only to rank qubits). Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking)."));
 }
 main();
 </script>
