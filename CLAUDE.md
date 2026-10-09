@@ -115,13 +115,13 @@ Done:
 - Workflow is now **weekly** (Mondays 03:17 UTC), 45 min timeout, with `check_quota` + `wait_until_running` (10 min queue limit).
 - Full code (`src/qpu_weather/`), **27 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
 - End-to-end pipeline verified **only on a local noisy simulator** (FakeLagosV2 via Aer). On it, independent measurement matched the simulator's reported numbers (~0.99×) and readout mitigation clearly beat raw — evidence the logic works, **not** evidence about real hardware.
-- Pushed to GitHub; Pages dashboard live and correctly showing the empty state.
+- Pushed to GitHub; Pages dashboard live and rendering the real runs (checked in a headless browser).
 
 NOT done / unverified:
 - 2-qubit measurement (`twoq.py`) ran on real hardware in run #5 (176 edges measured; see limitations for how to read it). Chain picks differ between runs 7 minutes apart ([24,25,37,45,46] before it, [94,95,99,115,114] with it), so the 'best chain' is a per-run recommendation, not a stable property.
 - Run #5 also showed readout+zne mirror score of exactly 1.000 on the best chain: that is ZNE's extrapolation clipped at 1.0, not a perfect chip.
 - First-run caveat: the 1q gate-sequence number (X^100) was ~13x IBM's figure and uncorrelated with it, so it is relabelled and only used for ranking. Do not present it as measured-vs-reported.
-- Only one real run exists: no drift history yet.
+- Only two real runs exist, both from 2026-10-09 (no drift history yet). The weekly Action adds one per Monday.
 
 ## 11. Repo layout
 ```
@@ -158,10 +158,10 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 ## 13. Next steps (in order)
 1. ~~First real run~~ Done (see Status). Remaining: watch QPU seconds used per run on the IBM usage page.
 2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
-3. ~~Measure 2-qubit gate error directly~~ Done on the simulator (`twoq.py`, used in chain selection); still unverified on real hardware. Possible upgrade: randomized benchmarking.
+3. ~~Measure 2-qubit gate error directly~~ Done and run on real hardware (`twoq.py`, used in chain selection; good for ranking edges, ~2.6x IBM's figure). Possible upgrade: randomized benchmarking.
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.
-6. Pin the repo on Kns's GitHub profile once real results exist; add a short results section (real numbers only) to the README.
+6. ~~Pin the repo~~ Done by the owner. Later (about 4 weeks of weekly runs): add a short 'what I learned' note to the README from the real run files (drift, best-chain stability, which fix wins).
 
 ## 14. Working style for this repo
 - Minimal dependencies; dashboard stays static and library-free.
