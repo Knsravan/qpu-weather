@@ -101,7 +101,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 `docs/explain.html`: interactive point-and-explain tour with the same glass look; its replica shows the earlier dashboard layout, so its explanations are about the same data and metrics but not pixel-identical to the live page.
 
 ## 9. Honest limitations (keep these visible)
-- 2-qubit gate errors used for chain selection are **measured with a repeated-gate decay test** (Step 1b): a quick estimate with crosstalk. Simulator: median measured/reported ≈ 0.9. **Real hardware (`ibm_fez`, run 2, CZ gate, 176 edges): median 2.6× IBM's figure, correlation 0.73** — good for ranking edges, not an absolute error rate (it includes decoherence and parallel-edge crosstalk). The |0> test was nearly blind to CZ (median 0.01%); the |+> test carried the signal (0.85%), which is why both are run.
+- 2-qubit gate errors used for chain selection are **measured with a repeated-gate decay test** (Step 1b): a quick estimate with crosstalk. Simulator: median measured/reported ≈ 0.9. **Real hardware (`ibm_fez`, run 2, CZ gate, 176 edges): median 2.6× IBM's figure; Pearson 0.73 is driven by 4 edges IBM lists at 100% error, Spearman only 0.42 (0.38 without them), worst-decile overlap 7/17, best-decile 3/17** — a rough indicator, not an absolute error rate and not a validated ranking (it includes decoherence and parallel-edge crosstalk). The |0> test was nearly blind to CZ (median 0.01%); the |+> test carried the signal (0.85%), which is why both are run.
 - The 1q gate number is decay over 100 parallel X gates, so it includes qubit decay and crosstalk; on real hardware it was ~13x IBM's single-gate figure and uncorrelated. Not comparable with IBM's number; used only to rank qubits.
 - Results describe one device on one day; do not over-generalize.
 - Passing benchmark scores is not a proof of anything beyond those circuits.
@@ -159,7 +159,8 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 ## 13. Next steps (in order)
 1. ~~First real run~~ Done (see Status). Remaining: watch QPU seconds used per run on the IBM usage page.
 2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
-3. ~~Measure 2-qubit gate error directly~~ Done and run on real hardware (`twoq.py`, used in chain selection; good for ranking edges, ~2.6x IBM's figure). Possible upgrade: randomized benchmarking.
+3. ~~Measure 2-qubit gate error directly~~ Done and run on real hardware (`twoq.py`, used in chain selection; rough indicator only: ~2.6x IBM's figure, rank correlation ~0.4). Possible upgrade: randomized benchmarking.
+4. **Top priority from the paper's limitations:** add a third, vendor-guided layout (the chain chosen from IBM's published numbers; an offline replay picks qubits 22-26, no overlap with ours) and run it on hardware next to ours and the naive one. Until then 'best chain beats the first five qubits' does NOT show it beats a vendor-guided choice.
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.
 6. ~~Pin the repo~~ Done by the owner. Later (about 4 weeks of weekly runs): add a short 'what I learned' note to the README from the real run files (drift, best-chain stability, which fix wins).

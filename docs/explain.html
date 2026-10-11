@@ -166,7 +166,7 @@
             <td><span class="pill no">Yes</span> Academic studies show it, e.g. <a href="https://arxiv.org/pdf/2201.02899">this 2022 paper</a>.</td>
             <td>Not the discovery itself.</td></tr>
         <tr><td>Readout correction + zero-noise extrapolation beats either alone</td>
-            <td><span class="pill no">Yes</span> <a href="https://arxiv.org/pdf/2307.05203">Best-practices paper on ibm_washington</a> found the same.</td>
+            <td><span class="pill no">Yes</span> <a href="https://arxiv.org/pdf/2307.05203">Best-practices paper</a> reports that a composite strategy (readout mitigation, twirling, ZNE) improved results on an IBM device, consistent with ours.</td>
             <td>Our result agrees with known work; it confirms, it does not discover.</td></tr>
         <tr><td>A public, automated page comparing <i>IBM's reported numbers vs. independent measurement</i>, per qubit, kept as history</td>
             <td><span class="pill maybe">Not found</span> I did not find a standing public dataset like this in one search. I cannot prove none exists.</td>
@@ -316,7 +316,7 @@ const TIPS = {
   footnote: c => ({ title: "The small print",
     what: "The warnings printed under the real dashboard.",
     how: "Fixed text.", means: "Everything on the page is an estimate from one chip; the honest limits are part of the project.",
-    careful: "Two-qubit errors used for choosing the chain come from a quick repeated-gate test. On the real chip it ran about 2.6x IBM's figures but correlated at 0.73, so it is good for ranking connections, not for quoting exact error rates." })
+    careful: "Two-qubit errors used for choosing the chain come from a quick repeated-gate test. On the real chip it ran about 2.6x IBM's figures but The 0.73 correlation is driven by four connections IBM lists at 100% error; the rank correlation is only about 0.4. Treat it as a rough indicator, not as exact rates and not as a validated ranking." })
 };
 
 /* ---------- build the replica ---------- */
@@ -493,7 +493,7 @@ function fillSections(hist) {
   const avg = (arr, m) => arr.reduce((s, x) => s + x.scores[m], 0) / arr.length;
   card(`Result 1 <span class="pill ok">supported</span>`, `<p>IBM's readout numbers matched our measurement: median ratio <b>${b.calibration_summary.median_readout_measured_over_reported.toFixed(2)}x</b> (1.00x = identical).</p><p>But a few qubits were clearly worse than advertised, e.g. q${cal.worst_readout_qubits[0].qubit}: measured ${pct(cal.worst_readout_qubits[0].measured)} vs reported ${pct(cal.worst_readout_qubits[0].reported)}.</p>`);
   card(`Result 2 <span class="pill ok">supported</span>`, `<p>Picking qubits well helped. Average raw score: <b>${avg(best, "raw").toFixed(3)}</b> on the best chain vs <b>${avg(naive, "raw").toFixed(3)}</b> on the naive chain.</p><p class="muted">${runs.length} runs, 2 programs each.</p>`);
-  card(`Result 3 <span class="pill ok">supported, matches other studies</span>`, `<p>Readout correction + zero-noise extrapolation was best in every case: average ${avg(best, "readout+zne").toFixed(3)} vs raw ${avg(best, "raw").toFixed(3)} on the best chain.</p><p class="muted">A published study on another IBM chip found the same pattern, so this confirms rather than discovers.</p>`);
+  card(`Result 3 <span class="pill ok">supported, matches other studies</span>`, `<p>Readout correction + zero-noise extrapolation was best in every case: average ${avg(best, "readout+zne").toFixed(3)} vs raw ${avg(best, "raw").toFixed(3)} on the best chain.</p><p class="muted">A published best-practices paper reports composite mitigation improving results on an IBM device, which is consistent with this, so it confirms rather than discovers.</p>`);
   card(`Not shown <span class="pill no">not established</span>`, `<ul style="margin:0;padding-left:18px"><li><b>Drift over time.</b> Only ${runs.length} runs, from one day. The weekly runs will build this.</li><li><b>Exact gate error rates.</b> The gate numbers are quick estimates, usable for ranking only.</li><li><b>Anything about other chips or other days.</b></li></ul>`);
 }
 
