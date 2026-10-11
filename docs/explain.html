@@ -8,10 +8,14 @@
   :root {
     --bg:#f6f7f9; --card:#fff; --ink:#14181f; --muted:#5b6575; --line:#e3e7ee;
     --a:#2f5bea; --b:#d9534f; --ok:#1e8e5a; --warn:#b26a00; --hi:rgba(47,91,234,.14);
+    --bg:#e9eef8; --tint:rgba(255,255,255,.5); --rimc:rgba(255,255,255,.95); --rimlo:rgba(255,255,255,.35); --shadow:rgba(30,45,70,.18);
+    --b1:#7aa2ff; --b2:#c4a4ff; --b3:#6fe0cf; --bo:.55;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg:#0e1116; --card:#161b22; --ink:#e8ecf2; --muted:#93a0b3; --line:#262d38;
-            --a:#7ea2ff; --b:#ff8a84; --ok:#4cc38a; --warn:#f0b35a; --hi:rgba(126,162,255,.18); }
+            --a:#7ea2ff; --b:#ff8a84; --ok:#4cc38a; --warn:#f0b35a; --hi:rgba(126,162,255,.18);
+            --bg:#060912; --tint:rgba(255,255,255,.055); --rimc:rgba(255,255,255,.30); --rimlo:rgba(255,255,255,.05); --shadow:rgba(0,0,0,.55);
+            --b1:#2f5bea; --b2:#8b5cf6; --b3:#14b8a6; --bo:.5; }
   }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--ink);
@@ -24,7 +28,22 @@
   a { color:var(--a); }
   .sub { color:var(--muted); margin:0 0 20px; }
   .muted { color:var(--muted); font-size:.9rem; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .ground { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .blob { position:absolute; width:52vmax; height:52vmax; border-radius:50%; filter:blur(90px); opacity:var(--bo); }
+  .blob.b1 { background:var(--b1); left:-14vmax; top:-16vmax; animation:d1 34s ease-in-out infinite alternate; }
+  .blob.b2 { background:var(--b2); right:-18vmax; top:18vh; animation:d2 42s ease-in-out infinite alternate; }
+  .blob.b3 { background:var(--b3); left:22vw; bottom:-26vmax; animation:d3 38s ease-in-out infinite alternate; }
+  @keyframes d1 { to { transform:translate(14vmax,10vmax) scale(1.15); } }
+  @keyframes d2 { to { transform:translate(-12vmax,-8vmax) scale(.9); } }
+  @keyframes d3 { to { transform:translate(10vmax,-10vmax) scale(1.2); } }
+  @media (prefers-reduced-motion: reduce) { .blob { animation:none !important; } }
+  .card, .panel { position:relative; isolation:isolate; background:var(--tint);
+    -webkit-backdrop-filter:blur(18px) saturate(1.7); backdrop-filter:blur(18px) saturate(1.7);
+    box-shadow:inset 0 1px 0 var(--rimc), 0 18px 50px -24px var(--shadow); }
+  .card::after, .panel::after { content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none; z-index:3;
+    background:linear-gradient(140deg, var(--rimc), transparent 38%, transparent 62%, var(--rimlo));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
+  .card { border-radius:22px; padding:18px; }
   .cols { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
   .big { font-size:1.6rem; font-weight:650; }
   .pill { display:inline-block; font-size:.78rem; font-weight:700; border-radius:999px; padding:1px 9px; }
@@ -47,27 +66,28 @@
   [data-tip] { cursor:help; border-radius:6px; transition:background .12s, box-shadow .12s; }
   [data-tip]:hover, [data-tip].on { background:var(--hi); box-shadow:0 0 0 2px var(--a); }
   svg [data-tip]:hover, svg [data-tip].on { box-shadow:none; background:none; }
-  .panel { position:sticky; top:12px; background:var(--card); border:1px solid var(--a);
-           border-radius:12px; padding:16px; max-height:calc(100vh - 24px); overflow:auto; }
+  .panel { position:sticky; top:12px;
+           border-radius:22px; padding:16px; max-height:calc(100vh - 24px); overflow:auto; }
   .panel h3 { color:var(--a); }
   .panel dt { font-weight:700; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;
               color:var(--muted); margin-top:10px; }
   .panel dd { margin:2px 0 0; }
   .panel .careful { border-left:3px solid var(--warn); padding-left:10px; }
   .tour { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px; }
-  button { font:inherit; background:var(--card); color:var(--ink); border:1px solid var(--line);
+  button { font:inherit; background:var(--tint); color:var(--ink); border:1px solid var(--line);
            border-radius:8px; padding:6px 12px; cursor:pointer; }
   button:hover { border-color:var(--a); }
   button.primary { background:var(--a); color:#fff; border-color:var(--a); }
   @media (max-width:860px) {
     .lab { grid-template-columns:1fr; }
-    .panel { position:fixed; left:8px; right:8px; bottom:8px; top:auto; max-height:46vh; z-index:5;
+    .panel { position:fixed; left:8px; right:8px; bottom:8px; top:auto; max-height:46vh; z-index:5; background:var(--tint);
              box-shadow:0 8px 30px rgba(0,0,0,.35); }
     main { padding-bottom:50vh; }
   }
 </style>
 </head>
 <body>
+<div class="ground" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <main>
   <h1>Quantum Weather Report - explained</h1>
   <p class="sub">A plain-language guide to the project, its results, and a dashboard you can point at to see what every part means.
