@@ -60,6 +60,8 @@ qpu-weather run                          # least-busy device; or --backend <name
 qpu-weather aggregate                    # rebuilds docs/data/history.json
 ```
 
+A plain-language, point-and-explain tour of the dashboard is in `docs/explain.html` (same data, same server).
+
 Open `docs/index.html` through a local server (`python -m http.server -d docs`) to see the dashboard.
 
 ## Automate it on GitHub (weekly real runs)

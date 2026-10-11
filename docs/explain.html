@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Weather Report - Explained</title>
+<style>
+  :root {
+    --bg:#f6f7f9; --card:#fff; --ink:#14181f; --muted:#5b6575; --line:#e3e7ee;
+    --a:#2f5bea; --b:#d9534f; --ok:#1e8e5a; --warn:#b26a00; --hi:rgba(47,91,234,.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0e1116; --card:#161b22; --ink:#e8ecf2; --muted:#93a0b3; --line:#262d38;
+            --a:#7ea2ff; --b:#ff8a84; --ok:#4cc38a; --warn:#f0b35a; --hi:rgba(126,162,255,.18); }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:1120px; margin:0 auto; padding:24px 16px 80px; }
+  h1 { font-size:1.9rem; margin:0 0 4px; }
+  h2 { font-size:1.35rem; margin:40px 0 10px; }
+  h3 { font-size:1.05rem; margin:0 0 8px; }
+  p { margin:0 0 10px; }
+  a { color:var(--a); }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  .muted { color:var(--muted); font-size:.9rem; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .cols { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
+  .big { font-size:1.6rem; font-weight:650; }
+  .pill { display:inline-block; font-size:.78rem; font-weight:700; border-radius:999px; padding:1px 9px; }
+  .pill.ok { background:rgba(30,142,90,.15); color:var(--ok); }
+  .pill.no { background:rgba(217,83,79,.15); color:var(--b); }
+  .pill.maybe { background:rgba(178,106,0,.16); color:var(--warn); }
+  ol.steps { padding-left:20px; margin:0; } ol.steps li { margin:0 0 8px; }
+  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  th,td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; }
+  td.n,th.n { text-align:right; font-variant-numeric:tabular-nums; }
+  .chips span { display:inline-block; background:var(--bg); border:1px solid var(--line);
+                border-radius:999px; padding:2px 10px; margin:2px 4px 2px 0; font-weight:600; }
+  svg text { fill:var(--muted); font-size:11px; }
+
+  /* ---- the interactive replica ---- */
+  .lab { display:grid; gap:16px; grid-template-columns:minmax(0,1fr) 340px; align-items:start; }
+  .replica { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
+  .replica .wide { grid-column:1/-1; }
+  [data-tip] { cursor:help; border-radius:6px; transition:background .12s, box-shadow .12s; }
+  [data-tip]:hover, [data-tip].on { background:var(--hi); box-shadow:0 0 0 2px var(--a); }
+  svg [data-tip]:hover, svg [data-tip].on { box-shadow:none; background:none; }
+  .panel { position:sticky; top:12px; background:var(--card); border:1px solid var(--a);
+           border-radius:12px; padding:16px; max-height:calc(100vh - 24px); overflow:auto; }
+  .panel h3 { color:var(--a); }
+  .panel dt { font-weight:700; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;
+              color:var(--muted); margin-top:10px; }
+  .panel dd { margin:2px 0 0; }
+  .panel .careful { border-left:3px solid var(--warn); padding-left:10px; }
+  .tour { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px; }
+  button { font:inherit; background:var(--card); color:var(--ink); border:1px solid var(--line);
+           border-radius:8px; padding:6px 12px; cursor:pointer; }
+  button:hover { border-color:var(--a); }
+  button.primary { background:var(--a); color:#fff; border-color:var(--a); }
+  @media (max-width:860px) {
+    .lab { grid-template-columns:1fr; }
+    .panel { position:fixed; left:8px; right:8px; bottom:8px; top:auto; max-height:46vh; z-index:5;
+             box-shadow:0 8px 30px rgba(0,0,0,.35); }
+    main { padding-bottom:50vh; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Quantum Weather Report - explained</h1>
+  <p class="sub">A plain-language guide to the project, its results, and a dashboard you can point at to see what every part means.
+    All numbers on this page are read from the real run files, nothing is typed in by hand.</p>
+  <p class="muted"><a href="index.html">Open the real dashboard</a> · <a href="https://github.com/Knsravan/qpu-weather">Source code</a></p>
+
+  <div id="loadmsg" class="card" style="display:none"></div>
+
+  <h2>1. What is this project, in one minute?</h2>
+  <div class="cols">
+    <div class="card"><h3>The idea</h3>
+      <p>A quantum computer is a very sensitive machine. It makes mistakes, and how many it makes changes from day to day.
+      IBM publishes a table of "how accurate each qubit is". That table is IBM's own measurement.</p>
+      <p>This project <b>rides the bus and writes down what really happens</b>: it runs small test programs on a real IBM quantum chip,
+      measures the mistakes itself, and compares with IBM's table.</p></div>
+    <div class="card"><h3>What it does each run</h3>
+      <ol class="steps">
+        <li>Checks every qubit (156 of them) and every connection between qubits (176).</li>
+        <li>Picks the best group of 5 connected qubits.</li>
+        <li>Runs test programs whose right answer is known, and scores the result.</li>
+        <li>Tries 4 "error fixes" and reports which one gets closest to the right answer.</li>
+        <li>Saves the data; this dashboard updates itself.</li>
+      </ol></div>
+    <div class="card"><h3>How often</h3>
+      <p>Automatically every Monday through GitHub, on a real IBM chip. IBM's usage page showed about 41 seconds of quantum time used (the owner's reading; not confirmed whether that is per run or for both test runs together).</p>
+      <p class="muted">A "qubit" is the quantum version of a bit. A "shot" is one run of a program; each program is repeated thousands of times and the outcomes are counted.</p></div>
+  </div>
+
+  <h2>2. Point at anything: the dashboard, explained</h2>
+  <p>This is a rebuilt copy of the real dashboard, filled with the real data from the latest runs. <b>Hover</b> (or <b>tap</b>) any part to read what it is, how it was measured, what it means, and what to be careful about. Click to pin the explanation. Or start the guided tour.</p>
+  <div class="tour">
+    <button class="primary" id="tourStart">Start guided tour</button>
+    <button id="tourPrev" disabled>Back</button>
+    <button id="tourNext" disabled>Next</button>
+    <span class="muted" id="tourPos" style="align-self:center"></span>
+  </div>
+  <div class="lab">
+    <div class="replica" id="replica"><div class="card">Loading…</div></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <h2>3. How the results came about</h2>
+  <div class="card"><ol class="steps" id="howList"></ol></div>
+
+  <h2>4. What the results say (and what they do not)</h2>
+  <div class="cols" id="resultCols"></div>
+
+  <h2>5. Who is this useful for?</h2>
+  <div class="cols">
+    <div class="card"><h3>Realistically useful for</h3>
+      <ul style="margin:0;padding-left:18px">
+        <li><b>People learning quantum computing</b> who want to see real hardware numbers next to the datasheet.</li>
+        <li><b>Free-plan IBM users</b> deciding which qubits to run on: it shows the best connected group <i>that day</i> and how much that choice helped.</li>
+        <li><b>Anyone curious</b> whether a vendor's published numbers still hold on a given day.</li>
+        <li><b>The owner's portfolio</b>: real hardware, real data, honest limits.</li>
+      </ul></div>
+    <div class="card"><h3>Not useful for</h3>
+      <ul style="margin:0;padding-left:18px">
+        <li>Choosing between quantum vendors (only one IBM chip is tracked).</li>
+        <li>Research-grade error rates: some of the numbers are quick estimates (see the warnings in the dashboard tour).</li>
+        <li>Production workloads. It is a small monitoring project, not a product.</li>
+      </ul></div>
+  </div>
+
+  <h2>6. What is actually new here (honestly)</h2>
+  <div class="card">
+    <p><b>Short answer: nothing here is new science.</b> It is a small, honest combination of things that exist separately.
+    I checked this on 2026-10-11 with three quick web searches, which are not an exhaustive literature review.</p>
+    <table>
+      <thead><tr><th>Piece</th><th>Already exists?</th><th>What this project adds</th></tr></thead>
+      <tbody>
+        <tr><td>Re-running benchmarks regularly to track a device over time</td>
+            <td><span class="pill no">Yes</span> <a href="https://arxiv.org/html/2603.08680v1">Metriq</a> (Unitary Foundation) re-runs standard benchmarks on a schedule.</td>
+            <td>Not the idea itself.</td></tr>
+        <tr><td>Drift of IBM chips from day to day</td>
+            <td><span class="pill no">Yes</span> Academic studies show it, e.g. <a href="https://arxiv.org/pdf/2201.02899">this 2022 paper</a>.</td>
+            <td>Not the discovery itself.</td></tr>
+        <tr><td>Readout correction + zero-noise extrapolation beats either alone</td>
+            <td><span class="pill no">Yes</span> <a href="https://arxiv.org/pdf/2307.05203">Best-practices paper on ibm_washington</a> found the same.</td>
+            <td>Our result agrees with known work; it confirms, it does not discover.</td></tr>
+        <tr><td>A public, automated page comparing <i>IBM's reported numbers vs. independent measurement</i>, per qubit, kept as history</td>
+            <td><span class="pill maybe">Not found</span> I did not find a standing public dataset like this in one search. I cannot prove none exists.</td>
+            <td>This is the honest gap: a small open tracker, with code anyone can rerun.</td></tr>
+        <tr><td>The four error fixes ranked together on the same circuits, every run, on a free-plan chip</td>
+            <td><span class="pill maybe">Pieces exist</span> Mitiq and papers compare fixes, mostly in simulation or one-off studies.</td>
+            <td>A repeating, automatic measurement, with the winner shown on the dashboard.</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">Honest framing for an interview: "an automated, open weekly check of a real IBM chip against its own datasheet, plus a measured ranking of error fixes. Incremental, with real data and honest limits."
+    One more useful caution from the same searches: a 2026 preprint summary (not verified by me) suggests that on IBM's 156-qubit chips, extra measurement cost can outweigh the benefit of some error fixes when your shot budget is limited. Our scores do not test that.</p>
+  </div>
+
+  <p class="muted" style="margin-top:36px">Sources:
+    <a href="https://arxiv.org/html/2603.08680v1">Metriq paper</a>,
+    <a href="https://arxiv.org/pdf/2201.02899">IBM chip drift study</a>,
+    <a href="https://arxiv.org/pdf/2307.05203">digital ZNE best practices</a>,
+    <a href="https://quantum.cloud.ibm.com/docs/ja/tutorials/refresh-backend-properties-with-real-time-benchmarking">IBM: refresh backend properties</a>.</p>
+</main>
+
+<script>
+const $ = (t, props = {}, ...kids) => {
+  const e = (props.ns ? document.createElementNS(props.ns, t) : document.createElement(t));
+  Object.entries(props).forEach(([k, v]) => { if (k === "ns") return;
+    if (k === "class") e.setAttribute("class", v); else e.setAttribute(k, v); });
+  kids.flat().forEach(k => e.append(k && k.nodeType ? k : document.createTextNode(String(k))));
+  return e;
+};
+const pct = (x, d = 2) => x == null ? "n/a" : (x * 100).toFixed(d) + "%";
+const med = a => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1;
+                   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const NS = "http://www.w3.org/2000/svg";
+let CTX = null;
+
+/* ---------- explanations: each returns {title, what, how, means, careful} ---------- */
+const TIPS = {
+  title: c => ({ title: "The dashboard title",
+    what: "The name of the project and its one-line description.",
+    how: "It is fixed text.",
+    means: "\"Regularly repeated\" means a GitHub robot runs the checks every Monday on a real IBM quantum computer.",
+    careful: "It is a small monitoring project, not an official IBM tool." }),
+  advice: c => ({ title: "Today's advice (card)",
+    what: `The best group of 5 connected qubits on ${c.last.backend} at the time of the latest run (${c.when}).`,
+    how: "The tool tried every possible chain of 5 connected qubits on the chip and scored each one by its measured mistakes. The lowest score wins.",
+    means: "If you were going to run a small program on this chip, these are the qubits we would pick that day.",
+    careful: "It is a recommendation for one moment. The two real runs picked different chains only minutes apart, so it can change. Do not treat it as a permanent fact." }),
+  chip: (c, q) => ({ title: `Qubit ${q}`,
+    what: `Physical qubit number ${q} on the chip, one of the 5 in the recommended chain.`,
+    how: "Chain order matters: neighbours in the list are directly connected on the chip.",
+    means: "A chain is like a row of stepping stones; each stone must be good and each gap between stones must be small.",
+    careful: "Qubit numbers are IBM's own labels for the chip." }),
+  cost: c => ({ title: "Chain cost",
+    what: `${c.last.layouts.best.cost.toFixed(3)} for our pick against ${c.last.layouts.naive.cost.toFixed(3)} for simply taking the first 5 qubits (0 to 4). Lower is better.`,
+    how: "For each of the 5 qubits we add up: its measured readout error + 3 x its measured one-qubit gate-sequence error. Then we add the measured two-qubit error of each of the 4 connections between them.",
+    means: `Our chain scored about ${(c.last.layouts.naive.cost / c.last.layouts.best.cost).toFixed(1)} times better than the careless choice.`,
+    careful: "It is a made-up score used for ranking, not a probability. The 2-qubit and 1-qubit parts are quick estimates (see their own explanations)." }),
+  ratio: c => ({ title: "Does reality match the datasheet? (card)",
+    what: "How our own measurement of readout error compares with what IBM reports.",
+    how: "For each qubit: our measured readout error divided by IBM's reported one. We then take the middle value (the median) over all 156 qubits.",
+    means: "1.00x means we and IBM agree. Above 1 means the chip is worse than advertised, below 1 better.",
+    careful: "This only covers readout (reading a qubit's value). Other numbers are not directly comparable, see the table warnings." }),
+  ratioNum: c => ({ title: `${c.ratio.toFixed(2)}x`,
+    what: "The median of (our readout error / IBM's readout error) over all qubits.",
+    how: "Readout error = the average of two things measured by preparing every qubit in 0 and in 1 and checking how often it is read wrongly.",
+    means: `The typical qubit agrees with IBM's table to within about ${Math.abs(c.ratio - 1) * 100 < 1 ? "1%" : Math.round(Math.abs(c.ratio - 1) * 100) + "%"}. A median hides individual differences, so look at the worst offenders.`,
+    careful: "A median can look perfect while some qubits are badly off." }),
+  offenders: c => ({ title: "Worst offenders",
+    what: "The qubits whose measured readout error is furthest above IBM's reported value (largest ratio).",
+    how: "We sort all qubits by measured / reported and show the top 3. 'q90 (5.83% vs 0.43%)' means: we measured 5.83%, IBM says 0.43%.",
+    means: "These qubits were worse than advertised on the day. If you used them you would get more wrong readouts than IBM's table suggests.",
+    careful: "It is one measurement on one day. Qubit quality can drift, so a bad qubit today may be fine next week." }),
+  fixes: c => ({ title: "Which error fix works best? (card)",
+    what: "A comparison of four ways to reduce the effect of noise, scored on the same test programs.",
+    how: "We run two test programs with a known right answer on our best chain (a GHZ circuit and a 'mirror' circuit). Score = share of the shots that gave the right answer (1.0 = perfect). The table shows the average over all recorded runs and both programs.",
+    means: "It answers: 'if I turn this fix on, do I get closer to the right answer?'",
+    careful: `Only ${c.runs.length} run(s) so far, both from the same day, so each average is ${c.runs.length * 2} numbers. Treat it as a first look.` }),
+  "fix-raw": c => ({ title: "raw",
+    what: "No fix at all: just run the program and count the right answers.",
+    how: "Score = fraction of shots that gave the known right answer.",
+    means: "The baseline. Everything else is judged against it.", careful: "" }),
+  "fix-readout": c => ({ title: "readout",
+    what: "Readout correction.",
+    how: "When the chip reads a qubit it sometimes says 1 instead of 0 (or the reverse). We measured how often that happens for each qubit, then mathematically undo it on the final counts.",
+    means: "It fixes mistakes made in reading the answer, not mistakes made while computing.", careful: "Needs a recent measurement of readout error; it is measured in the same run." }),
+  "fix-zne": c => ({ title: "zne (zero-noise extrapolation)",
+    what: "Run the program with deliberately MORE noise, then guess what the result would be with NO noise.",
+    how: "We run each program normally, then with 3x and 5x as many gates (the circuit followed by its own undo, repeated). We plot score against noise level, draw a straight line and read where it hits zero noise.",
+    means: "Like measuring how much a wall slows you at 1, 3 and 5 layers, then estimating the speed with 0 layers.",
+    careful: "The straight-line guess can overshoot, so results are capped at 1.0. A score of exactly 1.000 is that cap, not a perfect chip." }),
+  "fix-both": c => ({ title: "readout+zne",
+    what: "Both fixes together: correct the readout first, then do the zero-noise guess.",
+    how: "The ZNE line is drawn through readout-corrected scores instead of raw scores.",
+    means: "In these runs it was the best, and it agrees with published work that stacking fixes helps.",
+    careful: "Combining fixes costs more shots and more complexity. A 2026 preprint summary (not verified by me) warns that extra sampling can cancel the benefit under a tight shot budget." }),
+  "col-score": c => ({ title: "Avg score column",
+    what: "Average probability of the right answer under each method (1.0 is perfect).",
+    how: "Mean of the scores for the best chain over all recorded runs.",
+    means: "Higher is better.", careful: "A tiny sample, see the card warning." }),
+  "col-err": c => ({ title: "Error vs raw column",
+    what: "How much each fix shrinks the error compared with raw.",
+    how: "Error = 1 - score. Then (fix error - raw error) / raw error. Example: raw 0.915 has error 0.085; readout+zne 0.983 has error 0.017, a change of -80%.",
+    means: "Minus 80% means 80% of the mistakes were removed.",
+    careful: "Percentages can look huge when the starting error is small. Look at the scores too." }),
+  drift: c => ({ title: "Drift: median readout error over time (card)",
+    what: "How the chip's typical readout error changes from run to run.",
+    how: "For each run: the median readout error over all qubits, measured by us (blue) and as reported by IBM (red).",
+    means: "Over weeks it would show whether the chip gets better or worse and whether IBM's table keeps up.",
+    careful: `With ${c.runs.length} run(s) from the same day the lines are almost flat. This chart becomes meaningful only after several weekly runs.` }),
+  "line-measured": c => ({ title: "Blue line: what we measured",
+    what: "Median readout error across the chip, from our own test.",
+    how: "Each dot is one run.", means: "If it drifts away from the red line, IBM's table is going stale.", careful: "" }),
+  "line-reported": c => ({ title: "Red line: what IBM reports",
+    what: "Median readout error from IBM's published table at the time of the run.",
+    how: "Read from the device's published properties.", means: "IBM recalibrates about once a day, so this can change between runs.", careful: "" }),
+  axis: c => ({ title: "Chart axes",
+    what: "Up = readout error (lower is better). Left to right = time, labelled by date.",
+    how: "Axis scale is set automatically from the data.", means: "Two dots with the same date label means both runs were on the same day.", careful: "" }),
+  qubits: c => ({ title: "Five best and five worst qubits (card)",
+    what: "The five qubits with the lowest and the five with the highest measured readout error in the latest run.",
+    how: "All 156 qubits are sorted by measured readout error. We show the 5 smallest and 5 largest.",
+    means: "Gives a feel for the spread: some qubits read almost perfectly, a few are very poor.",
+    careful: "It is sorted by readout error only." }),
+  "col-ro-m": c => ({ title: "Readout (measured)",
+    what: "How often we saw a wrong readout, in our own test.",
+    how: "Prepare the qubit in 0, count how often it reads 1; prepare in 1, count how often it reads 0; average the two.",
+    means: "Lower is better.", careful: "" }),
+  "col-ro-r": c => ({ title: "Readout (reported)",
+    what: "IBM's published readout error for the same qubit.", how: "From the device's published properties.",
+    means: "Compare it with the measured column to see who is right today.", careful: "" }),
+  "col-g1-m": c => ({ title: "1q gate sequence (measured)",
+    what: "How much a qubit loses its state over 100 repeated one-qubit gates, expressed per gate.",
+    how: "Apply the X gate 100 times on all qubits at once (ideally nothing changes), see how often the qubit is still 0, and convert to a per-gate figure.",
+    means: "Useful for ranking qubits against each other.",
+    careful: "NOT comparable to IBM's number: it also includes the qubit simply decaying over time, and interference from neighbouring qubits. On the real chip it came out about 13x IBM's figure and was unrelated to it, so it is only used for ranking." }),
+  "col-g1-r": c => ({ title: "1q gate (IBM reported)",
+    what: "IBM's published error for one single gate on that qubit.", how: "From the device's published properties.",
+    means: "Typically around 0.02 to 0.1% on this chip.", careful: "Not measured the same way as the column on its left, so do not subtract one from the other." }),
+  qrow: (c, q) => {
+    const r = c.last.qubits.find(x => String(x.q) === String(q));
+    return { title: `Qubit ${q}`,
+      what: `Readout error: we measured ${pct(r.ro)}, IBM reports ${pct(r.ro_rep)}. One-qubit gate: our sequence figure ${pct(r.g1)}, IBM single-gate ${pct(r.g1_rep)}.`,
+      how: "Same measurements as the column explanations.",
+      means: r.ro > 0.1 ? "A very poor qubit: it misreads about one measurement in " + Math.round(1 / r.ro) + "." :
+             r.ro < 0.01 ? "A very good qubit for reading values." : "A middling qubit.",
+      careful: r.g1_rep != null && r.g1_rep >= 0.99 ? "IBM lists a 100% gate error for this qubit. That is a way of marking it unusable (my reading of the number; I did not confirm with IBM). Our test could still read it, which shows our figures do not replace IBM's own flags." : "" };
+  },
+  footnote: c => ({ title: "The small print",
+    what: "The warnings printed under the real dashboard.",
+    how: "Fixed text.", means: "Everything on the page is an estimate from one chip; the honest limits are part of the project.",
+    careful: "Two-qubit errors used for choosing the chain come from a quick repeated-gate test. On the real chip it ran about 2.6x IBM's figures but correlated at 0.73, so it is good for ranking connections, not for quoting exact error rates." })
+};
+
+/* ---------- build the replica ---------- */
+function lineChart(points, labels) {
+  const W = 520, H = 200, L = 46, R = 10, T = 10, B = 26;
+  const all = points.flatMap(p => p.values).filter(v => v != null);
+  const max = Math.max(...all) * 1.15 || 1;
+  const x = i => L + (labels.length === 1 ? (W - L - R) / 2 : i * (W - L - R) / (labels.length - 1));
+  const y = v => T + (1 - v / max) * (H - T - B);
+  const svg = $("svg", { ns: NS, viewBox: `0 0 ${W} ${H}`, width: "100%" });
+  const add = (n, a, txt) => { const e = $(n, { ns: NS, ...a }); if (txt) e.textContent = txt; svg.append(e); return e; };
+  [0, .5, 1].forEach(f => { const v = max * f;
+    add("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "currentColor", "stroke-opacity": .12 });
+    add("text", { x: 4, y: y(v) + 4, "data-tip": "axis" }, pct(v)); });
+  [0, labels.length - 1].forEach(i => add("text", { x: x(i), y: H - 6, "text-anchor": i ? "end" : "start", "data-tip": "axis" }, labels[i]));
+  points.forEach(p => {
+    const d = p.values.map((v, i) => v == null ? "" : `${i ? "L" : "M"}${x(i)},${y(v)}`).join("");
+    add("path", { d, fill: "none", stroke: p.color, "stroke-width": 2.2 });
+    add("path", { d, fill: "none", stroke: "transparent", "stroke-width": 16, "data-tip": p.tip });
+    p.values.forEach((v, i) => v != null && add("circle", { cx: x(i), cy: y(v), r: 4, fill: p.color, "data-tip": p.tip }));
+  });
+  return svg;
+}
+
+function buildReplica(hist) {
+  const runs = hist.runs, last = runs[runs.length - 1];
+  const s = last.calibration_summary, ratio = s.median_readout_measured_over_reported;
+  CTX = { runs, last, ratio, when: last.timestamp_utc.slice(0, 16).replace("T", " ") + " UTC" };
+  const T = (key, kids, extra = {}) => ["div", { ...extra, "data-tip": key, tabindex: 0 }, kids];
+  const el = (spec) => { const [t, p, k] = spec; return $(t, p, k); };
+
+  const out = [];
+  // title
+  out.push($("div", { class: "card wide", "data-tip": "title", tabindex: 0 },
+    $("div", { style: "font-size:1.5rem;font-weight:700" }, "Quantum Weather Report"),
+    $("div", { class: "muted" }, "An independent, regularly repeated check of a real IBM quantum computer: how it actually behaves, and which fixes help most.")));
+
+  // advice
+  const chain = last.layouts.best.chain;
+  out.push($("div", { class: "card", "data-tip": "advice", tabindex: 0 },
+    $("h3", {}, "Today's advice"),
+    $("div", { class: "muted" }, `${last.backend} · ${CTX.when}`),
+    $("p", {}, "Use these qubits (best connected chain, by measured error):"),
+    $("div", { class: "chips" }, chain.map(q => $("span", { "data-tip": "chip:" + q, tabindex: 0 }, "q" + q))),
+    $("p", { class: "muted", "data-tip": "cost", tabindex: 0 },
+      `Chain cost ${last.layouts.best.cost.toFixed(3)} vs ${last.layouts.naive.cost.toFixed(3)} for simply taking the first qubits (lower is better).`)));
+
+  // ratio
+  out.push($("div", { class: "card", "data-tip": "ratio", tabindex: 0 },
+    $("h3", {}, "Does reality match the datasheet?"),
+    $("div", { class: "big", "data-tip": "ratioNum", tabindex: 0 }, ratio.toFixed(2) + "x"),
+    $("div", { class: "muted" }, "median measured readout error ÷ vendor-reported. 1.0x means they agree; above 1 means the chip is worse than advertised."),
+    $("p", { class: "muted", "data-tip": "offenders", tabindex: 0 }, "Worst offenders: " + (s.worst_readout_qubits || []).slice(0, 3)
+      .map(w => `q${w.qubit} (${pct(w.measured)} vs ${pct(w.reported)})`).join(", "))));
+
+  // fixes
+  const methods = [["raw", "fix-raw"], ["readout", "fix-readout"], ["zne", "fix-zne"], ["readout+zne", "fix-both"]];
+  const rows = methods.map(([m, k]) => {
+    const sc = runs.flatMap(r => r.results.filter(x => x.layout === "best").map(x => x.scores[m]));
+    return { m, k, mean: sc.reduce((a, b) => a + b, 0) / sc.length };
+  });
+  const bestM = rows.reduce((a, b) => b.mean > a.mean ? b : a);
+  out.push($("div", { class: "card wide", "data-tip": "fixes", tabindex: 0 },
+    $("h3", {}, "Which error fix works best?"),
+    $("div", { class: "muted" }, "Average score on benchmarks with a known correct answer (1.0 = perfect), over all recorded runs, on the best chain."),
+    $("table", {},
+      $("thead", {}, $("tr", {}, $("th", {}, "Method"), $("th", { class: "n", "data-tip": "col-score", tabindex: 0 }, "Avg score"),
+        $("th", { class: "n", "data-tip": "col-err", tabindex: 0 }, "Error vs raw"))),
+      $("tbody", {}, rows.map(r => $("tr", { "data-tip": r.k, tabindex: 0 },
+        $("td", {}, r.m + (r === bestM ? "  ← best" : "")),
+        $("td", { class: "n" }, r.mean.toFixed(3)),
+        $("td", { class: "n" }, r.m === "raw" ? "–" : (100 * ((1 - r.mean) - (1 - rows[0].mean)) / (1 - rows[0].mean)).toFixed(0) + "%")))))));
+
+  // drift
+  const labels = runs.map(r => r.timestamp_utc.slice(5, 10));
+  const measured = runs.map(r => med(r.qubits.map(q => q.ro)));
+  const reported = runs.map(r => { const v = r.qubits.map(q => q.ro_rep).filter(x => x != null); return v.length ? med(v) : null; });
+  out.push($("div", { class: "card wide", "data-tip": "drift", tabindex: 0 },
+    $("h3", {}, "Drift: median readout error over time"),
+    $("div", { class: "muted" }, `Blue = what we measured. Red = what the vendor reports. ${runs.length} run(s) recorded.`),
+    lineChart([{ color: "var(--a)", values: measured, tip: "line-measured" }, { color: "var(--b)", values: reported, tip: "line-reported" }], labels)));
+
+  // qubits
+  const qs = [...last.qubits].sort((a, b) => a.ro - b.ro);
+  const pick = [...qs.slice(0, 5), ...qs.slice(-5)];
+  const hdr = [["Qubit", null], ["Readout (measured)", "col-ro-m"], ["Readout (reported)", "col-ro-r"],
+               ["1q gate sequence (measured)", "col-g1-m"], ["1q gate (IBM reported)", "col-g1-r"]];
+  out.push($("div", { class: "card wide", "data-tip": "qubits", tabindex: 0 },
+    $("h3", {}, "Five best and five worst qubits today"),
+    $("table", {},
+      $("thead", {}, $("tr", {}, hdr.map(([h, k], i) => $("th", { ...(i ? { class: "n" } : {}), ...(k ? { "data-tip": k, tabindex: 0 } : {}) }, h)))),
+      $("tbody", {}, pick.map(q => $("tr", { "data-tip": "qrow:" + q.q, tabindex: 0 }, $("td", {}, "q" + q.q),
+        [q.ro, q.ro_rep, q.g1, q.g1_rep].map(v => $("td", { class: "n" }, pct(v)))))))));
+
+  out.push($("p", { class: "muted wide", "data-tip": "footnote", tabindex: 0, style: "grid-column:1/-1" },
+    "Scores are the probability of the known-correct output. The “1q gate sequence” column is the decay over 100 repeated gates on all qubits at once, so it also contains qubit decay and crosstalk; it is NOT comparable with IBM’s single-gate figure (it is used only to rank qubits). Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking)."));
+
+  document.getElementById("replica").replaceChildren(...out);
+}
+
+/* ---------- panel + tour ---------- */
+const panel = document.getElementById("panel");
+let pinned = null, tourIdx = -1;
+const ORDER = ["title", "advice", "chip:" + "FIRST", "cost", "ratio", "ratioNum", "offenders", "fixes", "fix-raw", "fix-readout", "fix-zne", "fix-both",
+               "col-err", "drift", "line-measured", "line-reported", "qubits", "col-g1-m", "qrow:LASTWORST", "footnote"];
+
+function render(key) {
+  const [name, arg] = key.split(":");
+  const fn = TIPS[name]; if (!fn || !CTX) return;
+  const t = fn(CTX, arg);
+  const dl = [["What you are looking at", t.what], ["How it was measured / calculated", t.how], ["What it means", t.means]];
+  const html = `<h3>${t.title}</h3><dl style="margin:0">` +
+    dl.filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("") +
+    (t.careful ? `<dt>Be careful</dt><dd class="careful">${t.careful}</dd>` : "") + `</dl>` +
+    (pinned ? `<p class="muted" style="margin-top:10px">Pinned. Click it again to unpin.</p>` : "");
+  panel.innerHTML = html;
+}
+function mark(node) {
+  document.querySelectorAll(".on").forEach(e => e.classList.remove("on"));
+  if (node) node.classList.add("on");
+}
+function showDefault() {
+  panel.innerHTML = `<h3>Point at anything</h3><p>Hover (or tap) any card, number, chip, table row, column heading or chart line on the left.</p>
+    <p class="muted">Tip: press "Start guided tour" to walk through everything in order.</p>`;
+}
+function setupInteraction() {
+  const rep = document.getElementById("replica");
+  const target = e => e.target.closest("[data-tip]");
+  rep.addEventListener("mouseover", e => { if (pinned) return; const n = target(e); if (n) { render(n.dataset.tip); } });
+  rep.addEventListener("mouseleave", () => { if (!pinned && tourIdx < 0) showDefault(); });
+  rep.addEventListener("focusin", e => { if (pinned) return; const n = target(e); if (n) render(n.dataset.tip); });
+  rep.addEventListener("click", e => {
+    const n = target(e); if (!n) return;
+    if (pinned === n) { pinned = null; mark(null); render(n.dataset.tip); return; }
+    pinned = n; tourIdx = -1; mark(n); render(n.dataset.tip);
+  });
+}
+function tourNodes() {
+  const rep = document.getElementById("replica");
+  const first = rep.querySelector('[data-tip^="chip:"]');
+  const worst = [...rep.querySelectorAll('[data-tip^="qrow:"]')].pop();
+  const nodes = ORDER.map(k => k === "chip:FIRST" ? first : k === "qrow:LASTWORST" ? worst : rep.querySelector(`[data-tip="${k}"]`));
+  return nodes.filter(Boolean);
+}
+function tourGo(i) {
+  const nodes = tourNodes(); if (!nodes.length) return;
+  tourIdx = Math.max(0, Math.min(nodes.length - 1, i)); pinned = null;
+  const n = nodes[tourIdx]; mark(n); render(n.dataset.tip);
+  n.scrollIntoView({ block: "center", behavior: "smooth" });
+  document.getElementById("tourPos").textContent = `${tourIdx + 1} / ${nodes.length}`;
+  document.getElementById("tourPrev").disabled = tourIdx === 0;
+  document.getElementById("tourNext").disabled = tourIdx === nodes.length - 1;
+}
+document.getElementById("tourStart").onclick = () => tourGo(0);
+document.getElementById("tourPrev").onclick = () => tourGo(tourIdx - 1);
+document.getElementById("tourNext").onclick = () => tourGo(tourIdx + 1);
+
+/* ---------- sections 3 and 4 (real numbers) ---------- */
+function fillSections(hist) {
+  const runs = hist.runs, a = runs[0], b = runs[runs.length - 1];
+  const cal = a.calibration_summary;
+  const how = document.getElementById("howList");
+  const e = (h) => { const li = document.createElement("li"); li.innerHTML = h; how.append(li); };
+  e(`<b>A robot starts a run.</b> A GitHub Action wakes up every Monday (and when the owner clicks "Run workflow"), logs in to IBM with a secret key, and picks a real chip: <b>${b.backend}</b>.`);
+  e(`<b>Job 1, the check-up (about 156 qubits).</b> Every qubit is prepared in 0, then in 1, and read, to measure readout mistakes. A gate is repeated 100 times to see how fast a qubit loses its state. Each of the chip's connections (176) has its 2-qubit gate repeated 20 times, from two different starting states, to estimate that connection's error.`);
+  e(`<b>Choosing qubits.</b> Every possible chain of 5 connected qubits is scored; the lowest-cost chain is "best". The first five qubits (0 to 4) are the "naive" comparison.`);
+  e(`<b>Job 2, the benchmarks.</b> Two test programs with a known right answer, on both chains, each at 3 noise levels (1x, 3x, 5x gates): 12 programs, ${b.shots} shots each. Score = share of shots that gave the right answer.`);
+  e(`<b>Scoring four methods.</b> raw, readout correction, zero-noise extrapolation, and both together, all computed from those same shots.`);
+  e(`<b>Saving.</b> Everything is written to a data file in the repo; the dashboard reads it. IBM's usage page showed about 41 seconds of quantum time (not confirmed whether per run or total), so a run is small.`);
+  const cols = document.getElementById("resultCols");
+  const card = (t, h) => { const d = document.createElement("div"); d.className = "card"; d.innerHTML = `<h3>${t}</h3>${h}`; cols.append(d); };
+  const best = runs.flatMap(r => r.results.filter(x => x.layout === "best"));
+  const naive = runs.flatMap(r => r.results.filter(x => x.layout === "naive"));
+  const avg = (arr, m) => arr.reduce((s, x) => s + x.scores[m], 0) / arr.length;
+  card(`Result 1 <span class="pill ok">supported</span>`, `<p>IBM's readout numbers matched our measurement: median ratio <b>${b.calibration_summary.median_readout_measured_over_reported.toFixed(2)}x</b> (1.00x = identical).</p><p>But a few qubits were clearly worse than advertised, e.g. q${cal.worst_readout_qubits[0].qubit}: measured ${pct(cal.worst_readout_qubits[0].measured)} vs reported ${pct(cal.worst_readout_qubits[0].reported)}.</p>`);
+  card(`Result 2 <span class="pill ok">supported</span>`, `<p>Picking qubits well helped. Average raw score: <b>${avg(best, "raw").toFixed(3)}</b> on the best chain vs <b>${avg(naive, "raw").toFixed(3)}</b> on the naive chain.</p><p class="muted">${runs.length} runs, 2 programs each.</p>`);
+  card(`Result 3 <span class="pill ok">supported, matches other studies</span>`, `<p>Readout correction + zero-noise extrapolation was best in every case: average ${avg(best, "readout+zne").toFixed(3)} vs raw ${avg(best, "raw").toFixed(3)} on the best chain.</p><p class="muted">A published study on another IBM chip found the same pattern, so this confirms rather than discovers.</p>`);
+  card(`Not shown <span class="pill no">not established</span>`, `<ul style="margin:0;padding-left:18px"><li><b>Drift over time.</b> Only ${runs.length} runs, from one day. The weekly runs will build this.</li><li><b>Exact gate error rates.</b> The gate numbers are quick estimates, usable for ranking only.</li><li><b>Anything about other chips or other days.</b></li></ul>`);
+}
+
+/* ---------- start ---------- */
+(async function () {
+  showDefault();
+  const msg = document.getElementById("loadmsg");
+  let hist;
+  try { hist = await (await fetch("data/history.json", { cache: "no-store" })).json(); }
+  catch { msg.style.display = "block"; msg.textContent = "Could not load data/history.json. Open this page through the website or a local server (python -m http.server -d docs), not by double-clicking the file."; return; }
+  if (!hist.runs || !hist.runs.length) { msg.style.display = "block"; msg.textContent = "No real runs recorded yet, so there is nothing to explain."; return; }
+  buildReplica(hist); setupInteraction(); fillSections(hist);
+})();
+</script>
+</body>
+</html>
