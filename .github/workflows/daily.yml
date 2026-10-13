@@ -15,7 +15,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90   # two IBM jobs, each may wait up to 30 min in the queue
     steps:
       - uses: actions/checkout@v4
 
