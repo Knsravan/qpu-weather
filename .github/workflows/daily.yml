@@ -31,7 +31,9 @@ jobs:
         env:
           IBM_QUANTUM_TOKEN: ${{ secrets.IBM_QUANTUM_TOKEN }}
           IBM_INSTANCE: ${{ secrets.IBM_INSTANCE }}   # optional, only if IBM requires it
-          IBM_BACKEND: ${{ vars.IBM_BACKEND }}   # optional, empty = least busy
+          # Stay on ONE chip so the drift history compares like with like.
+          # Override with the IBM_BACKEND repository variable if this device goes away.
+          IBM_BACKEND: ${{ vars.IBM_BACKEND || 'ibm_fez' }}
         run: |
           if [ -z "$IBM_QUANTUM_TOKEN" ]; then
             echo "::error::Add the IBM_QUANTUM_TOKEN repository secret first (see README)."
@@ -54,6 +56,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "nothing to commit"
           else
-            git commit -m "data: daily run $(date -u +%F)"
+            git commit -m "data: weekly run $(date -u +%F)"
+            git pull --rebase origin "${GITHUB_REF_NAME}"   # main may have moved during the run
             git push
           fi
