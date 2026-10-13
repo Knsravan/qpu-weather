@@ -125,9 +125,9 @@ NOT done / unverified:
 - 2-qubit measurement (`twoq.py`) ran on real hardware in run #5 (176 edges measured; see limitations for how to read it). Chain picks differ between runs 7 minutes apart ([24,25,37,45,46] before it, [94,95,99,115,114] with it), so the 'best chain' is a per-run recommendation, not a stable property.
 - Run #5 also showed readout+zne mirror score of exactly 1.000 on the best chain: that is ZNE's extrapolation clipped at 1.0, not a perfect chip.
 - First-run caveat: the 1q gate-sequence number (X^100) was ~13x IBM's figure and uncorrelated with it, so it is relabelled and only used for ranking. Do not present it as measured-vs-reported.
-- Three real runs exist: two on `ibm_fez` (2026-10-09) and one on `ibm_kingston` (2026-10-12, picked by least-busy). The workflow now defaults to `IBM_BACKEND=ibm_fez` (repo variable overrides) so history stays on one chip. No drift history yet.
+- Four real runs exist: three on `ibm_fez` (2026-10-09 ×2, 2026-10-13) and one on `ibm_kingston` (2026-10-12, picked by least-busy). The workflow now defaults to `IBM_BACKEND=ibm_fez` (repo variable overrides) so history stays on one chip. No drift history yet.
 - Run 3 (`ibm_kingston`): best chain [151..155] raw 0.931/0.923 (GHZ/mirror); naive [0..4] broke down at 0.669/0.371 and its score ROSE with folding, so ZNE is invalid there (now detected, see Step 4). Cause unknown: chip change between jobs, or coherent errors cancelling under folding. Readout+zne still best on the best chain in all 6 best-chain cases so far.
-- The vendor-guided layout is implemented and simulator-tested but has NOT run on hardware yet; the next weekly run is the first.
+- Run 2026-10-13 (`ibm_fez`, schema 2, first with vendor layout, ZNE check and ci95; manual trigger, the earlier attempt hit the old 10-min queue limit): best [137,147,146,145,144] vs vendor [98,111,110,109,118] vs naive [0..4]. Raw GHZ 0.941 [0.935–0.948] vs 0.927 [0.918–0.934] vs 0.835; raw mirror 0.897 [0.888–0.906] vs 0.891 [0.883–0.902] vs 0.831. Best vs vendor: GHZ barely separated, mirror a tie; after readout+zne vendor was higher on mirror (0.974 vs 0.953). **No evidence yet that our pick beats IBM's.** zne_ok true everywhere; readout+zne best in all six cases. Readout ratio 0.95×, 2q ratio 2.32×.
 
 ## 11. Repo layout
 ```
