@@ -57,14 +57,14 @@ def translate_only(circuits, backend):
 
 
 def run_counts(backend, circuits: list[QuantumCircuit], shots: int, simulated: bool):
-    """Execute already-transpiled circuits. Returns one counts dict per circuit.
+    """Execute already-transpiled circuits. Returns (one counts dict per circuit, job id).
 
     Bitstring convention (Qiskit): classical bit 0 is the RIGHTMOST character.
     """
     if simulated:
         job = backend.run(circuits, shots=shots)
         result = job.result()
-        return [result.get_counts(i) for i in range(len(circuits))]
+        return [result.get_counts(i) for i in range(len(circuits))], None
 
     from qiskit_ibm_runtime import SamplerV2
 
@@ -74,9 +74,3 @@ def run_counts(backend, circuits: list[QuantumCircuit], shots: int, simulated: b
     result = job.result()
     return [getattr(result[i].data, CREG).get_counts() for i in range(len(circuits))], job.job_id()
 
-
-def job_info(ret):
-    """Normalize run_counts() output to (counts_list, job_id)."""
-    if isinstance(ret, tuple):
-        return ret
-    return ret, None

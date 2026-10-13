@@ -29,7 +29,7 @@ def cmd_run(args) -> int:
         s = r["scores"]
         print(
             f"{r['layout']:>5} {r['benchmark']:>6} chain={r['chain']} "
-            + " ".join(f"{m}={s[m]:.3f}" for m in result["methods"])
+            + " ".join(f"{m}={'n/a' if s[m] is None else f'{s[m]:.3f}'}" for m in result["methods"])
         )
     return 0
 

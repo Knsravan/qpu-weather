@@ -46,6 +46,19 @@ def fold_global(isa: QuantumCircuit, factor: int) -> QuantumCircuit:
     return out
 
 
+def zne_valid(factors: list[int], values: list[float]) -> bool:
+    """ZNE assumes more noise gives a lower score. If the fitted slope is not negative
+    (the score stayed flat or went UP with added noise), extrapolating means nothing.
+
+    Seen on real hardware: coherent errors partly cancel under folding, or the chip
+    changed between the calibration job and the benchmark job.
+    """
+    if len(factors) < 2:
+        return False
+    slope, _ = np.polyfit(np.asarray(factors, float), np.asarray(values, float), 1)
+    return bool(slope < -1e-9)
+
+
 def zne_extrapolate(factors: list[int], values: list[float]) -> float:
     """Linear extrapolation of the score to zero noise, clipped to [0, 1]."""
     if len(factors) != len(values):
