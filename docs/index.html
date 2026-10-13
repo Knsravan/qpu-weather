@@ -142,6 +142,9 @@
   .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:.8rem; color:var(--muted); margin:6px 0 10px; }
   .legend i { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
   .note { font-size:.8rem; color:var(--muted); margin:8px 0 0; }
+  table.sc { width:100%; border-collapse:collapse; font-size:.88rem; font-variant-numeric:tabular-nums; }
+  table.sc th, table.sc td { text-align:left; padding:5px 6px 5px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.sc th { color:var(--muted); font-weight:500; } table.sc small { display:block; color:var(--muted); font-size:.74rem; }
 
   /* chart */
   .chartwrap { position:relative; }
@@ -275,6 +278,8 @@ function driftChart(runs) {
 /* ---------- build the page ---------- */
 function build() {
   const run = runs[sel], s = run.calibration_summary, ratio = s.median_readout_measured_over_reported;
+  // different chips must not share one trend line or one average
+  const devRuns = runs.filter(r => r.backend === run.backend), otherDev = runs.length - devRuns.length;
   const app = document.getElementById("app");
   const cards = [];
   const pane = (id, cls, ...kids) => $("section", { id, class: "pane rv " + cls }, ...kids);
@@ -291,16 +296,28 @@ function build() {
     runs.length > 1 ? $("span", { class: "chip" }, "Run: ", sel_) : null);
 
   // advice
-  const best = run.layouts.best.cost, naive = run.layouts.naive.cost, mx = Math.max(best, naive);
+  const best = run.layouts.best.cost, naive = run.layouts.naive.cost, vend = run.layouts.vendor ? run.layouts.vendor.cost : null;
+  const mx = Math.max(best, naive, vend || 0);
+  const costRow = (name, v, c, d) => $("div", { class: "fx", style: "grid-template-columns:110px 1fr 56px;padding:5px 0" }, $("span", { class: "nm" }, name),
+    $("div", { class: "bar2" }, $("i", { style: `--w:${v / mx * 100}%;--c:${c};--d:${d}s` })), $("span", { class: "vl" }, v.toFixed(3)));
+  const LNAME = { best: "Our pick", vendor: "IBM's numbers", naive: "First 5 qubits" };
+  const lays = ["best", "vendor", "naive"].filter(l => run.layouts[l]);
+  const rawOf = (l, b) => run.results.find(x => x.layout === l && x.benchmark === b);
+  const cell = r => { if (!r) return "n/a"; const ci = r.scores.ci95 && r.scores.ci95.raw;
+    return r.scores.raw.toFixed(3) + (ci ? ` ±${((ci[1] - ci[0]) / 2).toFixed(3)}` : ""); };
   cards.push(pane("advice", "c6", $("h2", {}, "Today's advice"),
     $("div", { class: "muted" }, `${run.backend} · ${run.timestamp_utc.slice(0, 16).replace("T", " ")} UTC`),
     $("p", { style: "margin:10px 0 0" }, "Use these qubits (best connected chain, by measured error):"),
     chainSvg(run),
     $("p", { class: "muted", style: "margin:12px 0 6px" }, "Chain cost (lower is better)"),
-    $("div", { class: "fx", style: "grid-template-columns:110px 1fr 56px;padding:5px 0" }, $("span", { class: "nm" }, "Our pick"),
-      $("div", { class: "bar2" }, $("i", { style: `--w:${best / mx * 100}%;--c:var(--good);--d:.3s` })), $("span", { class: "vl" }, best.toFixed(3))),
-    $("div", { class: "fx", style: "grid-template-columns:110px 1fr 56px;padding:5px 0" }, $("span", { class: "nm" }, "First 5 qubits"),
-      $("div", { class: "bar2" }, $("i", { style: `--w:${naive / mx * 100}%;--c:var(--muted);--d:.45s` })), $("span", { class: "vl" }, naive.toFixed(3)))));
+    costRow("Our pick", best, "var(--good)", .3),
+    vend != null ? costRow("IBM's numbers", vend, "var(--b)", .38) : null,
+    costRow("First 5 qubits", naive, "var(--muted)", .45),
+    $("p", { class: "muted", style: "margin:14px 0 6px" }, "What actually happened (raw score, 1.0 = perfect)"),
+    $("table", { class: "sc" }, $("tr", {}, $("th", {}, "Chain"), $("th", {}, "GHZ"), $("th", {}, "mirror")),
+      lays.map(l => $("tr", {}, $("td", {}, LNAME[l] + " ", $("small", {}, run.layouts[l].chain.map(q => "q" + q).join(" "))),
+        $("td", {}, cell(rawOf(l, "ghz"))), $("td", {}, cell(rawOf(l, "mirror")))))),
+    vend == null ? $("p", { class: "note" }, "Runs before 2026-10-13 did not test the chain IBM's own numbers would pick.") : null));
 
   // datasheet
   const pos = Math.max(2, Math.min(98, (Math.log(ratio / .5) / Math.log(4)) * 100));
@@ -319,14 +336,17 @@ function build() {
   bigEl.dataset.to = ratio;
 
   // fixes
+  const bestRes = devRuns.flatMap(r => r.results.filter(x => x.layout === "best"));
+  const usable = bestRes.filter(x => x.scores.zne_ok !== false && x.scores.zne != null && x.scores["readout+zne"] != null);
   const methods = [["raw", "do nothing special"], ["readout", "undo reading mistakes"], ["zne", "add noise on purpose, extrapolate to zero"], ["readout+zne", "both together"]];
-  const rows = methods.map(([m, d]) => {
-    const sc = runs.flatMap(r => r.results.filter(x => x.layout === "best").map(x => x.scores[m]));
+  if (!usable.length) { cards.push(pane("fixes", "c12", $("h2", {}, "Which error fix works best?"), $("p", { class: "muted" }, "No usable results on this chip yet."))); }
+  else { const rows = methods.map(([m, d]) => {
+    const sc = usable.map(x => x.scores[m]);
     return { m, d, mean: sc.reduce((a, b) => a + b, 0) / sc.length };
   });
   const bestM = rows.reduce((a, b) => b.mean > a.mean ? b : a), rawErr = 1 - rows[0].mean, maxErr = rawErr || 1;
   cards.push(pane("fixes", "c12", $("h2", {}, "Which error fix works best?"),
-    $("div", { class: "muted" }, "Bars show how often the answer was WRONG (shorter is better). Average over all recorded runs on the best chain, on benchmarks with a known correct answer."),
+    $("div", { class: "muted" }, `Bars show how often the answer was WRONG (shorter is better). Average over ${devRuns.length} run(s) on ${run.backend}, best chain, benchmarks with a known correct answer.`),
     $("div", { style: "margin-top:8px" }, rows.map((r, i) => {
       const err = 1 - r.mean;
       return $("div", { class: "fx" + (r === bestM ? " best" : "") },
@@ -334,13 +354,16 @@ function build() {
         $("div", { class: "bar2", role: "img", "aria-label": `${r.m}: ${pct(err, 1)} wrong` }, $("i", { style: `--w:${Math.max(err / maxErr * 100, 1.5)}%;--c:${r === bestM ? "var(--good)" : "var(--a)"};--d:${.15 + i * .15}s` })),
         $("div", { class: "vl" }, `score ${r.mean.toFixed(3)} · ${pct(err, 1)} wrong` + (r.m === "raw" ? "" : ` · ${(100 * (err - rawErr) / rawErr).toFixed(0)}%`)));
     })),
-    $("p", { class: "note" }, "Percentage = change in mistakes compared with raw. " + runs.length + " run(s) so far: treat this as a first look.")));
+    $("p", { class: "note" }, "Percentage = change in mistakes compared with raw. " + devRuns.length + " run(s) on this chip so far: treat this as a first look."
+      + (bestRes.length > usable.length ? ` ${bestRes.length - usable.length} result(s) left out: adding noise did not lower the score there, so zero-noise extrapolation means nothing.` : "")
+      + " ZNE scores of exactly 1.000 are the extrapolation clipped at 1, not a perfect chip."))); }
 
   // drift
-  cards.push(pane("drift", "c12", $("h2", {}, "Drift: median readout error over time"),
+  cards.push(pane("drift", "c12", $("h2", {}, "Drift: median readout error over time on " + run.backend),
     $("div", { class: "legend" }, $("span", {}, $("i", { style: "background:var(--a)" }), "measured by us (solid)"), $("span", {}, $("i", { style: "background:var(--b)" }), "reported by IBM (dashed)"),
-      $("span", {}, runs.length + " run(s) recorded" + (runs.length < 4 ? " · a trend needs several weekly runs" : ""))),
-    driftChart(runs)));
+      $("span", {}, devRuns.length + " run(s) on this chip" + (devRuns.length < 4 ? " · a trend needs several weekly runs" : "")
+        + (otherDev ? ` · ${otherDev} run(s) on other chips hidden (pick one in the run selector)` : ""))),
+    driftChart(devRuns)));
 
   // qubits
   const qs = [...run.qubits].sort((a, b) => a.ro - b.ro), pick = [...qs.slice(0, 5), ...qs.slice(-5)];
@@ -356,7 +379,7 @@ function build() {
     $("p", { class: "note" }, "The “1q gate sequence” is the decay over 100 repeated gates on all qubits at once, so it also contains qubit decay and crosstalk. It is NOT comparable with IBM’s single-gate figure and is used only to rank qubits.")));
 
   cards.push($("p", { class: "muted foot c12 rv", style: "grid-column:1/-1" },
-    "Scores are the probability of the known-correct output. Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking). One chip on one day: do not over-generalize."));
+    "Scores are the probability of the known-correct output; ± is the 95% range from shot noise alone (newer runs only). The GHZ score only counts all-0 / all-1 outcomes, so it catches bit flips but cannot tell whether the entanglement survived. Two-qubit gate errors used for choosing a chain come from a quick repeated-gate decay test (an estimate, not randomized benchmarking). One chip on one day: do not over-generalize."));
 
   app.replaceChildren(...cards);
   watchReveal(); countUp(bigEl, ratio, v => v.toFixed(2) + "×", firstDraw ? 1300 : 600);
