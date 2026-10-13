@@ -176,3 +176,4 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 - New logic gets tests; tests must never need QPU access (use fake backends / Aer).
 - Commit small and often. Never commit anything under `data/simulated/`.
 - When reporting back to Kns: plain language, say what is verified vs not, no oversell.
+- Kns has authorized Claude to open pull requests, merge them into `main` and deploy (GitHub Pages) without asking first, once tests pass. Still report what was merged and what is verified vs not.
