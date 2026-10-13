@@ -75,3 +75,27 @@ def test_counts_to_probs_normalises():
     p = mit.counts_to_probs({"00": 30, "11": 70}, 2)
     assert p.sum() == pytest.approx(1.0)
     assert p[3] == pytest.approx(0.7)
+
+
+def test_zne_valid_needs_score_to_fall_with_noise():
+    assert mit.zne_valid([1, 3, 5], [0.9, 0.8, 0.7])
+    # real ibm_kingston case (2026-10-12, naive mirror): score ROSE with added noise
+    assert not mit.zne_valid([1, 3, 5], [0.371, 0.537, 0.514])
+    assert not mit.zne_valid([1, 3, 5], [0.5, 0.5, 0.5])
+
+
+def test_score_methods_drops_zne_when_noise_raises_score():
+    from qpu_weather.experiment import score_methods
+
+    perfect = [mit.confusion_matrix(0, 0)] * 2
+    good = {1: {"00": 900, "11": 100}, 3: {"00": 800, "11": 200}, 5: {"00": 700, "11": 300}}
+    s = score_methods(good, {"00"}, perfect, n_boot=50)
+    assert s["zne_ok"] and s["zne"] == pytest.approx(0.95)
+    lo, hi = s["ci95"]["raw"]
+    assert lo < 0.9 < hi
+
+    bad = {1: {"00": 400, "11": 600}, 3: {"00": 550, "11": 450}, 5: {"00": 520, "11": 480}}
+    s = score_methods(bad, {"00"}, perfect, n_boot=50)
+    assert not s["zne_ok"]
+    assert s["zne"] is None and s["readout+zne"] is None and s["ci95"]["zne"] is None
+    assert s["raw"] == pytest.approx(0.4)

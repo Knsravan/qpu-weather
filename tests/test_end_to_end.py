@@ -10,13 +10,17 @@ def test_pipeline_runs_and_mitigation_helps_on_noisy_sim():
     r = run_experiment(handle, shots=2000, cal_shots=1000, chain_len=4)
 
     assert r["simulated"] is True
-    assert set(r["layouts"]) == {"naive", "best"}
-    assert len(r["results"]) == 4  # 2 layouts x 2 benchmarks
+    assert set(r["layouts"]) == {"naive", "vendor", "best"}
+    assert len(r["results"]) == 6  # 3 layouts x 2 benchmarks
     assert len(r["calibration"]["qubits"]) == handle.target_backend.num_qubits
 
     for res in r["results"]:
         s = res["scores"]
-        assert all(0.0 <= s[m] <= 1.0 for m in METHODS)
+        assert all(s[m] is None or 0.0 <= s[m] <= 1.0 for m in METHODS)
+        # raw counts are saved so odd results can be re-checked later
+        assert set(res["counts_by_factor"]) == {"1", "3", "5"}
+        lo, hi = s["ci95"]["raw"]
+        assert lo <= s["raw"] <= hi
         # readout noise dominates on this fake device, so mitigation must beat raw
         assert s["readout"] > s["raw"]
 

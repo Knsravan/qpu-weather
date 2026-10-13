@@ -68,3 +68,20 @@ def best_chain(edges, n: int, qubit_cost, edge_cost) -> list[int]:
     if best is None:
         raise RuntimeError(f"no connected chain of {n} qubits on this device")
     return best
+
+
+MISSING_VENDOR_ERROR = 1.0  # a qubit the vendor gives no number for is avoided
+
+
+def reported_qubit_cost(qubits) -> dict[int, float]:
+    """Per-qubit cost from the VENDOR's numbers only, same formula as our measured cost.
+
+    This is what a careful user who trusts IBM's published calibration would pick.
+    """
+    def v(x):
+        return MISSING_VENDOR_ERROR if x is None else x
+
+    return {
+        q["qubit"]: v(q["reported_readout_error"]) + 3 * v(q["reported_gate_error_1q"])
+        for q in qubits
+    }

@@ -14,7 +14,7 @@ import numpy as np
 from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
 
 from .backend import BackendHandle
-from .runner import CREG, job_info, run_counts, transpile_with_layout
+from .runner import CREG, run_counts, transpile_with_layout
 from .twoq import (
     TWO_Q_REPEATS,
     edge_errors_from_counts,
@@ -92,7 +92,7 @@ def run_calibration(handle: BackendHandle, shots: int = 2000) -> dict:
         list(range(n)),
         optimization_level=0,
     )
-    counts_list, job_id = job_info(run_counts(handle.backend, circs, shots, handle.simulated))
+    counts_list, job_id = run_counts(handle.backend, circs, shots, handle.simulated)
     p1_prep0 = _p_one(counts_list[0], n)  # P(read 1 | prepared 0)
     p1_prep1 = _p_one(counts_list[1], n)  # P(read 1 | prepared 1)
     p0_after_x = 1 - _p_one(counts_list[2], n)  # P(read 0 after X^N)

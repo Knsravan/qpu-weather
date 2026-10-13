@@ -40,7 +40,7 @@ Simple analogy used with the owner: *a school bus company says "we're usually on
 - **Readout mitigation** — correct for known measurement mistakes using a measured confusion matrix.
 - **ZNE (zero-noise extrapolation)** — run the circuit with *deliberately more* noise (1x, 3x, 5x), then extrapolate the score back to "zero noise".
 - **Circuit folding** — how we add noise on purpose: replace circuit `C` with `C C† C` (C then its inverse then C again). Ideally identical result, but 3x the gates.
-- **GHZ state** — entangled state of n qubits; ideal measurement gives all-0s or all-1s, about 50/50.
+- **GHZ state** — entangled state of n qubits; ideal measurement gives all-0s or all-1s, about 50/50. Our GHZ score only counts those two outcomes, so it detects bit flips but NOT loss of entanglement (a classical 50/50 mix would also score 1.0).
 - **Mirror circuit** — random gates followed by their exact inverse; ideal output is all zeros *by construction*, so no simulation is needed to know the right answer.
 - **Transpile** — compile a circuit onto a specific chip's native gates and chosen physical qubits.
 - **Layout / chain** — which physical qubits a circuit uses; here, a path of connected qubits.
@@ -79,22 +79,24 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 
 **Step 1b — 2-qubit gate error (`twoq.py`, runs in the same calibration job).** Every 2-qubit gate (ecr/cz/cx) is its own inverse, so K=20 repeats should do nothing. Edges sharing no qubit are tested in parallel (greedy layers). Two tests per edge: all qubits start in |0> (sees bit-flip errors) and in |+> via H (sees phase/dephasing errors; needs an H-H baseline circuit). Readout error of the two qubits is undone first (otherwise a misread 1 hides decay). Survival ratio vs the zero-gate baseline gives error = 1 − ratio^(1/K); we keep `max(z, x)` as `gate_error_2q` and store both (`_z`, `_x`) in `calibration.edges`. It is an estimate: includes crosstalk, and is not randomized benchmarking.
 
-**Step 2 — Choose qubits (`layout.py`).** Enumerate every simple path of `chain_len` connected qubits in the coupling map. Cost = sum over qubits of (measured readout error + 3 × measured 1q gate error) + sum over edges of MEASURED 2-qubit error (vendor value only as fallback; see Step 1b). `naive` = first chain by qubit index (the baseline a careless user gets); `best` = lowest cost.
+**Step 2 — Choose qubits (`layout.py`).** Enumerate every simple path of `chain_len` connected qubits in the coupling map. Cost = sum over qubits of (measured readout error + 3 × measured 1q gate error) + sum over edges of MEASURED 2-qubit error (vendor value only as fallback; see Step 1b). `naive` = first chain by qubit index (the baseline a careless user gets); `vendor` = lowest cost using ONLY IBM's reported numbers (`layout.reported_qubit_cost`, same formula; a qubit with no vendor number costs 1.0) and vendor edge errors; `best` = lowest cost by our measurements. `layouts.<name>.cost` is always the MEASURED cost of that chain.
 
-**Step 3 — Benchmarks (`benchmarks.py`).** `ghz(n)` (ideal outputs all-0s/all-1s) and `mirror(n, layers=3, seed=11)` (ideal all-0s). Score = probability mass on the ideal outputs (1.0 = perfect). Each is transpiled onto each chain at optimization level 1, then folded at factors **1, 3, 5**. All circuits (2 layouts × 2 benchmarks × 3 factors = 12) run in **one** job. A barrier inside the mirror circuit stops the compiler cancelling it against its inverse.
+**Step 3 — Benchmarks (`benchmarks.py`).** `ghz(n)` (ideal outputs all-0s/all-1s) and `mirror(n, layers=3, seed=11)` (ideal all-0s). Score = probability mass on the ideal outputs (1.0 = perfect). Each is transpiled onto each chain at optimization level 1, then folded at factors **1, 3, 5**. All circuits (3 layouts × 2 benchmarks × 3 factors = 18) run in **one** job. A barrier inside the mirror circuit stops the compiler cancelling it against its inverse.
 
 **Step 4 — Score four methods (`experiment.score_methods`, `mitigation.py`):**
 - `raw` — score at fold factor 1.
 - `readout` — invert the tensor product of per-qubit confusion matrices (built from this run's p01/p10 for the chain's physical qubits; LSB-first to match Qiskit bit order); clip negatives, renormalize; then score.
-- `zne` — linear fit of raw scores vs fold factor, take intercept at 0, clip to [0, 1].
+- `zne` — linear fit of raw scores vs fold factor, take intercept at 0, clip to [0, 1]. **Validity check (`mitigation.zne_valid`):** if the fitted slope of the raw OR readout-mitigated scores is not negative (added noise did not lower the score), `zne_ok` is false and both ZNE scores are `null`. Seen on `ibm_kingston` 2026-10-12, naive chain (mirror 0.371 → 0.537 → 0.514).
 - `readout+zne` — same extrapolation on the readout-mitigated scores.
-`improvement_vs_raw_pct` = (raw_error − method_error) / raw_error × 100, where error = 1 − score.
+`improvement_vs_raw_pct` = (raw_error − method_error) / raw_error × 100, where error = 1 − score (`null` when the method's score is `null`).
+`ci95` per method: bootstrap (200 multinomial resamples of the shots at every fold factor, seed 0), 2.5–97.5 percentiles. Shot noise only, not drift. Raw benchmark counts are saved as `counts_by_factor` so odd results can be re-checked.
 
 **Step 5 — Save + publish.** CLI writes `data/runs/<timestamp>_<backend>.json`; `qpu-weather aggregate` builds a slim `docs/data/history.json`; the dashboard (`docs/index.html`) reads it. The GitHub Action (`daily.yml`, workflow name "Quantum weather report") does run → aggregate → commit, weekly (Mondays 03:17 UTC) and on manual trigger. Free-plan QPU time is limited, so daily would not fit.
 
 ## 7. Run file schema (`data/runs/*.json`)
-`schema`, `timestamp_utc`, `backend`, `simulated`, `shots`, `chain_len`, `calibration` {`qubits`[ {`qubit`, `p01`, `p10`, `readout_error`, `gate_error_1q`, `reported_readout_error`, `reported_gate_error_1q`} ], `shots`, `job_id`, `x_repeats`}, `calibration_summary`, `layouts` {`naive`|`best`: {`chain`, `cost`}}, `results`[ {`layout`, `benchmark`, `chain`, `scores` {`raw`, `readout`, `zne`, `readout+zne`, `raw_by_factor`}, `improvement_vs_raw_pct`} ], `benchmark_job_id`, `methods`, `notes`.
-`docs/data/history.json` = `{"runs": [...]}` with per-qubit rows slimmed to `q, ro, g1, ro_rep, g1_rep`.
+`schema`, `timestamp_utc`, `backend`, `simulated`, `shots`, `chain_len`, `calibration` {`qubits`[ {`qubit`, `p01`, `p10`, `readout_error`, `gate_error_1q`, `reported_readout_error`, `reported_gate_error_1q`} ], `shots`, `job_id`, `x_repeats`}, `calibration_summary`, `layouts` {`naive`|`vendor`|`best`: {`chain`, `cost`}}, `results`[ {`layout`, `benchmark`, `chain`, `scores` {`raw`, `readout`, `zne`, `readout+zne`, `raw_by_factor`, `readout_by_factor`, `zne_ok`, `ci95`}, `improvement_vs_raw_pct`, `counts_by_factor`} ], `benchmark_job_id`, `methods`, `notes`.
+Schema 2 (from 2026-10-13) added `vendor`, `readout_by_factor`, `zne_ok`, `ci95`, `counts_by_factor`; schema-1 runs have none of these.
+`docs/data/history.json` = `{"runs": [...]}` with per-qubit rows slimmed to `q, ro, g1, ro_rep, g1_rep`; `counts_by_factor` is dropped, and for schema-1 runs `aggregate` derives `zne_ok` from `raw_by_factor` (raw trend only; their readout trend was not saved).
 
 ## 8. Dashboard
 `docs/index.html`: single static file, vanilla JS + inline SVG, no libraries, light/dark aware (follows the system, plus a Theme toggle remembered in localStorage if allowed). Glass design: drifting gradient background, floating glass toolbar (anchors, link to explain.html, theme toggle), cursor sheen on cards, letter-by-letter title, scroll-reveal, count-up ratio, bars that grow, a glowing qubit-chain graphic, a self-drawing drift chart with hover tooltips, and a run selector (inspect any past run). All motion is off under `prefers-reduced-motion`. Cards: today's advice (best chain + cost vs first 5 qubits), measured-vs-reported ratio meter with worst offenders, which-fix-works-best (bars show how often the answer was WRONG, averaged on the best chain across all runs), drift chart (median readout error measured vs reported), five best/worst qubits (the 1q gate column is labelled "sequence" and "not comparable" on purpose). Empty state when no runs (must stay: simulator output is never shown). Live on GitHub Pages (`/docs` of `main`).
@@ -108,13 +110,14 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 - Calibration circuits span the full device width; confirm this is fine on real hardware and within free-plan QPU time.
 - `get_backend` uses `QiskitRuntimeService(channel="ibm_quantum_platform", token=...)`. IBM's platform naming and a possible need for an **instance (CRN)** may differ from the code — the most likely first failure.
 - ZNE uses simple linear extrapolation over factors 1/3/5; with noisy data it can overshoot (clipped to [0, 1]).
-- Free-plan quota changes; do not assume limits. Default run is small (2 jobs).
+- Free-plan quota changes; do not assume limits. Default run is small (2 jobs; benchmark job is 18 circuits since the vendor layout).
+- The dashboard shows drift and the which-fix average for the selected run's chip only; different chips never share a line or an average.
 
-## 10. Status (as of 2026-10-09, updated after first real run)
+## 10. Status (as of 2026-10-13)
 Done:
 - **First real-hardware run succeeded** (run #4, `ibm_fez`, 2026-10-09; file in `data/runs/`): auth with only `IBM_QUANTUM_TOKEN` worked (`IBM_INSTANCE` optional), `SamplerV2` results through the `c` register worked, readout error matched IBM (median 1.00x), best chain beat naive, readout+zne best in all four cases. The first attempts failed on a deleted/invalid API key and an exhausted instance quota, which led to the quota guard and queue timeout.
 - Workflow is now **weekly** (Mondays 03:17 UTC), 45 min timeout, with `check_quota` + `wait_until_running` (10 min queue limit).
-- Full code (`src/qpu_weather/`), **27 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
+- Full code (`src/qpu_weather/`), **31 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
 - End-to-end pipeline verified **only on a local noisy simulator** (FakeLagosV2 via Aer). On it, independent measurement matched the simulator's reported numbers (~0.99×) and readout mitigation clearly beat raw — evidence the logic works, **not** evidence about real hardware.
 - Pushed to GitHub; Pages dashboard live and rendering the real runs (checked in a headless browser).
 
@@ -122,14 +125,16 @@ NOT done / unverified:
 - 2-qubit measurement (`twoq.py`) ran on real hardware in run #5 (176 edges measured; see limitations for how to read it). Chain picks differ between runs 7 minutes apart ([24,25,37,45,46] before it, [94,95,99,115,114] with it), so the 'best chain' is a per-run recommendation, not a stable property.
 - Run #5 also showed readout+zne mirror score of exactly 1.000 on the best chain: that is ZNE's extrapolation clipped at 1.0, not a perfect chip.
 - First-run caveat: the 1q gate-sequence number (X^100) was ~13x IBM's figure and uncorrelated with it, so it is relabelled and only used for ranking. Do not present it as measured-vs-reported.
-- Only two real runs exist, both from 2026-10-09 (no drift history yet). The weekly Action adds one per Monday.
+- Three real runs exist: two on `ibm_fez` (2026-10-09) and one on `ibm_kingston` (2026-10-12, picked by least-busy). The workflow now defaults to `IBM_BACKEND=ibm_fez` (repo variable overrides) so history stays on one chip. No drift history yet.
+- Run 3 (`ibm_kingston`): best chain [151..155] raw 0.931/0.923 (GHZ/mirror); naive [0..4] broke down at 0.669/0.371 and its score ROSE with folding, so ZNE is invalid there (now detected, see Step 4). Cause unknown: chip change between jobs, or coherent errors cancelling under folding. Readout+zne still best on the best chain in all 6 best-chain cases so far.
+- The vendor-guided layout is implemented and simulator-tested but has NOT run on hardware yet; the next weekly run is the first.
 
 ## 11. Repo layout
 ```
 src/qpu_weather/
   backend.py      get_backend(): real IBM service or dev-only Aer simulator
                   (BackendHandle: .backend = where it runs, .target_backend = what it is transpiled against)
-  runner.py       transpile_with_layout, translate_only, run_counts (SamplerV2 real / backend.run sim), job_info
+  runner.py       transpile_with_layout, translate_only, run_counts (SamplerV2 real / backend.run sim) -> (counts list, job id or None)
   calibration.py  per-qubit readout + 1q gate error, measured vs vendor-reported
   twoq.py         2-qubit gate error by repeated-gate decay (z and x tests, readout-corrected)
   layout.py       all_chains / naive_chain / best_chain, edge_errors
@@ -160,7 +165,8 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 1. ~~First real run~~ Done (see Status). Remaining: watch QPU seconds used per run on the IBM usage page.
 2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
 3. ~~Measure 2-qubit gate error directly~~ Done and run on real hardware (`twoq.py`, used in chain selection; rough indicator only: ~2.6x IBM's figure, rank correlation ~0.4). Possible upgrade: randomized benchmarking.
-4. **Top priority from the paper's limitations:** add a third, vendor-guided layout (the chain chosen from IBM's published numbers; an offline replay picks qubits 22-26, no overlap with ours) and run it on hardware next to ours and the naive one. Until then 'best chain beats the first five qubits' does NOT show it beats a vendor-guided choice.
+4. ~~Add a vendor-guided layout~~ Done in code (2026-10-13). **Top priority now:** check its first hardware result (the next weekly run) and, after several runs, whether `best` actually beats `vendor` beyond the ci95 ranges. Until then 'best chain beats the first five qubits' does NOT show it beats a vendor-guided choice.
+4b. Consider a parity-oscillation GHZ check so the GHZ score also tests entanglement (costs extra QPU time).
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.
 6. ~~Pin the repo~~ Done by the owner. Later (about 4 weeks of weekly runs): add a short 'what I learned' note to the README from the real run files (drift, best-chain stability, which fix wins).
