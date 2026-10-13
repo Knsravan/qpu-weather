@@ -8,7 +8,7 @@ from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 import time
 
 CREG = "c"
-QUEUE_TIMEOUT_S = 600  # give up if a job has not started running after 10 minutes
+QUEUE_TIMEOUT_S = 1800  # give up if a job has not started running after 30 minutes (waiting is not billed)
 
 
 class QueueTimeout(RuntimeError):
