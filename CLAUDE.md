@@ -117,7 +117,7 @@ Schema 2 (from 2026-10-13) added `vendor`, `readout_by_factor`, `zne_ok`, `ci95`
 Done:
 - **First real-hardware run succeeded** (run #4, `ibm_fez`, 2026-10-09; file in `data/runs/`): auth with only `IBM_QUANTUM_TOKEN` worked (`IBM_INSTANCE` optional), `SamplerV2` results through the `c` register worked, readout error matched IBM (median 1.00x), best chain beat naive, readout+zne best in all four cases. The first attempts failed on a deleted/invalid API key and an exhausted instance quota, which led to the quota guard and queue timeout.
 - Workflow is now **weekly** (Mondays 03:17 UTC), 90 min timeout, with `check_quota` + `wait_until_running` (30 min queue limit per job; raised from 10 min after run #7 on 2026-10-13 was cancelled while `ibm_fez` was busy. Queue time is not billed; a run uses roughly 20-40 s of QPU time).
-- Full code (`src/qpu_weather/`), **31 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
+- Full code (`src/qpu_weather/`), **32 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
 - End-to-end pipeline verified **only on a local noisy simulator** (FakeLagosV2 via Aer). On it, independent measurement matched the simulator's reported numbers (~0.99×) and readout mitigation clearly beat raw — evidence the logic works, **not** evidence about real hardware.
 - Pushed to GitHub; Pages dashboard live and rendering the real runs (checked in a headless browser).
 
@@ -144,6 +144,7 @@ src/qpu_weather/
   aggregate.py    build_history (skips simulated by default)
   cli.py          `qpu-weather run | aggregate`
 tests/            test_mitigation.py, test_layout_benchmarks.py, test_end_to_end.py
+scripts/paper_figures.py  regenerates the paper's figures (Figs. 9-16) from data/runs; needs the [paper] extra (matplotlib)
 docs/             index.html + data/history.json (starts as {"runs":[]})
 data/runs/        real run files (committed by the Action)
 .github/workflows daily.yml (cron + manual, needs secret), tests.yml (pytest on push/PR)

@@ -59,7 +59,7 @@ The raw data is in `data/runs/`.
 ```bash
 git clone https://github.com/<you>/qpu-weather && cd qpu-weather
 pip install -e ".[dev]"
-pytest                                   # 31 tests, no quantum computer needed
+pytest                                   # 32 tests, no quantum computer needed
 
 # development only: noisy local simulator (output is tagged simulated, never published)
 qpu-weather run --simulate --chain-len 4
@@ -68,6 +68,10 @@ qpu-weather run --simulate --chain-len 4
 export IBM_QUANTUM_TOKEN=...             # from your IBM Quantum account
 qpu-weather run                          # least-busy device; or --backend <name>
 qpu-weather aggregate                    # rebuilds docs/data/history.json
+
+# figures for the paper, regenerated from the real run files
+pip install -e ".[paper]"
+python scripts/paper_figures.py --out paper/figures
 ```
 
 A plain-language, point-and-explain tour of the dashboard is in `docs/explain.html` (same data, same server).
