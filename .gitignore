@@ -8,3 +8,4 @@ __pycache__/
 *.token
 # Simulator runs are for development only and must not be published as results
 data/simulated/
+paper/figures/
