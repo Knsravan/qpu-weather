@@ -81,7 +81,7 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 
 **Step 2 — Choose qubits (`layout.py`).** Enumerate every simple path of `chain_len` connected qubits in the coupling map. Cost = sum over qubits of (measured readout error + 3 × measured 1q gate error) + sum over edges of MEASURED 2-qubit error (vendor value only as fallback; see Step 1b). `naive` = first chain by qubit index (the baseline a careless user gets); `vendor` = lowest cost using ONLY IBM's reported numbers (`layout.reported_qubit_cost`, same formula; a qubit with no vendor number costs 1.0) and vendor edge errors; `best` = lowest cost by our measurements. `layouts.<name>.cost` is always the MEASURED cost of that chain.
 
-**Step 3 — Benchmarks (`benchmarks.py`).** `ghz(n)` (ideal outputs all-0s/all-1s) and `mirror(n, layers=3, seed=11)` (ideal all-0s). Score = probability mass on the ideal outputs (1.0 = perfect). Each is transpiled onto each chain at optimization level 1, then folded at factors **1, 3, 5**. All circuits (3 layouts × 2 benchmarks × 3 factors = 18) run in **one** job. A barrier inside the mirror circuit stops the compiler cancelling it against its inverse.
+**Step 3 — Benchmarks (`benchmarks.py`).** `ghz(n)` (ideal outputs all-0s/all-1s) and `mirror(n, layers=3, seed=11)` (ideal all-0s). Score = probability mass on the ideal outputs (1.0 = perfect). Each is transpiled onto each chain at optimization level 1, then folded at factors **1, 3, 5**. All circuits (3 layouts × 2 benchmarks × 3 factors = 18, plus 12 parity circuits and 96 RB circuits, see Step 4b/4c) run in **one** job (~145k shots; roughly double the machine time of schema 2). A barrier inside the mirror circuit stops the compiler cancelling it against its inverse.
 
 **Step 4 — Score four methods (`experiment.score_methods`, `mitigation.py`):**
 - `raw` — score at fold factor 1.
@@ -89,13 +89,16 @@ Per qubit: readout_error = (p01 + p10) / 2. 1-qubit gate error from decay: ratio
 - `zne` — linear fit of raw scores vs fold factor, take intercept at 0, clip to [0, 1]. **Validity check (`mitigation.zne_valid`):** if the fitted slope of the raw OR readout-mitigated scores is not negative (added noise did not lower the score), `zne_ok` is false and both ZNE scores are `null`. Seen on `ibm_kingston` 2026-10-12, naive chain (mirror 0.371 → 0.537 → 0.514).
 - `readout+zne` — same extrapolation on the readout-mitigated scores.
 `improvement_vs_raw_pct` = (raw_error − method_error) / raw_error × 100, where error = 1 − score (`null` when the method's score is `null`).
+`equal_budget` per result: bootstrap ranges for `zne` and `readout+zne` when each fold factor gets only a third of the shots (same total as raw), so the fix ranking can be judged at an equal budget (limitation #4).
+**Step 4b — Entanglement (`benchmarks.ghz_parity`, `experiment.entanglement`).** Four parity circuits per chain (GHZ, then each qubit measured along the axis at phi = k*pi/(2n), k = 0..3; half the shots). Coherence C = 0.5*sqrt((P0-P2)^2 + (P1-P3)^2) with the shot-noise bias subtracted (otherwise noise alone looks like coherence); fidelity F = (population + C)/2, raw and readout-corrected, with bootstrap ranges. `entangled` = whole range above 0.5. Stored as top-level `entanglement[layout]`.
+**Step 4c — Randomized benchmarking (`rb.py`).** On the `best` and `vendor` chains only: 1q RB on all chain qubits at once (lengths 1/20/50/100) and 2q RB on chain couplings in two non-overlapping layers (lengths 1/4/8/16); 4 random sequences per length, 500 shots each, all in the benchmark job (per-circuit shots via `run_counts`). Fit P(m) = A p^m + 1/d (B fixed), error per Clifford = (1-p)(d-1)/d; per-gate = EPC / average transpiled gates per Clifford (approx.). Stored as top-level `rb[layout]` with vendor values beside. Simulator check: 2q within 1.0-1.2x of truth; 1q only rough (errors ~3e-4, 500 shots).
 `ci95` per method: bootstrap (200 multinomial resamples of the shots at every fold factor, seed 0), 2.5–97.5 percentiles. Shot noise only, not drift. Raw benchmark counts are saved as `counts_by_factor` so odd results can be re-checked.
 
 **Step 5 — Save + publish.** CLI writes `data/runs/<timestamp>_<backend>.json`; `qpu-weather aggregate` builds a slim `docs/data/history.json`; the dashboard (`docs/index.html`) reads it. The GitHub Action (`daily.yml`, workflow name "Quantum weather report") does run → aggregate → commit, weekly (Mondays 03:17 UTC) and on manual trigger. Free-plan QPU time is limited, so daily would not fit.
 
 ## 7. Run file schema (`data/runs/*.json`)
 `schema`, `timestamp_utc`, `backend`, `simulated`, `shots`, `chain_len`, `calibration` {`qubits`[ {`qubit`, `p01`, `p10`, `readout_error`, `gate_error_1q`, `reported_readout_error`, `reported_gate_error_1q`} ], `shots`, `job_id`, `x_repeats`}, `calibration_summary`, `layouts` {`naive`|`vendor`|`best`: {`chain`, `cost`}}, `results`[ {`layout`, `benchmark`, `chain`, `scores` {`raw`, `readout`, `zne`, `readout+zne`, `raw_by_factor`, `readout_by_factor`, `zne_ok`, `ci95`}, `improvement_vs_raw_pct`, `counts_by_factor`} ], `benchmark_job_id`, `methods`, `notes`.
-Schema 2 (from 2026-10-13) added `vendor`, `readout_by_factor`, `zne_ok`, `ci95`, `counts_by_factor`; schema-1 runs have none of these.
+Schema 3 (from 2026-10-14) adds `entanglement`, `rb` and per-result `scores.equal_budget`. Schema 2 (from 2026-10-13) added `vendor`, `readout_by_factor`, `zne_ok`, `ci95`, `counts_by_factor`; schema-1 runs have none of these.
 `docs/data/history.json` = `{"runs": [...]}` with per-qubit rows slimmed to `q, ro, g1, ro_rep, g1_rep`; `counts_by_factor` is dropped, and for schema-1 runs `aggregate` derives `zne_ok` from `raw_by_factor` (raw trend only; their readout trend was not saved).
 
 ## 8. Dashboard
@@ -117,7 +120,7 @@ Schema 2 (from 2026-10-13) added `vendor`, `readout_by_factor`, `zne_ok`, `ci95`
 Done:
 - **First real-hardware run succeeded** (run #4, `ibm_fez`, 2026-10-09; file in `data/runs/`): auth with only `IBM_QUANTUM_TOKEN` worked (`IBM_INSTANCE` optional), `SamplerV2` results through the `c` register worked, readout error matched IBM (median 1.00x), best chain beat naive, readout+zne best in all four cases. The first attempts failed on a deleted/invalid API key and an exhausted instance quota, which led to the quota guard and queue timeout.
 - Workflow is now **weekly** (Mondays 03:17 UTC), 90 min timeout, with `check_quota` + `wait_until_running` (30 min queue limit per job; raised from 10 min after run #7 on 2026-10-13 was cancelled while `ibm_fez` was busy. Queue time is not billed; a run uses roughly 20-40 s of QPU time).
-- Full code (`src/qpu_weather/`), **32 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
+- Full code (`src/qpu_weather/`), **39 passing tests** (`pytest -q`, no quantum access needed), dashboard, two GitHub Actions workflows, README, LICENSE (MIT).
 - End-to-end pipeline verified **only on a local noisy simulator** (FakeLagosV2 via Aer). On it, independent measurement matched the simulator's reported numbers (~0.99×) and readout mitigation clearly beat raw — evidence the logic works, **not** evidence about real hardware.
 - Pushed to GitHub; Pages dashboard live and rendering the real runs (checked in a headless browser).
 
@@ -167,7 +170,7 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
 3. ~~Measure 2-qubit gate error directly~~ Done and run on real hardware (`twoq.py`, used in chain selection; rough indicator only: ~2.6x IBM's figure, rank correlation ~0.4). Possible upgrade: randomized benchmarking.
 4. ~~Add a vendor-guided layout~~ Done in code (2026-10-13). **Top priority now:** check its first hardware result (the next weekly run) and, after several runs, whether `best` actually beats `vendor` beyond the ci95 ranges. Until then 'best chain beats the first five qubits' does NOT show it beats a vendor-guided choice.
-4b. Consider a parity-oscillation GHZ check so the GHZ score also tests entanglement (costs extra QPU time).
+4b. ~~Parity-oscillation GHZ check~~, ~~randomized benchmarking on the chosen chains~~, ~~equal-budget mitigation comparison~~: done in code 2026-10-14 (limitations #5, #2, #4), simulator-tested only; the next hardware run is the first. Check its QPU seconds on the IBM usage page (expected roughly double).
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.
 6. ~~Pin the repo~~ Done by the owner. Later (about 4 weeks of weekly runs): add a short 'what I learned' note to the README from the real run files (drift, best-chain stability, which fix wins).

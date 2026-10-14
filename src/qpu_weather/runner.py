@@ -56,21 +56,29 @@ def translate_only(circuits, backend):
     return pm.run(circuits)
 
 
-def run_counts(backend, circuits: list[QuantumCircuit], shots: int, simulated: bool):
+def run_counts(backend, circuits: list[QuantumCircuit], shots, simulated: bool):
     """Execute already-transpiled circuits. Returns (one counts dict per circuit, job id).
 
+    `shots` is one number for every circuit, or a list with one number per circuit.
     Bitstring convention (Qiskit): classical bit 0 is the RIGHTMOST character.
     """
+    per = list(shots) if isinstance(shots, (list, tuple)) else [shots] * len(circuits)
+    if len(per) != len(circuits):
+        raise ValueError("need one shot count per circuit")
     if simulated:
-        job = backend.run(circuits, shots=shots)
-        result = job.result()
-        return [result.get_counts(i) for i in range(len(circuits))], None
+        # the local simulator takes one shot count per call: run each group separately
+        counts: list = [None] * len(circuits)
+        for s in sorted(set(per)):
+            idx = [i for i, v in enumerate(per) if v == s]
+            result = backend.run([circuits[i] for i in idx], shots=s).result()
+            for k, i in enumerate(idx):
+                counts[i] = result.get_counts(k)
+        return counts, None
 
     from qiskit_ibm_runtime import SamplerV2
 
     sampler = SamplerV2(mode=backend)
-    job = sampler.run(circuits, shots=shots)
+    job = sampler.run([(c, None, s) for c, s in zip(circuits, per)])
     wait_until_running(job)
     result = job.result()
     return [getattr(result[i].data, CREG).get_counts() for i in range(len(circuits))], job.job_id()
-

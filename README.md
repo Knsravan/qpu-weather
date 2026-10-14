@@ -15,6 +15,8 @@
 | 1. **Independent check** | Measures every qubit's readout error, a single-qubit gate-sequence error and every connection's two-qubit gate error on the real device, then compares with the vendor-reported values | Datasheet numbers can be stale between calibrations |
 | 2. **Drift diary** | Every run is saved; the dashboard plots trends over days | Shows which qubits/days are stable |
 | 3. **Pick the best qubits** | Finds the healthiest connected chain by *measured* error and runs it next to two others: the first qubits by index (naive) and the chain IBM's own published numbers would pick (vendor) | Shows whether measuring yourself beats trusting the datasheet |
+| 3b. **Gate errors, the standard way** | Randomized benchmarking on the qubits and couplings of the selected and vendor-guided chains | A gate-error number that is not fooled by misreads, unlike the quick decay test |
+| 3c. **Is it really entangled?** | Four extra "parity" circuits per chain turn the GHZ score into a fidelity *F*; *F* > 0.5 over its whole 95% range means the qubits were genuinely entangled | The plain GHZ score cannot tell entanglement from a lucky 50/50 mix of all-0 and all-1 |
 | 4. **Rank the fixes** | Runs benchmark circuits with a known correct answer under four methods: `raw`, `readout` mitigation, `zne` (zero-noise extrapolation), `readout+zne` | Evidence-based advice instead of defaults |
 
 ### How the scoring works (no simulator needed for the "right answer")
@@ -51,6 +53,8 @@ The raw data is in `data/runs/`.
 - The one-qubit gate number is the decay over 100 repeated X gates on all qubits at once, so it also contains qubit decay and crosstalk. On the first real run it came out ~13x IBM's single-gate figure and was uncorrelated with it, so it is **not comparable** with IBM's number; it is only used to rank qubits against each other. Readout error, by contrast, matched IBM's figure (median ratio 1.00).
 - Free IBM plans have limited monthly QPU time. A default run is small (2 jobs; the benchmark job has 18 circuits since the vendor chain was added), but check your quota.
 - ZNE uses a straight-line fit over 1×/3×/5× noise and is clipped to [0, 1]; a ZNE score of exactly 1.000 is that clipping, not a perfect chip. When added noise does not lower the score, ZNE is reported as missing rather than as a number.
+- ZNE runs three noise levels, so it spends three times the shots of a raw run. Each run now also reports ZNE's range when it gets only a third of the shots per level (the same total as raw), and the dashboard says whether it is still clearly ahead.
+- Randomized benchmarking runs on the chosen chains only (not the whole chip) to save machine time, and all qubits of a chain at once, so it includes neighbour interference. Per-gate values are an approximation (error per random operation divided by its average gate count). On the simulator it recovered the true two-qubit errors to within 1.0-1.2x; single-qubit errors are so small that 500 shots resolve them only roughly.
 - The ± ranges cover shot noise only, not day-to-day drift. Runs before 2026-10-13 have no ranges and no saved raw counts.
 - Results describe the specific device and day. Don't over-generalize.
 

@@ -24,6 +24,12 @@ def test_pipeline_runs_and_mitigation_helps_on_noisy_sim():
         # readout noise dominates on this fake device, so mitigation must beat raw
         assert s["readout"] > s["raw"]
 
+    # entanglement check and randomized benchmarking come with every run
+    assert set(r["entanglement"]) == {"naive", "vendor", "best"}
+    assert 0.0 <= r["entanglement"]["best"]["readout"]["fidelity"] <= 1.0
+    assert set(r["rb"]) == {"best", "vendor"}
+    assert len(r["rb"]["best"]["edges"]) == 3  # chain of 4 -> 3 couplings
+
     # the independent health check should land near the (noisy) simulator's truth
     med = r["calibration_summary"]["median_readout_measured_over_reported"]
     assert 0.5 < med < 2.0
