@@ -70,3 +70,47 @@ def score_counts(counts: dict, ideal: set[str]) -> float:
     if total == 0:
         return 0.0
     return sum(v for k, v in counts.items() if k.replace(" ", "") in ideal) / total
+
+
+# ---------------------------------------------------------------- entanglement check
+PARITY_PHASES = 4  # quarter-period samples of the parity oscillation
+
+
+def ghz_parity(n: int, k: int):
+    """GHZ, then measure every qubit along the axis at angle phi = k*pi/(2n) in the X-Y plane.
+
+    For a GHZ state the parity of the outcomes oscillates as C*cos(n*phi + offset); C is the
+    coherence between |0...0> and |1...1>, which a classical 50/50 mixture does not have.
+    Phases k = 0..3 sample that oscillation a quarter period apart.
+    """
+    qc, _ = ghz(n)
+    qc.remove_final_measurements(inplace=True)
+    qc = QuantumCircuit(QuantumRegister(n, "q"), ClassicalRegister(n, CREG)).compose(qc)
+    phi = k * np.pi / (2 * n)
+    for q in range(n):
+        qc.rz(-phi, q)
+        qc.h(q)
+    qc.measure(range(n), range(n))
+    return qc
+
+
+def parity(probs) -> float:
+    """Expectation of (-1)^(number of ones) for a probability vector indexed by bitstring value."""
+    return float(sum(p * (-1) ** bin(i).count("1") for i, p in enumerate(probs)))
+
+
+def ghz_fidelity(population: float, parities, variances=None) -> dict:
+    """GHZ state fidelity F = (population + coherence) / 2.
+
+    population = P(0...0) + P(1...1); coherence from four parities a quarter period apart.
+    F > 0.5 is the standard witness that all qubits are genuinely entangled.
+
+    Shot noise always makes the squared differences below look larger than they are, so a
+    state with no coherence at all would still show a little. Passing the variance of each
+    parity estimate removes that bias (an unbiased estimate of coherence squared, floored at 0).
+    """
+    p0, p1, p2, p3 = parities
+    v = list(variances) if variances is not None else [0.0] * 4
+    c2 = 0.25 * ((p0 - p2) ** 2 - v[0] - v[2] + (p1 - p3) ** 2 - v[1] - v[3])
+    coherence = float(min(1.0, np.sqrt(max(0.0, c2))))
+    return {"population": population, "coherence": coherence, "fidelity": (population + coherence) / 2}

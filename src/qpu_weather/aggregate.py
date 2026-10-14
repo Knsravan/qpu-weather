@@ -8,7 +8,7 @@ from pathlib import Path
 from .mitigation import zne_valid
 
 LIGHT_KEYS = ("timestamp_utc", "backend", "shots", "chain_len", "layouts", "results",
-              "calibration_summary", "benchmark_job_id")
+              "calibration_summary", "benchmark_job_id", "entanglement", "rb")
 
 
 def _slim_result(res: dict) -> dict:

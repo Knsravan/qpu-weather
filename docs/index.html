@@ -203,6 +203,7 @@
   <a class="pill" href="#datasheet">Datasheet</a>
   <a class="pill" href="#fixes">Fixes</a>
   <a class="pill" href="#drift">Drift</a>
+  <a class="pill" href="#rb">Gates</a>
   <a class="pill" href="#qubits">Qubits</a>
   <a class="pill" href="explain.html">Explained</a>
   <button class="pill" id="theme" type="button" aria-label="Toggle light and dark mode">Theme</button>
@@ -366,6 +367,8 @@ function build() {
   const LNAME = { best: "Our pick", vendor: "IBM's numbers", naive: "First 5 qubits" };
   const lays = ["best", "vendor", "naive"].filter(l => run.layouts[l]);
   const rawOf = (l, b) => run.results.find(x => x.layout === l && x.benchmark === b);
+  const ent = run.entanglement && Object.keys(run.entanglement).length ? run.entanglement : null;
+  const entCell = e => { if (!e) return "n/a"; const f = e.readout; return $("span", {}, (f.entangled ? "yes" : "not shown") + ` · F ${f.fidelity.toFixed(2)}`, $("small", {}, `range ${f.ci95[0].toFixed(2)}–${f.ci95[1].toFixed(2)}`)); };
   const cell = r => { if (!r) return "n/a"; const ci = r.scores.ci95 && r.scores.ci95.raw;
     return r.scores.raw.toFixed(3) + (ci ? ` ±${((ci[1] - ci[0]) / 2).toFixed(3)}` : ""); };
   cards.push(pane("advice", "c6", $("h2", {}, "Today's advice"),
@@ -377,9 +380,10 @@ function build() {
     vend != null ? costRow("IBM's numbers", vend, "var(--b)", .38) : null,
     costRow("First 5 qubits", naive, "var(--muted)", .45),
     $("p", { class: "muted", style: "margin:14px 0 6px" }, "What actually happened (raw score, 1.0 = perfect)"),
-    $("table", { class: "sc" }, $("tr", {}, $("th", {}, "Chain"), $("th", {}, "GHZ"), $("th", {}, "mirror")),
+    $("table", { class: "sc" }, $("tr", {}, $("th", {}, "Chain"), $("th", {}, "GHZ"), $("th", {}, "mirror"), ent ? $("th", {}, "Entangled?") : null),
       lays.map(l => $("tr", {}, $("td", {}, LNAME[l] + " ", $("small", {}, run.layouts[l].chain.map(q => "q" + q).join(" "))),
-        $("td", {}, cell(rawOf(l, "ghz"))), $("td", {}, cell(rawOf(l, "mirror")))))),
+        $("td", {}, cell(rawOf(l, "ghz"))), $("td", {}, cell(rawOf(l, "mirror"))), ent ? $("td", {}, entCell(ent[l])) : null))),
+    ent ? $("p", { class: "note" }, "Entangled? uses the GHZ fidelity F after readout correction: the qubits count as genuinely entangled only if the whole 95% range of F is above 0.5. The GHZ score alone cannot show this, because an unentangled 50/50 mix of all-0 and all-1 also scores 1.0.") : null,
     vend == null ? $("p", { class: "note" }, "Runs before 2026-10-13 did not test the chain IBM's own numbers would pick.") : null));
 
   // datasheet
@@ -402,6 +406,15 @@ function build() {
   const bestRes = devRuns.flatMap(r => r.results.filter(x => x.layout === "best"));
   const usable = bestRes.filter(x => x.scores.zne_ok !== false && x.scores.zne != null && x.scores["readout+zne"] != null);
   const methods = [["raw", "do nothing special"], ["readout", "undo reading mistakes"], ["zne", "add noise on purpose, extrapolate to zero"], ["readout+zne", "both together"]];
+  // same-budget check: ZNE runs three noise levels; with only a third of the shots at each, is it still ahead?
+  const eqNote = (() => {
+    const lastRes = run.results.filter(x => x.layout === "best" && x.scores.equal_budget && x.scores.equal_budget.ci95["readout+zne"]);
+    if (!lastRes.length) return null;
+    const parts = lastRes.map(x => { const e = x.scores.equal_budget.ci95["readout+zne"], r = x.scores.ci95.readout;
+      const ahead = e[0] > r[1];
+      return `${x.benchmark}: readout+ZNE ${e[0].toFixed(3)}–${e[1].toFixed(3)} vs readout ${r[0].toFixed(3)}–${r[1].toFixed(3)} (${ahead ? "still clearly ahead" : "no longer clearly ahead"})`; });
+    return "Same-budget check (this run, our chain): if ZNE only gets as many shots in total as raw, its 95% range becomes " + parts.join("; ") + ".";
+  })();
   if (!usable.length) { cards.push(pane("fixes", "c12", $("h2", {}, "Which error fix works best?"), $("p", { class: "muted" }, "No usable results on this chip yet."))); }
   else { const rows = methods.map(([m, d]) => {
     const sc = usable.map(x => x.scores[m]);
@@ -419,7 +432,8 @@ function build() {
     })),
     $("p", { class: "note" }, "Percentage = change in mistakes compared with raw. " + devRuns.length + " run(s) on this chip so far: treat this as a first look."
       + (bestRes.length > usable.length ? ` ${bestRes.length - usable.length} result(s) left out: adding noise did not lower the score there, so zero-noise extrapolation means nothing.` : "")
-      + " ZNE scores of exactly 1.000 are the extrapolation clipped at 1, not a perfect chip."))); }
+      + " ZNE scores of exactly 1.000 are the extrapolation clipped at 1, not a perfect chip."),
+    eqNote ? $("p", { class: "note" }, eqNote) : null)); }
 
   // drift
   cards.push(pane("drift", "c12", $("h2", {}, "Drift: median readout error over time on " + run.backend),
@@ -427,6 +441,22 @@ function build() {
       $("span", {}, devRuns.length + " run(s) on this chip" + (devRuns.length < 4 ? " · a trend needs several weekly runs" : "")
         + (otherDev ? ` · ${otherDev} run(s) on other chips hidden (pick one in the run selector)` : ""))),
     driftChart(devRuns)));
+
+  // randomized benchmarking
+  if (run.rb && Object.keys(run.rb).length) {
+    const RBN = { best: "Our pick", vendor: "IBM's numbers" };
+    const fmt = v => v == null ? "n/a" : pct(v, 3);
+    const ratio = (a, b) => (a == null || !b) ? "" : ` (${(a / b).toFixed(1)}×)`;
+    const rows = [];
+    Object.entries(run.rb).forEach(([l, r]) => {
+      r.qubits.forEach(q => rows.push($("tr", {}, $("td", {}, RBN[l] || l), $("td", {}, "q" + q.qubit), $("td", {}, fmt(q.error_per_pulse) + ratio(q.error_per_pulse, q.reported)), $("td", {}, fmt(q.reported)))));
+      r.edges.forEach(e => rows.push($("tr", {}, $("td", {}, RBN[l] || l), $("td", {}, `q${e.a}–q${e.b}`), $("td", {}, fmt(e.error_per_2q_gate) + ratio(e.error_per_2q_gate, e.reported)), $("td", {}, fmt(e.reported)))));
+    });
+    cards.push(pane("rb", "c12", $("h2", {}, "Gate errors, measured the standard way"),
+      $("div", { class: "muted" }, "Randomized benchmarking on the chosen chains (this run). Random sequences of operations followed by their exact undo; how fast the success rate falls with sequence length gives the error per gate, unaffected by misreads."),
+      $("table", { class: "sc", style: "margin-top:10px" }, $("tr", {}, $("th", {}, "Chain"), $("th", {}, "Qubit / coupling"), $("th", {}, "Our RB error per gate"), $("th", {}, "IBM says")), rows),
+      $("p", { class: "note" }, "Run on all qubits of the chain at once, so it includes interference from neighbours, which IBM's isolated measurements do not. Per-gate values divide the error per random operation by its average gate count, a standard approximation.")));
+  }
 
   // qubits
   const qs = [...run.qubits].sort((a, b) => a.ro - b.ro), pick = [...qs.slice(0, 5), ...qs.slice(-5)];
