@@ -1,4 +1,4 @@
-# 🌦️ Quantum Weather Report
+# 🌦️ Qubit Weather Report
 
 **A daily, independent check-up of a real IBM quantum computer** — how its qubits *actually* behave, how that drifts over time, and which error-fixing method really helps.
 
@@ -86,7 +86,7 @@ Open `docs/index.html` through a local server (`python -m http.server -d docs`) 
 1. Repo → **Settings → Secrets and variables → Actions** → add secret **`IBM_QUANTUM_TOKEN`**.
 2. (Optional) the workflow uses `ibm_fez` so the history stays on one chip; add variable **`IBM_BACKEND`** to use a different device, and secret **`IBM_INSTANCE`** if IBM requires an instance (CRN).
 3. **Settings → Pages** → deploy from branch `main`, folder `/docs`.
-4. The *Quantum weather report* workflow runs weekly (Mondays 03:17 UTC; free IBM plans have little QPU time, so daily runs would not fit), commits `data/runs/*.json`, and the dashboard updates itself. It stops early with a clear message if the IBM instance has no QPU time left.
+4. The *Qubit weather report* workflow runs weekly (Mondays 03:17 UTC; free IBM plans have little QPU time, so daily runs would not fit), commits `data/runs/*.json`, and the dashboard updates itself. It stops early with a clear message if the IBM instance has no QPU time left.
 
 ## Project layout
 ```

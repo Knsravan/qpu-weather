@@ -1,4 +1,4 @@
-name: Quantum weather report
+name: Qubit weather report
 
 on:
   schedule:
