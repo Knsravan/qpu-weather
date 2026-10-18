@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 3 * * 1"   # weekly (Mondays), 03:17 UTC: fits the free QPU allowance
   workflow_dispatch:
+    inputs:
+      backend:
+        description: "IBM chip for this manual run (empty = ibm_fez / IBM_BACKEND variable)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -32,8 +37,9 @@ jobs:
           IBM_QUANTUM_TOKEN: ${{ secrets.IBM_QUANTUM_TOKEN }}
           IBM_INSTANCE: ${{ secrets.IBM_INSTANCE }}   # optional, only if IBM requires it
           # Stay on ONE chip so the drift history compares like with like.
-          # Override with the IBM_BACKEND repository variable if this device goes away.
-          IBM_BACKEND: ${{ vars.IBM_BACKEND || 'ibm_fez' }}
+          # Override with the IBM_BACKEND repository variable if this device goes away,
+          # or with the 'backend' input for one manual run (e.g. while ibm_fez is in maintenance).
+          IBM_BACKEND: ${{ inputs.backend || vars.IBM_BACKEND || 'ibm_fez' }}
         run: |
           if [ -z "$IBM_QUANTUM_TOKEN" ]; then
             echo "::error::Add the IBM_QUANTUM_TOKEN repository secret first (see README)."
