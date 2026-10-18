@@ -1,0 +1,4113 @@
+{
+ "schema": 3,
+ "timestamp_utc": "2026-10-18T17:26:14+00:00",
+ "backend": "ibm_kingston",
+ "simulated": false,
+ "shots": 4000,
+ "chain_len": 5,
+ "calibration": {
+  "qubits": [
+   {
+    "qubit": 0,
+    "p01": 0.002,
+    "p10": 0.026000000000000023,
+    "readout_error": 0.014000000000000012,
+    "gate_error_1q": 0.0042709731251591165,
+    "reported_readout_error": 0.010986328125,
+    "reported_gate_error_1q": 0.00025809728290731215
+   },
+   {
+    "qubit": 1,
+    "p01": 0.0045,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.006999999999999977,
+    "gate_error_1q": 0.004276660129512,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.00018655021881230552
+   },
+   {
+    "qubit": 2,
+    "p01": 0.0055,
+    "p10": 0.01200000000000001,
+    "readout_error": 0.008750000000000004,
+    "gate_error_1q": 0.004084067164359495,
+    "reported_readout_error": 0.00830078125,
+    "reported_gate_error_1q": 0.0001182381343185647
+   },
+   {
+    "qubit": 3,
+    "p01": 0.011,
+    "p10": 0.018000000000000016,
+    "readout_error": 0.014500000000000008,
+    "gate_error_1q": 0.006787725939239708,
+    "reported_readout_error": 0.009521484375,
+    "reported_gate_error_1q": 0.0005492913528170334
+   },
+   {
+    "qubit": 4,
+    "p01": 0.0025,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.007750000000000006,
+    "gate_error_1q": 0.0002435135852703052,
+    "reported_readout_error": 0.010498046875,
+    "reported_gate_error_1q": 0.0003973496671991211
+   },
+   {
+    "qubit": 5,
+    "p01": 0.0015,
+    "p10": 0.013499999999999956,
+    "readout_error": 0.007499999999999978,
+    "gate_error_1q": 0.0017151523709864058,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.0005047523479722582
+   },
+   {
+    "qubit": 6,
+    "p01": 0.0085,
+    "p10": 0.017000000000000015,
+    "readout_error": 0.012750000000000008,
+    "gate_error_1q": 0.002275598034772619,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.00021027346600768497
+   },
+   {
+    "qubit": 7,
+    "p01": 0.0255,
+    "p10": 0.020000000000000018,
+    "readout_error": 0.022750000000000006,
+    "gate_error_1q": 0.0029807018289794707,
+    "reported_readout_error": 0.01220703125,
+    "reported_gate_error_1q": 0.00026148891818939603
+   },
+   {
+    "qubit": 8,
+    "p01": 0.004,
+    "p10": 0.03400000000000003,
+    "readout_error": 0.019000000000000017,
+    "gate_error_1q": 0.0003680719761109952,
+    "reported_readout_error": 0.013427734375,
+    "reported_gate_error_1q": 0.0003389153555764582
+   },
+   {
+    "qubit": 9,
+    "p01": 0.001,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.004249999999999976,
+    "gate_error_1q": 0.008975813754053985,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.000258475855569899
+   },
+   {
+    "qubit": 10,
+    "p01": 0.0005,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.005750000000000005,
+    "gate_error_1q": 0.003198813674932688,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.0003261489241693324
+   },
+   {
+    "qubit": 11,
+    "p01": 0.001,
+    "p10": 0.023499999999999965,
+    "readout_error": 0.012249999999999983,
+    "gate_error_1q": 0.003701015112441919,
+    "reported_readout_error": 0.0078125,
+    "reported_gate_error_1q": 0.0003046527403473157
+   },
+   {
+    "qubit": 12,
+    "p01": 0.0095,
+    "p10": 0.0645,
+    "readout_error": 0.037,
+    "gate_error_1q": 0.002450461074272603,
+    "reported_readout_error": 0.047607421875,
+    "reported_gate_error_1q": 0.00020523131528253914
+   },
+   {
+    "qubit": 13,
+    "p01": 0.002,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.004249999999999975,
+    "gate_error_1q": 0.03639209203593696,
+    "reported_readout_error": 0.00634765625,
+    "reported_gate_error_1q": 0.00036846656721424933
+   },
+   {
+    "qubit": 14,
+    "p01": 0.0175,
+    "p10": 0.025499999999999967,
+    "readout_error": 0.021499999999999984,
+    "gate_error_1q": 0.00379121516009584,
+    "reported_readout_error": 0.02197265625,
+    "reported_gate_error_1q": 0.00022057962841660157
+   },
+   {
+    "qubit": 15,
+    "p01": 0.0025,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.004250000000000003,
+    "gate_error_1q": 0.008518695461512849,
+    "reported_readout_error": 0.001708984375,
+    "reported_gate_error_1q": 0.0002811553630639792
+   },
+   {
+    "qubit": 16,
+    "p01": 0.0165,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.012999999999999977,
+    "gate_error_1q": 0.0026075354625260116,
+    "reported_readout_error": 0.011962890625,
+    "reported_gate_error_1q": 0.00011330956647274912
+   },
+   {
+    "qubit": 17,
+    "p01": 0.0005,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.0037500000000000033,
+    "gate_error_1q": 0.0012215796667708334,
+    "reported_readout_error": 0.00390625,
+    "reported_gate_error_1q": 0.0003797670676628057
+   },
+   {
+    "qubit": 18,
+    "p01": 0.005,
+    "p10": 0.017000000000000015,
+    "readout_error": 0.011000000000000008,
+    "gate_error_1q": 0.000563152254386301,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.0009115655999965856
+   },
+   {
+    "qubit": 19,
+    "p01": 0.0045,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.007499999999999977,
+    "gate_error_1q": 0.00031630287727868467,
+    "reported_readout_error": 0.00634765625,
+    "reported_gate_error_1q": 0.0005187239830728324
+   },
+   {
+    "qubit": 20,
+    "p01": 0.005,
+    "p10": 0.005499999999999949,
+    "readout_error": 0.005249999999999975,
+    "gate_error_1q": 0.004089073012315647,
+    "reported_readout_error": 0.00390625,
+    "reported_gate_error_1q": 0.00034614752510818924
+   },
+   {
+    "qubit": 21,
+    "p01": 0.015,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.012249999999999976,
+    "gate_error_1q": 0.002735278865729218,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.0001934743266000229
+   },
+   {
+    "qubit": 22,
+    "p01": 0.014,
+    "p10": 0.022499999999999964,
+    "readout_error": 0.01824999999999998,
+    "gate_error_1q": 0.000557716449178125,
+    "reported_readout_error": 0.011962890625,
+    "reported_gate_error_1q": 0.00036254156116594306
+   },
+   {
+    "qubit": 23,
+    "p01": 0.004,
+    "p10": 0.0050000000000000044,
+    "readout_error": 0.004500000000000002,
+    "gate_error_1q": 0.0005043544145165724,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.00016366604557768562
+   },
+   {
+    "qubit": 24,
+    "p01": 0.011,
+    "p10": 0.016000000000000014,
+    "readout_error": 0.013500000000000007,
+    "gate_error_1q": 0.0060791027426280175,
+    "reported_readout_error": 0.017333984375,
+    "reported_gate_error_1q": 0.00043212169866635106
+   },
+   {
+    "qubit": 25,
+    "p01": 0.007,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.008000000000000004,
+    "gate_error_1q": 0.0004636540971043601,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.00038622688244262525
+   },
+   {
+    "qubit": 26,
+    "p01": 0.0045,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.006999999999999977,
+    "gate_error_1q": 0.0009692201371706011,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.00034349957911725815
+   },
+   {
+    "qubit": 27,
+    "p01": 0.011,
+    "p10": 0.023499999999999965,
+    "readout_error": 0.01724999999999998,
+    "gate_error_1q": 0.0016553906383447448,
+    "reported_readout_error": 0.012451171875,
+    "reported_gate_error_1q": 0.000245646334789355
+   },
+   {
+    "qubit": 28,
+    "p01": 0.002,
+    "p10": 0.013499999999999956,
+    "readout_error": 0.007749999999999978,
+    "gate_error_1q": 0.010008141106576662,
+    "reported_readout_error": 0.009521484375,
+    "reported_gate_error_1q": 0.00022546896399179702
+   },
+   {
+    "qubit": 29,
+    "p01": 0.0005,
+    "p10": 0.019000000000000017,
+    "readout_error": 0.009750000000000009,
+    "gate_error_1q": 0.0018987474607647936,
+    "reported_readout_error": 0.0087890625,
+    "reported_gate_error_1q": 0.0001824324048209517
+   },
+   {
+    "qubit": 30,
+    "p01": 0.009,
+    "p10": 0.011499999999999955,
+    "readout_error": 0.010249999999999978,
+    "gate_error_1q": 0.0064759898963547835,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.00033135074662404753
+   },
+   {
+    "qubit": 31,
+    "p01": 0.0025,
+    "p10": 0.045499999999999985,
+    "readout_error": 0.023999999999999994,
+    "gate_error_1q": 0.0015403192869319904,
+    "reported_readout_error": 0.031494140625,
+    "reported_gate_error_1q": 0.00014142846518857167
+   },
+   {
+    "qubit": 32,
+    "p01": 0.028,
+    "p10": 0.04749999999999999,
+    "readout_error": 0.03774999999999999,
+    "gate_error_1q": 0.0037735236370310954,
+    "reported_readout_error": 0.020751953125,
+    "reported_gate_error_1q": 0.0003699551076043892
+   },
+   {
+    "qubit": 33,
+    "p01": 0.0065,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.008250000000000004,
+    "gate_error_1q": 0.0008282227756347682,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 9.087697048741054e-05
+   },
+   {
+    "qubit": 34,
+    "p01": 0.0155,
+    "p10": 0.026000000000000023,
+    "readout_error": 0.02075000000000001,
+    "gate_error_1q": 0.002884509882584041,
+    "reported_readout_error": 0.025146484375,
+    "reported_gate_error_1q": 0.0002502767827448964
+   },
+   {
+    "qubit": 35,
+    "p01": 0.017,
+    "p10": 0.02300000000000002,
+    "readout_error": 0.02000000000000001,
+    "gate_error_1q": 0.021663195685971193,
+    "reported_readout_error": 0.0166015625,
+    "reported_gate_error_1q": 0.00017546673363918794
+   },
+   {
+    "qubit": 36,
+    "p01": 0.003,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.0067499999999999765,
+    "gate_error_1q": 0.0023055470406712075,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.0004887327275450645
+   },
+   {
+    "qubit": 37,
+    "p01": 0.0495,
+    "p10": 0.033499999999999974,
+    "readout_error": 0.04149999999999999,
+    "gate_error_1q": 0.0016414939163397202,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.00036032732417701473
+   },
+   {
+    "qubit": 38,
+    "p01": 0.003,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.006500000000000004,
+    "gate_error_1q": 0.0024515585127604655,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.0001768917993485145
+   },
+   {
+    "qubit": 39,
+    "p01": 0.006,
+    "p10": 0.013499999999999956,
+    "readout_error": 0.009749999999999977,
+    "gate_error_1q": 0.014192981689218676,
+    "reported_readout_error": 0.009765625,
+    "reported_gate_error_1q": 0.00019278446696695858
+   },
+   {
+    "qubit": 40,
+    "p01": 0.0065,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.006250000000000002,
+    "gate_error_1q": 0.003319021329441174,
+    "reported_readout_error": 0.00390625,
+    "reported_gate_error_1q": 0.0004353660152401231
+   },
+   {
+    "qubit": 41,
+    "p01": 0.001,
+    "p10": 0.014000000000000012,
+    "readout_error": 0.007500000000000007,
+    "gate_error_1q": 0.0248100985578662,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.0003118996030205032
+   },
+   {
+    "qubit": 42,
+    "p01": 0.0025,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.004999999999999976,
+    "gate_error_1q": 0.00010075144411980652,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.00038135439279138984
+   },
+   {
+    "qubit": 43,
+    "p01": 0.015,
+    "p10": 0.021499999999999964,
+    "readout_error": 0.01824999999999998,
+    "gate_error_1q": 0.0032754354646491457,
+    "reported_readout_error": 0.012939453125,
+    "reported_gate_error_1q": 0.0004549378932242178
+   },
+   {
+    "qubit": 44,
+    "p01": 0.0,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.004249999999999976,
+    "gate_error_1q": 0.005825891051656873,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.00028487074036719144
+   },
+   {
+    "qubit": 45,
+    "p01": 0.001,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.003749999999999975,
+    "gate_error_1q": 0.005753722302891395,
+    "reported_readout_error": 0.00830078125,
+    "reported_gate_error_1q": 0.00023431621155065854
+   },
+   {
+    "qubit": 46,
+    "p01": 0.0015,
+    "p10": 0.013499999999999956,
+    "readout_error": 0.007499999999999978,
+    "gate_error_1q": 0.00044009702063885214,
+    "reported_readout_error": 0.0107421875,
+    "reported_gate_error_1q": 0.00033244519125931357
+   },
+   {
+    "qubit": 47,
+    "p01": 0.0,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.0037499999999999756,
+    "gate_error_1q": 0.002074239433748848,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.0004476474725353312
+   },
+   {
+    "qubit": 48,
+    "p01": 0.002,
+    "p10": 0.011499999999999955,
+    "readout_error": 0.006749999999999977,
+    "gate_error_1q": 0.00011589279239943018,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.00031800047315732043
+   },
+   {
+    "qubit": 49,
+    "p01": 0.004,
+    "p10": 0.012499999999999956,
+    "readout_error": 0.008249999999999978,
+    "gate_error_1q": 0.0010074630976293353,
+    "reported_readout_error": 0.00634765625,
+    "reported_gate_error_1q": 0.0003440812242629473
+   },
+   {
+    "qubit": 50,
+    "p01": 0.002,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.004749999999999976,
+    "gate_error_1q": 0.009981054758572028,
+    "reported_readout_error": 0.003173828125,
+    "reported_gate_error_1q": 0.00021143937764782838
+   },
+   {
+    "qubit": 51,
+    "p01": 0.025,
+    "p10": 0.035499999999999976,
+    "readout_error": 0.03024999999999999,
+    "gate_error_1q": 0.006430136477361015,
+    "reported_readout_error": 0.0224609375,
+    "reported_gate_error_1q": 0.00016037801427128102
+   },
+   {
+    "qubit": 52,
+    "p01": 0.0055,
+    "p10": 0.02400000000000002,
+    "readout_error": 0.01475000000000001,
+    "gate_error_1q": 0.0018607749569823362,
+    "reported_readout_error": 0.016845703125,
+    "reported_gate_error_1q": 0.00033879971179223104
+   },
+   {
+    "qubit": 53,
+    "p01": 0.013,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.011500000000000003,
+    "gate_error_1q": 0.005440457296169154,
+    "reported_readout_error": 0.00341796875,
+    "reported_gate_error_1q": 0.00014243468157013948
+   },
+   {
+    "qubit": 54,
+    "p01": 0.0215,
+    "p10": 0.03949999999999998,
+    "readout_error": 0.03049999999999999,
+    "gate_error_1q": 0.015062518600380548,
+    "reported_readout_error": 0.02734375,
+    "reported_gate_error_1q": 0.0002089751938743103
+   },
+   {
+    "qubit": 55,
+    "p01": 0.012,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.011500000000000005,
+    "gate_error_1q": 0.002739012501463911,
+    "reported_readout_error": 0.008056640625,
+    "reported_gate_error_1q": 0.00016076725400000064
+   },
+   {
+    "qubit": 56,
+    "p01": 0.0025,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.006250000000000005,
+    "gate_error_1q": 0.005944693716531391,
+    "reported_readout_error": 0.006591796875,
+    "reported_gate_error_1q": 0.00022900007037055
+   },
+   {
+    "qubit": 57,
+    "p01": 0.005,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.007500000000000005,
+    "gate_error_1q": 0.0001365979040773846,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.0001443448798864353
+   },
+   {
+    "qubit": 58,
+    "p01": 0.017,
+    "p10": 0.014499999999999957,
+    "readout_error": 0.01574999999999998,
+    "gate_error_1q": 0.0028760684475173104,
+    "reported_readout_error": 0.017333984375,
+    "reported_gate_error_1q": 0.00036468073138962696
+   },
+   {
+    "qubit": 59,
+    "p01": 0.0015,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.003999999999999975,
+    "gate_error_1q": 0.007655814800515248,
+    "reported_readout_error": 0.00341796875,
+    "reported_gate_error_1q": 0.0002614913315697528
+   },
+   {
+    "qubit": 60,
+    "p01": 0.017,
+    "p10": 0.012499999999999956,
+    "readout_error": 0.014749999999999978,
+    "gate_error_1q": 0.00437599894916485,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.0003142971869159962
+   },
+   {
+    "qubit": 61,
+    "p01": 0.001,
+    "p10": 0.015499999999999958,
+    "readout_error": 0.00824999999999998,
+    "gate_error_1q": 0.002737191607237066,
+    "reported_readout_error": 0.004638671875,
+    "reported_gate_error_1q": 0.00022944553731737326
+   },
+   {
+    "qubit": 62,
+    "p01": 0.009,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.009249999999999977,
+    "gate_error_1q": 0.006182738823838907,
+    "reported_readout_error": 0.0146484375,
+    "reported_gate_error_1q": 0.00022927270440084344
+   },
+   {
+    "qubit": 63,
+    "p01": 0.0035,
+    "p10": 0.03049999999999997,
+    "readout_error": 0.016999999999999987,
+    "gate_error_1q": 0.0019353850244278048,
+    "reported_readout_error": 0.01318359375,
+    "reported_gate_error_1q": 0.0004035974523829965
+   },
+   {
+    "qubit": 64,
+    "p01": 0.0,
+    "p10": 0.01100000000000001,
+    "readout_error": 0.005500000000000005,
+    "gate_error_1q": 0.004491891163147188,
+    "reported_readout_error": 0.00439453125,
+    "reported_gate_error_1q": 0.00033558128586239983
+   },
+   {
+    "qubit": 65,
+    "p01": 0.0,
+    "p10": 0.03300000000000003,
+    "readout_error": 0.016500000000000015,
+    "gate_error_1q": 0.0011534427880126596,
+    "reported_readout_error": 0.015380859375,
+    "reported_gate_error_1q": 0.0006088870589544164
+   },
+   {
+    "qubit": 66,
+    "p01": 0.0025,
+    "p10": 0.015499999999999958,
+    "readout_error": 0.008999999999999979,
+    "gate_error_1q": 0.0022665278790106047,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.0004898365255409932
+   },
+   {
+    "qubit": 67,
+    "p01": 0.0,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.0050000000000000044,
+    "gate_error_1q": 0.00038213909445161676,
+    "reported_readout_error": 0.00830078125,
+    "reported_gate_error_1q": 0.00027547931728930726
+   },
+   {
+    "qubit": 68,
+    "p01": 0.004,
+    "p10": 0.014000000000000012,
+    "readout_error": 0.009000000000000006,
+    "gate_error_1q": 0.00072307057697929,
+    "reported_readout_error": 0.007568359375,
+    "reported_gate_error_1q": 0.00017722518482075184
+   },
+   {
+    "qubit": 69,
+    "p01": 0.0125,
+    "p10": 0.01849999999999996,
+    "readout_error": 0.01549999999999998,
+    "gate_error_1q": 0.0018266098552919274,
+    "reported_readout_error": 0.01025390625,
+    "reported_gate_error_1q": 0.00020986400899684971
+   },
+   {
+    "qubit": 70,
+    "p01": 0.0125,
+    "p10": 0.017000000000000015,
+    "readout_error": 0.014750000000000008,
+    "gate_error_1q": 0.002834053774612544,
+    "reported_readout_error": 0.017333984375,
+    "reported_gate_error_1q": 0.000214389541026578
+   },
+   {
+    "qubit": 71,
+    "p01": 0.01,
+    "p10": 0.005499999999999949,
+    "readout_error": 0.007749999999999975,
+    "gate_error_1q": 0.0014125426042853606,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.00016698663868296547
+   },
+   {
+    "qubit": 72,
+    "p01": 0.0315,
+    "p10": 0.06000000000000005,
+    "readout_error": 0.04575000000000003,
+    "gate_error_1q": 0.003227187358377459,
+    "reported_readout_error": 0.049560546875,
+    "reported_gate_error_1q": 0.00018377216077064307
+   },
+   {
+    "qubit": 73,
+    "p01": 0.0145,
+    "p10": 0.012499999999999956,
+    "readout_error": 0.013499999999999977,
+    "gate_error_1q": 0.014553054435366808,
+    "reported_readout_error": 0.015380859375,
+    "reported_gate_error_1q": 0.00021382584597269292
+   },
+   {
+    "qubit": 74,
+    "p01": 0.0045,
+    "p10": 0.025000000000000022,
+    "readout_error": 0.014750000000000011,
+    "gate_error_1q": 0.004018967104715165,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.00020561648588480016
+   },
+   {
+    "qubit": 75,
+    "p01": 0.01,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.014749999999999982,
+    "gate_error_1q": 0.004069102893321963,
+    "reported_readout_error": 0.0205078125,
+    "reported_gate_error_1q": 0.00012134942227693996
+   },
+   {
+    "qubit": 76,
+    "p01": 0.055,
+    "p10": 0.10199999999999998,
+    "readout_error": 0.07849999999999999,
+    "gate_error_1q": 0.0035303144718926704,
+    "reported_readout_error": 0.06982421875,
+    "reported_gate_error_1q": 0.002566926852990708
+   },
+   {
+    "qubit": 77,
+    "p01": 0.0,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.003500000000000003,
+    "gate_error_1q": 0.0003148570930122663,
+    "reported_readout_error": 0.001953125,
+    "reported_gate_error_1q": 0.00016361217073935667
+   },
+   {
+    "qubit": 78,
+    "p01": 0.022,
+    "p10": 0.031000000000000028,
+    "readout_error": 0.026500000000000013,
+    "gate_error_1q": 0.00187066428164262,
+    "reported_readout_error": 0.02685546875,
+    "reported_gate_error_1q": 0.00023546852753957104
+   },
+   {
+    "qubit": 79,
+    "p01": 0.003,
+    "p10": 0.015000000000000013,
+    "readout_error": 0.009000000000000006,
+    "gate_error_1q": 0.004384200741275768,
+    "reported_readout_error": 0.008056640625,
+    "reported_gate_error_1q": 0.00014888516513440406
+   },
+   {
+    "qubit": 80,
+    "p01": 0.003,
+    "p10": 0.040000000000000036,
+    "readout_error": 0.02150000000000002,
+    "gate_error_1q": 0.007523700877083983,
+    "reported_readout_error": 0.02392578125,
+    "reported_gate_error_1q": 0.000251027711634285
+   },
+   {
+    "qubit": 81,
+    "p01": 0.0015,
+    "p10": 0.02200000000000002,
+    "readout_error": 0.01175000000000001,
+    "gate_error_1q": 0.000993753823935517,
+    "reported_readout_error": 0.0146484375,
+    "reported_gate_error_1q": 0.00030728715954481096
+   },
+   {
+    "qubit": 82,
+    "p01": 0.003,
+    "p10": 0.018000000000000016,
+    "readout_error": 0.010500000000000008,
+    "gate_error_1q": 0.0002693573903103097,
+    "reported_readout_error": 0.006103515625,
+    "reported_gate_error_1q": 0.00015945085551064637
+   },
+   {
+    "qubit": 83,
+    "p01": 0.004,
+    "p10": 0.03949999999999998,
+    "readout_error": 0.02174999999999999,
+    "gate_error_1q": 0.00183358794441979,
+    "reported_readout_error": 0.0390625,
+    "reported_gate_error_1q": 0.00016571976283065137
+   },
+   {
+    "qubit": 84,
+    "p01": 0.003,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.005249999999999975,
+    "gate_error_1q": 0.0027106429218703987,
+    "reported_readout_error": 0.00927734375,
+    "reported_gate_error_1q": 0.0007129990998756601
+   },
+   {
+    "qubit": 85,
+    "p01": 0.0045,
+    "p10": 0.014000000000000012,
+    "readout_error": 0.009250000000000006,
+    "gate_error_1q": 0.003124549157345613,
+    "reported_readout_error": 0.010498046875,
+    "reported_gate_error_1q": 0.00045047560923675424
+   },
+   {
+    "qubit": 86,
+    "p01": 0.0,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.004249999999999976,
+    "gate_error_1q": 0.002379735819662665,
+    "reported_readout_error": 0.00634765625,
+    "reported_gate_error_1q": 0.0002617898793747104
+   },
+   {
+    "qubit": 87,
+    "p01": 0.0145,
+    "p10": 0.035499999999999976,
+    "readout_error": 0.024999999999999988,
+    "gate_error_1q": 0.007731495606673744,
+    "reported_readout_error": 0.0126953125,
+    "reported_gate_error_1q": 0.0003345626451496644
+   },
+   {
+    "qubit": 88,
+    "p01": 0.0015,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.005750000000000004,
+    "gate_error_1q": 0.0023016564295856856,
+    "reported_readout_error": 0.00634765625,
+    "reported_gate_error_1q": 0.00030897194988746736
+   },
+   {
+    "qubit": 89,
+    "p01": 0.0095,
+    "p10": 0.01849999999999996,
+    "readout_error": 0.013999999999999981,
+    "gate_error_1q": 0.017469717952091512,
+    "reported_readout_error": 0.01318359375,
+    "reported_gate_error_1q": 0.00022829360021976253
+   },
+   {
+    "qubit": 90,
+    "p01": 0.0045,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.008750000000000006,
+    "gate_error_1q": 0.0002285842838131158,
+    "reported_readout_error": 0.014892578125,
+    "reported_gate_error_1q": 0.00019102992277982982
+   },
+   {
+    "qubit": 91,
+    "p01": 0.0135,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.011999999999999976,
+    "gate_error_1q": 0.0006434887517545729,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.0003231310460491597
+   },
+   {
+    "qubit": 92,
+    "p01": 0.007,
+    "p10": 0.04800000000000004,
+    "readout_error": 0.02750000000000002,
+    "gate_error_1q": 0.004611129289876614,
+    "reported_readout_error": 0.110595703125,
+    "reported_gate_error_1q": 0.00021688581680588624
+   },
+   {
+    "qubit": 93,
+    "p01": 0.001,
+    "p10": 0.0034999999999999476,
+    "readout_error": 0.002249999999999974,
+    "gate_error_1q": 0.002243940405085909,
+    "reported_readout_error": 0.011474609375,
+    "reported_gate_error_1q": 0.0002879843017854215
+   },
+   {
+    "qubit": 94,
+    "p01": 0.0025,
+    "p10": 0.01649999999999996,
+    "readout_error": 0.009499999999999979,
+    "gate_error_1q": 0.004608509289493967,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.00019079715166648293
+   },
+   {
+    "qubit": 95,
+    "p01": 0.0005,
+    "p10": 0.009000000000000008,
+    "readout_error": 0.004750000000000004,
+    "gate_error_1q": 0.0027750613837781435,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.00029971485678933915
+   },
+   {
+    "qubit": 96,
+    "p01": 0.016,
+    "p10": 0.020499999999999963,
+    "readout_error": 0.01824999999999998,
+    "gate_error_1q": 0.0017487803339174546,
+    "reported_readout_error": 0.017578125,
+    "reported_gate_error_1q": 0.00016581374080912987
+   },
+   {
+    "qubit": 97,
+    "p01": 0.0035,
+    "p10": 0.01200000000000001,
+    "readout_error": 0.007750000000000005,
+    "gate_error_1q": 0.003647192662287413,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.00018957278441138146
+   },
+   {
+    "qubit": 98,
+    "p01": 0.0025,
+    "p10": 0.005499999999999949,
+    "readout_error": 0.003999999999999975,
+    "gate_error_1q": 0.008887869630033407,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.00024902260184455905
+   },
+   {
+    "qubit": 99,
+    "p01": 0.0165,
+    "p10": 0.02749999999999997,
+    "readout_error": 0.021999999999999985,
+    "gate_error_1q": 0.00023660855998353103,
+    "reported_readout_error": 0.027099609375,
+    "reported_gate_error_1q": 0.0004926343998821856
+   },
+   {
+    "qubit": 100,
+    "p01": 0.0025,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.006499999999999977,
+    "gate_error_1q": 0.010016750776742134,
+    "reported_readout_error": 0.00927734375,
+    "reported_gate_error_1q": 0.00030379232307932647
+   },
+   {
+    "qubit": 101,
+    "p01": 0.0035,
+    "p10": 0.018000000000000016,
+    "readout_error": 0.010750000000000008,
+    "gate_error_1q": 0.0019475490543666707,
+    "reported_readout_error": 0.011962890625,
+    "reported_gate_error_1q": 0.00014480258607660684
+   },
+   {
+    "qubit": 102,
+    "p01": 0.007,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.01324999999999998,
+    "gate_error_1q": 0.004723145424420316,
+    "reported_readout_error": 0.0146484375,
+    "reported_gate_error_1q": 0.00016992961965815726
+   },
+   {
+    "qubit": 103,
+    "p01": 0.002,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.0057499999999999765,
+    "gate_error_1q": 0.0005561164115749362,
+    "reported_readout_error": 0.01318359375,
+    "reported_gate_error_1q": 0.00013755251963747488
+   },
+   {
+    "qubit": 104,
+    "p01": 0.0155,
+    "p10": 0.04149999999999998,
+    "readout_error": 0.02849999999999999,
+    "gate_error_1q": 0.0021293601921538174,
+    "reported_readout_error": 0.009765625,
+    "reported_gate_error_1q": 0.0011932888079887736
+   },
+   {
+    "qubit": 105,
+    "p01": 0.004,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.006249999999999976,
+    "gate_error_1q": 0.0033370779088000013,
+    "reported_readout_error": 0.005126953125,
+    "reported_gate_error_1q": 0.00019177505692327115
+   },
+   {
+    "qubit": 106,
+    "p01": 0.003,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.0067499999999999765,
+    "gate_error_1q": 0.005140237344581466,
+    "reported_readout_error": 0.010986328125,
+    "reported_gate_error_1q": 0.00047428779301752745
+   },
+   {
+    "qubit": 107,
+    "p01": 0.0125,
+    "p10": 0.019000000000000017,
+    "readout_error": 0.015750000000000007,
+    "gate_error_1q": 0.00016848608946384847,
+    "reported_readout_error": 0.013916015625,
+    "reported_gate_error_1q": 0.00017205425536986262
+   },
+   {
+    "qubit": 108,
+    "p01": 0.003,
+    "p10": 0.008499999999999952,
+    "readout_error": 0.005749999999999976,
+    "gate_error_1q": 0.0001872822917388106,
+    "reported_readout_error": 0.004638671875,
+    "reported_gate_error_1q": 0.0004641662343277941
+   },
+   {
+    "qubit": 109,
+    "p01": 0.0055,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.005999999999999975,
+    "gate_error_1q": 0.004152148986851456,
+    "reported_readout_error": 0.0029296875,
+    "reported_gate_error_1q": 0.00018969835826079746
+   },
+   {
+    "qubit": 110,
+    "p01": 0.0025,
+    "p10": 0.006000000000000005,
+    "readout_error": 0.004250000000000003,
+    "gate_error_1q": 0.0003727079250759324,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.0003190445160829458
+   },
+   {
+    "qubit": 111,
+    "p01": 0.0035,
+    "p10": 0.026000000000000023,
+    "readout_error": 0.014750000000000011,
+    "gate_error_1q": 0.0019050390056748467,
+    "reported_readout_error": 0.00732421875,
+    "reported_gate_error_1q": 0.0002397338683146266
+   },
+   {
+    "qubit": 112,
+    "p01": 0.018,
+    "p10": 0.061000000000000054,
+    "readout_error": 0.03950000000000003,
+    "gate_error_1q": 0.009861698939106489,
+    "reported_readout_error": 0.048095703125,
+    "reported_gate_error_1q": 0.003276803314260266
+   },
+   {
+    "qubit": 113,
+    "p01": 0.143,
+    "p10": 0.30300000000000005,
+    "readout_error": 0.22300000000000003,
+    "gate_error_1q": 0.00689592324053101,
+    "reported_readout_error": 0.224609375,
+    "reported_gate_error_1q": 1.0
+   },
+   {
+    "qubit": 114,
+    "p01": 0.007,
+    "p10": 0.014000000000000012,
+    "readout_error": 0.010500000000000006,
+    "gate_error_1q": 0.0012642679159639014,
+    "reported_readout_error": 0.0166015625,
+    "reported_gate_error_1q": 0.0001971181073812422
+   },
+   {
+    "qubit": 115,
+    "p01": 0.002,
+    "p10": 0.023499999999999965,
+    "readout_error": 0.012749999999999984,
+    "gate_error_1q": 0.0018055643453983583,
+    "reported_readout_error": 0.023681640625,
+    "reported_gate_error_1q": 0.0002359197150804268
+   },
+   {
+    "qubit": 116,
+    "p01": 0.022,
+    "p10": 0.022499999999999964,
+    "readout_error": 0.02224999999999998,
+    "gate_error_1q": 0.019535213532213214,
+    "reported_readout_error": 0.021240234375,
+    "reported_gate_error_1q": 0.00024168519537691132
+   },
+   {
+    "qubit": 117,
+    "p01": 0.0025,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.006499999999999977,
+    "gate_error_1q": 0.004250687666313424,
+    "reported_readout_error": 0.001953125,
+    "reported_gate_error_1q": 0.000427694573844016
+   },
+   {
+    "qubit": 118,
+    "p01": 0.001,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.005500000000000005,
+    "gate_error_1q": 0.0013016300066167608,
+    "reported_readout_error": 0.00537109375,
+    "reported_gate_error_1q": 0.00021757732813234467
+   },
+   {
+    "qubit": 119,
+    "p01": 0.0115,
+    "p10": 0.01649999999999996,
+    "readout_error": 0.01399999999999998,
+    "gate_error_1q": 0.002468987948902157,
+    "reported_readout_error": 0.015380859375,
+    "reported_gate_error_1q": 0.000786036649716604
+   },
+   {
+    "qubit": 120,
+    "p01": 0.022,
+    "p10": 0.03849999999999998,
+    "readout_error": 0.03024999999999999,
+    "gate_error_1q": 0.005445445412639249,
+    "reported_readout_error": 0.01806640625,
+    "reported_gate_error_1q": 0.001448373169220676
+   },
+   {
+    "qubit": 121,
+    "p01": 0.157,
+    "p10": 0.257,
+    "readout_error": 0.20700000000000002,
+    "gate_error_1q": 0.008695332830403024,
+    "reported_readout_error": 0.19873046875,
+    "reported_gate_error_1q": 1.0
+   },
+   {
+    "qubit": 122,
+    "p01": 0.0035,
+    "p10": 0.015000000000000013,
+    "readout_error": 0.009250000000000006,
+    "gate_error_1q": 0.0039099476095684205,
+    "reported_readout_error": 0.016845703125,
+    "reported_gate_error_1q": 0.0001880933147864926
+   },
+   {
+    "qubit": 123,
+    "p01": 0.001,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.010249999999999981,
+    "gate_error_1q": 0.0018395557773372984,
+    "reported_readout_error": 0.0048828125,
+    "reported_gate_error_1q": 0.00030217568406227635
+   },
+   {
+    "qubit": 124,
+    "p01": 0.0095,
+    "p10": 0.021499999999999964,
+    "readout_error": 0.015499999999999983,
+    "gate_error_1q": 0.006112674164292287,
+    "reported_readout_error": 0.013916015625,
+    "reported_gate_error_1q": 0.0001893649953989642
+   },
+   {
+    "qubit": 125,
+    "p01": 0.002,
+    "p10": 0.08199999999999996,
+    "readout_error": 0.04199999999999998,
+    "gate_error_1q": 0.00019730542747675717,
+    "reported_readout_error": 0.035888671875,
+    "reported_gate_error_1q": 0.0004218170561610552
+   },
+   {
+    "qubit": 126,
+    "p01": 0.0015,
+    "p10": 0.009499999999999953,
+    "readout_error": 0.005499999999999976,
+    "gate_error_1q": 0.011692647118315525,
+    "reported_readout_error": 0.0078125,
+    "reported_gate_error_1q": 0.0002921491408408022
+   },
+   {
+    "qubit": 127,
+    "p01": 0.0085,
+    "p10": 0.10599999999999998,
+    "readout_error": 0.057249999999999995,
+    "gate_error_1q": 0.00033322319957729274,
+    "reported_readout_error": 0.045166015625,
+    "reported_gate_error_1q": 0.0005340163254629931
+   },
+   {
+    "qubit": 128,
+    "p01": 0.0015,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.005750000000000004,
+    "gate_error_1q": 0.004539606227928927,
+    "reported_readout_error": 0.009765625,
+    "reported_gate_error_1q": 0.00016943228601749475
+   },
+   {
+    "qubit": 129,
+    "p01": 0.033,
+    "p10": 0.026000000000000023,
+    "readout_error": 0.029500000000000012,
+    "gate_error_1q": 0.0004926935344607974,
+    "reported_readout_error": 0.004150390625,
+    "reported_gate_error_1q": 0.00021361087877182965
+   },
+   {
+    "qubit": 130,
+    "p01": 0.0545,
+    "p10": 0.25,
+    "readout_error": 0.15225,
+    "gate_error_1q": 0.0074082033217767185,
+    "reported_readout_error": 0.021240234375,
+    "reported_gate_error_1q": 0.00021544979252484026
+   },
+   {
+    "qubit": 131,
+    "p01": 0.2415,
+    "p10": 0.12150000000000005,
+    "readout_error": 0.18150000000000002,
+    "gate_error_1q": 0.009775590825007785,
+    "reported_readout_error": 0.07470703125,
+    "reported_gate_error_1q": 0.024443467457727082
+   },
+   {
+    "qubit": 132,
+    "p01": 0.0015,
+    "p10": 0.019499999999999962,
+    "readout_error": 0.010499999999999982,
+    "gate_error_1q": 0.0017926054576511419,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.00020658241471945699
+   },
+   {
+    "qubit": 133,
+    "p01": 0.014,
+    "p10": 0.018000000000000016,
+    "readout_error": 0.016000000000000007,
+    "gate_error_1q": 0.0019273926392466834,
+    "reported_readout_error": 0.013916015625,
+    "reported_gate_error_1q": 0.0002038387044921551
+   },
+   {
+    "qubit": 134,
+    "p01": 0.006,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.007000000000000004,
+    "gate_error_1q": 0.005864627145185097,
+    "reported_readout_error": 0.002685546875,
+    "reported_gate_error_1q": 0.0002181857050212653
+   },
+   {
+    "qubit": 135,
+    "p01": 0.0105,
+    "p10": 0.027000000000000024,
+    "readout_error": 0.018750000000000013,
+    "gate_error_1q": 0.0019198831883253664,
+    "reported_readout_error": 0.017822265625,
+    "reported_gate_error_1q": 0.00046263237017227335
+   },
+   {
+    "qubit": 136,
+    "p01": 0.0015,
+    "p10": 0.02200000000000002,
+    "readout_error": 0.01175000000000001,
+    "gate_error_1q": 0.0023205460956647883,
+    "reported_readout_error": 0.007568359375,
+    "reported_gate_error_1q": 0.00036850950911898644
+   },
+   {
+    "qubit": 137,
+    "p01": 0.0075,
+    "p10": 0.007499999999999951,
+    "readout_error": 0.0074999999999999754,
+    "gate_error_1q": 0.0018165271668599825,
+    "reported_readout_error": 0.0078125,
+    "reported_gate_error_1q": 0.00028389411716313285
+   },
+   {
+    "qubit": 138,
+    "p01": 0.0105,
+    "p10": 0.038000000000000034,
+    "readout_error": 0.024250000000000018,
+    "gate_error_1q": 0.005579272420114023,
+    "reported_readout_error": 0.130859375,
+    "reported_gate_error_1q": 0.0002443934312733962
+   },
+   {
+    "qubit": 139,
+    "p01": 0.014,
+    "p10": 0.03649999999999998,
+    "readout_error": 0.025249999999999988,
+    "gate_error_1q": 0.004074258111640194,
+    "reported_readout_error": 0.015869140625,
+    "reported_gate_error_1q": 0.0003202576577252696
+   },
+   {
+    "qubit": 140,
+    "p01": 0.008,
+    "p10": 0.020000000000000018,
+    "readout_error": 0.014000000000000009,
+    "gate_error_1q": 0.003255119975201448,
+    "reported_readout_error": 0.005859375,
+    "reported_gate_error_1q": 0.00017769206076179034
+   },
+   {
+    "qubit": 141,
+    "p01": 0.0005,
+    "p10": 0.016000000000000014,
+    "readout_error": 0.008250000000000007,
+    "gate_error_1q": 0.00553090548498858,
+    "reported_readout_error": 0.004638671875,
+    "reported_gate_error_1q": 0.00025302749668178117
+   },
+   {
+    "qubit": 142,
+    "p01": 0.0165,
+    "p10": 0.01649999999999996,
+    "readout_error": 0.01649999999999998,
+    "gate_error_1q": 0.009490492624209756,
+    "reported_readout_error": 0.0087890625,
+    "reported_gate_error_1q": 0.00026342695145573227
+   },
+   {
+    "qubit": 143,
+    "p01": 0.0045,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.005499999999999975,
+    "gate_error_1q": 0.0016318366559775477,
+    "reported_readout_error": 0.003662109375,
+    "reported_gate_error_1q": 0.0001601521188045108
+   },
+   {
+    "qubit": 144,
+    "p01": 0.0,
+    "p10": 0.007000000000000006,
+    "readout_error": 0.003500000000000003,
+    "gate_error_1q": 0.03789561742985559,
+    "reported_readout_error": 0.0068359375,
+    "reported_gate_error_1q": 0.0001636664642759045
+   },
+   {
+    "qubit": 145,
+    "p01": 0.007,
+    "p10": 0.017000000000000015,
+    "readout_error": 0.012000000000000007,
+    "gate_error_1q": 0.0010720702363028467,
+    "reported_readout_error": 0.0146484375,
+    "reported_gate_error_1q": 0.0013573034466350243
+   },
+   {
+    "qubit": 146,
+    "p01": 0.494,
+    "p10": 0.48950000000000005,
+    "readout_error": 0.49175,
+    "gate_error_1q": 0.0,
+    "reported_readout_error": 0.498779296875,
+    "reported_gate_error_1q": 1.0
+   },
+   {
+    "qubit": 147,
+    "p01": 0.0005,
+    "p10": 0.0044999999999999485,
+    "readout_error": 0.0024999999999999745,
+    "gate_error_1q": 0.0003305119537579948,
+    "reported_readout_error": 0.003662109375,
+    "reported_gate_error_1q": 0.0013408791594328464
+   },
+   {
+    "qubit": 148,
+    "p01": 0.0,
+    "p10": 0.005499999999999949,
+    "readout_error": 0.0027499999999999747,
+    "gate_error_1q": 0.001460757155913428,
+    "reported_readout_error": 0.00244140625,
+    "reported_gate_error_1q": 0.00014532363458147706
+   },
+   {
+    "qubit": 149,
+    "p01": 0.0005,
+    "p10": 0.0050000000000000044,
+    "readout_error": 0.0027500000000000024,
+    "gate_error_1q": 0.00151371549480539,
+    "reported_readout_error": 0.004638671875,
+    "reported_gate_error_1q": 0.0002586803072975079
+   },
+   {
+    "qubit": 150,
+    "p01": 0.0035,
+    "p10": 0.010499999999999954,
+    "readout_error": 0.006999999999999977,
+    "gate_error_1q": 0.001208508555151755,
+    "reported_readout_error": 0.003662109375,
+    "reported_gate_error_1q": 0.00034549333111274485
+   },
+   {
+    "qubit": 151,
+    "p01": 0.0005,
+    "p10": 0.008000000000000007,
+    "readout_error": 0.004250000000000004,
+    "gate_error_1q": 0.0013866571242396875,
+    "reported_readout_error": 0.0224609375,
+    "reported_gate_error_1q": 0.00018043434653390272
+   },
+   {
+    "qubit": 152,
+    "p01": 0.0045,
+    "p10": 0.010000000000000009,
+    "readout_error": 0.007250000000000005,
+    "gate_error_1q": 0.0016910502670678396,
+    "reported_readout_error": 0.005615234375,
+    "reported_gate_error_1q": 0.00014510503631689486
+   },
+   {
+    "qubit": 153,
+    "p01": 0.0105,
+    "p10": 0.03749999999999998,
+    "readout_error": 0.02399999999999999,
+    "gate_error_1q": 0.0031952249639818353,
+    "reported_readout_error": 0.02490234375,
+    "reported_gate_error_1q": 0.0001467041532688018
+   },
+   {
+    "qubit": 154,
+    "p01": 0.0015,
+    "p10": 0.00649999999999995,
+    "readout_error": 0.003999999999999975,
+    "gate_error_1q": 0.0071643850643344775,
+    "reported_readout_error": 0.00390625,
+    "reported_gate_error_1q": 0.00030042959069828586
+   },
+   {
+    "qubit": 155,
+    "p01": 0.003,
+    "p10": 0.013000000000000012,
+    "readout_error": 0.008000000000000005,
+    "gate_error_1q": 0.0009621717420207343,
+    "reported_readout_error": 0.0126953125,
+    "reported_gate_error_1q": 0.00014143384713280694
+   }
+  ],
+  "edges": [
+   {
+    "a": 0,
+    "b": 1,
+    "gate_error_2q": 0.015764652909143084,
+    "gate_error_2q_z": 0.0001819975611586644,
+    "gate_error_2q_x": 0.015764652909143084,
+    "reported_gate_error_2q": 0.0011737992499533112
+   },
+   {
+    "a": 2,
+    "b": 3,
+    "gate_error_2q": 0.0024913395583128217,
+    "gate_error_2q_z": 0.00023484602547685363,
+    "gate_error_2q_x": 0.0024913395583128217,
+    "reported_gate_error_2q": 0.0013999641468387392
+   },
+   {
+    "a": 4,
+    "b": 5,
+    "gate_error_2q": 0.002551835711249617,
+    "gate_error_2q_z": 5.104403375055799e-05,
+    "gate_error_2q_x": 0.002551835711249617,
+    "reported_gate_error_2q": 0.0030638800528022814
+   },
+   {
+    "a": 6,
+    "b": 7,
+    "gate_error_2q": 0.04990378901965464,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.04990378901965464,
+    "reported_gate_error_2q": 0.007231452677391281
+   },
+   {
+    "a": 8,
+    "b": 9,
+    "gate_error_2q": 0.007829352121390243,
+    "gate_error_2q_z": 0.00020789265704990179,
+    "gate_error_2q_x": 0.007829352121390243,
+    "reported_gate_error_2q": 0.0038957934543019657
+   },
+   {
+    "a": 10,
+    "b": 11,
+    "gate_error_2q": 0.05092726113199619,
+    "gate_error_2q_z": 0.00010271535088357542,
+    "gate_error_2q_x": 0.05092726113199619,
+    "reported_gate_error_2q": 0.0015029236923909395
+   },
+   {
+    "a": 12,
+    "b": 13,
+    "gate_error_2q": 0.0009265170757453145,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.0009265170757453145,
+    "reported_gate_error_2q": 0.00374795964636479
+   },
+   {
+    "a": 14,
+    "b": 15,
+    "gate_error_2q": 0.0022872455621832932,
+    "gate_error_2q_z": 0.00018387272953257483,
+    "gate_error_2q_x": 0.0022872455621832932,
+    "reported_gate_error_2q": 0.001880794833453464
+   },
+   {
+    "a": 16,
+    "b": 23,
+    "gate_error_2q": 0.02103308790826308,
+    "gate_error_2q_z": 0.0005492247907945558,
+    "gate_error_2q_x": 0.02103308790826308,
+    "reported_gate_error_2q": 0.0012195047289917937
+   },
+   {
+    "a": 17,
+    "b": 27,
+    "gate_error_2q": 0.0020438017294289734,
+    "gate_error_2q_z": 0.00046758234098964735,
+    "gate_error_2q_x": 0.0020438017294289734,
+    "reported_gate_error_2q": 0.0015741153900063198
+   },
+   {
+    "a": 18,
+    "b": 31,
+    "gate_error_2q": 0.0423408739035358,
+    "gate_error_2q_z": 0.00018425732621452084,
+    "gate_error_2q_x": 0.0423408739035358,
+    "reported_gate_error_2q": 0.0029861302241050436
+   },
+   {
+    "a": 19,
+    "b": 35,
+    "gate_error_2q": 0.049753074320759705,
+    "gate_error_2q_z": 1.7180011587125676e-05,
+    "gate_error_2q_x": 0.049753074320759705,
+    "reported_gate_error_2q": 0.0010777865201415104
+   },
+   {
+    "a": 20,
+    "b": 21,
+    "gate_error_2q": 0.017114347461561374,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.017114347461561374,
+    "reported_gate_error_2q": 0.002236205220266324
+   },
+   {
+    "a": 24,
+    "b": 25,
+    "gate_error_2q": 0.006582879534461683,
+    "gate_error_2q_z": 4.493171781738692e-05,
+    "gate_error_2q_x": 0.006582879534461683,
+    "reported_gate_error_2q": 0.0027304961193898025
+   },
+   {
+    "a": 28,
+    "b": 29,
+    "gate_error_2q": 0.03309083483285602,
+    "gate_error_2q_z": 7.631381874451115e-05,
+    "gate_error_2q_x": 0.03309083483285602,
+    "reported_gate_error_2q": 0.002659316220100988
+   },
+   {
+    "a": 32,
+    "b": 33,
+    "gate_error_2q": 0.008702375588074074,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.008702375588074074,
+    "reported_gate_error_2q": 0.0027746972760258892
+   },
+   {
+    "a": 36,
+    "b": 41,
+    "gate_error_2q": 0.026124398226986312,
+    "gate_error_2q_z": 0.00017819759527659684,
+    "gate_error_2q_x": 0.026124398226986312,
+    "reported_gate_error_2q": 0.0020944492007923254
+   },
+   {
+    "a": 37,
+    "b": 45,
+    "gate_error_2q": 0.09200816681293422,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.09200816681293422,
+    "reported_gate_error_2q": 0.016413521041137663
+   },
+   {
+    "a": 38,
+    "b": 49,
+    "gate_error_2q": 0.006507972207976054,
+    "gate_error_2q_z": 5.0168268334482846e-05,
+    "gate_error_2q_x": 0.006507972207976054,
+    "reported_gate_error_2q": 0.0012685806121735532
+   },
+   {
+    "a": 39,
+    "b": 53,
+    "gate_error_2q": 0.006962193898099933,
+    "gate_error_2q_z": 5.884078205831145e-05,
+    "gate_error_2q_x": 0.006962193898099933,
+    "reported_gate_error_2q": 0.001902828008296581
+   },
+   {
+    "a": 42,
+    "b": 43,
+    "gate_error_2q": 0.005112074881908235,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.005112074881908235,
+    "reported_gate_error_2q": 0.002425320262561287
+   },
+   {
+    "a": 46,
+    "b": 47,
+    "gate_error_2q": 0.019929801178556694,
+    "gate_error_2q_z": 2.519494642561071e-05,
+    "gate_error_2q_x": 0.019929801178556694,
+    "reported_gate_error_2q": 0.0014066217935733982
+   },
+   {
+    "a": 50,
+    "b": 51,
+    "gate_error_2q": 0.00389179963415609,
+    "gate_error_2q_z": 2.282019780142086e-05,
+    "gate_error_2q_x": 0.00389179963415609,
+    "reported_gate_error_2q": 0.00154572865804245
+   },
+   {
+    "a": 54,
+    "b": 55,
+    "gate_error_2q": 0.11579830079655062,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.11579830079655062,
+    "reported_gate_error_2q": 0.0017300373835231198
+   },
+   {
+    "a": 56,
+    "b": 63,
+    "gate_error_2q": 0.00602495606280995,
+    "gate_error_2q_z": 0.00028689960300665174,
+    "gate_error_2q_x": 0.00602495606280995,
+    "reported_gate_error_2q": 0.0018050102670140733
+   },
+   {
+    "a": 57,
+    "b": 67,
+    "gate_error_2q": 0.0414256517856979,
+    "gate_error_2q_z": 0.00010187723156596107,
+    "gate_error_2q_x": 0.0414256517856979,
+    "reported_gate_error_2q": 0.0021100841901367795
+   },
+   {
+    "a": 58,
+    "b": 71,
+    "gate_error_2q": 0.006195021615992391,
+    "gate_error_2q_z": 0.00033636485420507345,
+    "gate_error_2q_x": 0.006195021615992391,
+    "reported_gate_error_2q": 0.0013880309465052754
+   },
+   {
+    "a": 59,
+    "b": 75,
+    "gate_error_2q": 0.0019129583336725542,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.0019129583336725542,
+    "reported_gate_error_2q": 0.00114596908517145
+   },
+   {
+    "a": 60,
+    "b": 61,
+    "gate_error_2q": 0.005046390730086503,
+    "gate_error_2q_z": 2.4741763574809283e-05,
+    "gate_error_2q_x": 0.005046390730086503,
+    "reported_gate_error_2q": 0.0029415881944576394
+   },
+   {
+    "a": 64,
+    "b": 65,
+    "gate_error_2q": 0.14865878406948718,
+    "gate_error_2q_z": 0.00036261550318306135,
+    "gate_error_2q_x": 0.14865878406948718,
+    "reported_gate_error_2q": 0.005915474932200265
+   },
+   {
+    "a": 68,
+    "b": 69,
+    "gate_error_2q": 0.012775615780047822,
+    "gate_error_2q_z": 0.00012629808365505202,
+    "gate_error_2q_x": 0.012775615780047822,
+    "reported_gate_error_2q": 0.0017065698123850948
+   },
+   {
+    "a": 72,
+    "b": 73,
+    "gate_error_2q": 0.013422028907586703,
+    "gate_error_2q_z": 0.00022366548172136902,
+    "gate_error_2q_x": 0.013422028907586703,
+    "reported_gate_error_2q": 0.0016375238860987518
+   },
+   {
+    "a": 76,
+    "b": 81,
+    "gate_error_2q": 0.018084048577407752,
+    "gate_error_2q_z": 0.00014213784002914398,
+    "gate_error_2q_x": 0.018084048577407752,
+    "reported_gate_error_2q": 0.004244917966751388
+   },
+   {
+    "a": 77,
+    "b": 85,
+    "gate_error_2q": 0.1397043184945158,
+    "gate_error_2q_z": 0.0002553287293076689,
+    "gate_error_2q_x": 0.1397043184945158,
+    "reported_gate_error_2q": 0.005654073492002254
+   },
+   {
+    "a": 78,
+    "b": 89,
+    "gate_error_2q": 0.0039032562406549065,
+    "gate_error_2q_z": 0.00021579918349023952,
+    "gate_error_2q_x": 0.0039032562406549065,
+    "reported_gate_error_2q": 0.0022283458962047697
+   },
+   {
+    "a": 79,
+    "b": 93,
+    "gate_error_2q": 0.001968286550834364,
+    "gate_error_2q_z": 5.0557170974796506e-05,
+    "gate_error_2q_x": 0.001968286550834364,
+    "reported_gate_error_2q": 0.001445860735991289
+   },
+   {
+    "a": 82,
+    "b": 83,
+    "gate_error_2q": 0.004603540774268611,
+    "gate_error_2q_z": 2.546268926206796e-05,
+    "gate_error_2q_x": 0.004603540774268611,
+    "reported_gate_error_2q": 0.0008838311588368619
+   },
+   {
+    "a": 86,
+    "b": 87,
+    "gate_error_2q": 0.04324289737272147,
+    "gate_error_2q_z": 7.65712905498317e-05,
+    "gate_error_2q_x": 0.04324289737272147,
+    "reported_gate_error_2q": 0.05179859886235064
+   },
+   {
+    "a": 90,
+    "b": 91,
+    "gate_error_2q": 0.019526421401380722,
+    "gate_error_2q_z": 4.79452582751172e-05,
+    "gate_error_2q_x": 0.019526421401380722,
+    "reported_gate_error_2q": 0.001887314544937152
+   },
+   {
+    "a": 94,
+    "b": 95,
+    "gate_error_2q": 0.0035466011492691907,
+    "gate_error_2q_z": 0.0001787308653670161,
+    "gate_error_2q_x": 0.0035466011492691907,
+    "reported_gate_error_2q": 0.0013841638211485041
+   },
+   {
+    "a": 96,
+    "b": 103,
+    "gate_error_2q": 0.005397698859072486,
+    "gate_error_2q_z": 0.00010447083869191687,
+    "gate_error_2q_x": 0.005397698859072486,
+    "reported_gate_error_2q": 0.0014173786879346506
+   },
+   {
+    "a": 97,
+    "b": 107,
+    "gate_error_2q": 0.011785844991081373,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.011785844991081373,
+    "reported_gate_error_2q": 0.001790813023735821
+   },
+   {
+    "a": 98,
+    "b": 111,
+    "gate_error_2q": 0.12722780229633124,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.12722780229633124,
+    "reported_gate_error_2q": 0.0025407870997401216
+   },
+   {
+    "a": 99,
+    "b": 115,
+    "gate_error_2q": 0.04099552854354216,
+    "gate_error_2q_z": 4.768598804383295e-05,
+    "gate_error_2q_x": 0.04099552854354216,
+    "reported_gate_error_2q": 0.004566538286769811
+   },
+   {
+    "a": 100,
+    "b": 101,
+    "gate_error_2q": 0.03176303352109844,
+    "gate_error_2q_z": 0.0001795520537380968,
+    "gate_error_2q_x": 0.03176303352109844,
+    "reported_gate_error_2q": 0.003546714047535482
+   },
+   {
+    "a": 104,
+    "b": 105,
+    "gate_error_2q": 0.0028319594088084266,
+    "gate_error_2q_z": 0.00012751550436684855,
+    "gate_error_2q_x": 0.0028319594088084266,
+    "reported_gate_error_2q": 0.0013596703067965954
+   },
+   {
+    "a": 108,
+    "b": 109,
+    "gate_error_2q": 0.0037395741381156533,
+    "gate_error_2q_z": 0.0002812389812876237,
+    "gate_error_2q_x": 0.0037395741381156533,
+    "reported_gate_error_2q": 0.0012084174164657957
+   },
+   {
+    "a": 112,
+    "b": 113,
+    "gate_error_2q": 0.007190153195670623,
+    "gate_error_2q_z": 0.0027219848728259333,
+    "gate_error_2q_x": 0.007190153195670623,
+    "reported_gate_error_2q": 1.0
+   },
+   {
+    "a": 116,
+    "b": 121,
+    "gate_error_2q": 0.07643646370446722,
+    "gate_error_2q_z": 4.63126321140761e-05,
+    "gate_error_2q_x": 0.07643646370446722,
+    "reported_gate_error_2q": 0.04304415955458579
+   },
+   {
+    "a": 117,
+    "b": 125,
+    "gate_error_2q": 0.025481867477814113,
+    "gate_error_2q_z": 2.6990194373133214e-05,
+    "gate_error_2q_x": 0.025481867477814113,
+    "reported_gate_error_2q": 0.001473170311670574
+   },
+   {
+    "a": 118,
+    "b": 129,
+    "gate_error_2q": 0.020745507951638653,
+    "gate_error_2q_z": 0.00040085183939009283,
+    "gate_error_2q_x": 0.020745507951638653,
+    "reported_gate_error_2q": 0.001631283637676173
+   },
+   {
+    "a": 119,
+    "b": 133,
+    "gate_error_2q": 0.052248165845610206,
+    "gate_error_2q_z": 5.2936420283589136e-05,
+    "gate_error_2q_x": 0.052248165845610206,
+    "reported_gate_error_2q": 0.027786948564978375
+   },
+   {
+    "a": 122,
+    "b": 123,
+    "gate_error_2q": 0.020947770344177608,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.020947770344177608,
+    "reported_gate_error_2q": 0.001361621298575394
+   },
+   {
+    "a": 126,
+    "b": 127,
+    "gate_error_2q": 0.008734754338101558,
+    "gate_error_2q_z": 7.54593693486072e-05,
+    "gate_error_2q_x": 0.008734754338101558,
+    "reported_gate_error_2q": 0.0015005684032124156
+   },
+   {
+    "a": 130,
+    "b": 131,
+    "gate_error_2q": 0.028785225381168456,
+    "gate_error_2q_z": 0.0007171362090440114,
+    "gate_error_2q_x": 0.028785225381168456,
+    "reported_gate_error_2q": 1.0
+   },
+   {
+    "a": 134,
+    "b": 135,
+    "gate_error_2q": 0.0034164042963843455,
+    "gate_error_2q_z": 7.893400727121413e-05,
+    "gate_error_2q_x": 0.0034164042963843455,
+    "reported_gate_error_2q": 0.0022840140291592592
+   },
+   {
+    "a": 136,
+    "b": 143,
+    "gate_error_2q": 0.025484530130613248,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.025484530130613248,
+    "reported_gate_error_2q": 0.0015137556478064806
+   },
+   {
+    "a": 137,
+    "b": 147,
+    "gate_error_2q": 0.0055900109373147044,
+    "gate_error_2q_z": 0.0001781450614098956,
+    "gate_error_2q_x": 0.0055900109373147044,
+    "reported_gate_error_2q": 0.0022904799595962477
+   },
+   {
+    "a": 138,
+    "b": 151,
+    "gate_error_2q": 0.17838303945303824,
+    "gate_error_2q_z": 0.00039492669660590174,
+    "gate_error_2q_x": 0.17838303945303824,
+    "reported_gate_error_2q": 0.0014831061003265644
+   },
+   {
+    "a": 139,
+    "b": 155,
+    "gate_error_2q": 0.010928916936450594,
+    "gate_error_2q_z": 0.00010264349025823627,
+    "gate_error_2q_x": 0.010928916936450594,
+    "reported_gate_error_2q": 0.005824630368166217
+   },
+   {
+    "a": 140,
+    "b": 141,
+    "gate_error_2q": 0.0014777106379825211,
+    "gate_error_2q_z": 7.652243097366895e-05,
+    "gate_error_2q_x": 0.0014777106379825211,
+    "reported_gate_error_2q": 0.001572268920044806
+   },
+   {
+    "a": 144,
+    "b": 145,
+    "gate_error_2q": 0.003661222998049496,
+    "gate_error_2q_z": 7.539024365366132e-05,
+    "gate_error_2q_x": 0.003661222998049496,
+    "reported_gate_error_2q": 0.005505419126491273
+   },
+   {
+    "a": 148,
+    "b": 149,
+    "gate_error_2q": 0.029033557595777637,
+    "gate_error_2q_z": 0.00020154195211252723,
+    "gate_error_2q_x": 0.029033557595777637,
+    "reported_gate_error_2q": 0.0029066653006921406
+   },
+   {
+    "a": 152,
+    "b": 153,
+    "gate_error_2q": 0.005292339342650942,
+    "gate_error_2q_z": 2.2401015151829462e-05,
+    "gate_error_2q_x": 0.005292339342650942,
+    "reported_gate_error_2q": 0.0014404539915727765
+   },
+   {
+    "a": 1,
+    "b": 2,
+    "gate_error_2q": 0.0018676751129350633,
+    "gate_error_2q_z": 0.00015425411091396501,
+    "gate_error_2q_x": 0.0018676751129350633,
+    "reported_gate_error_2q": 0.0012053051652006763
+   },
+   {
+    "a": 3,
+    "b": 4,
+    "gate_error_2q": 0.006186442652059587,
+    "gate_error_2q_z": 0.00031631287007216624,
+    "gate_error_2q_x": 0.006186442652059587,
+    "reported_gate_error_2q": 0.0025343240382819376
+   },
+   {
+    "a": 5,
+    "b": 6,
+    "gate_error_2q": 0.05016529396167002,
+    "gate_error_2q_z": 7.725446205086861e-05,
+    "gate_error_2q_x": 0.05016529396167002,
+    "reported_gate_error_2q": 0.0027148195334858183
+   },
+   {
+    "a": 7,
+    "b": 8,
+    "gate_error_2q": 0.00751747418834503,
+    "gate_error_2q_z": 0.00016183287567395066,
+    "gate_error_2q_x": 0.00751747418834503,
+    "reported_gate_error_2q": 0.00725039245220277
+   },
+   {
+    "a": 9,
+    "b": 10,
+    "gate_error_2q": 0.07681089654307516,
+    "gate_error_2q_z": 5.060599828865531e-05,
+    "gate_error_2q_x": 0.07681089654307516,
+    "reported_gate_error_2q": 0.007892616940953001
+   },
+   {
+    "a": 11,
+    "b": 12,
+    "gate_error_2q": 0.12773779082925463,
+    "gate_error_2q_z": 2.586655895198131e-05,
+    "gate_error_2q_x": 0.12773779082925463,
+    "reported_gate_error_2q": 0.0012175988242739966
+   },
+   {
+    "a": 13,
+    "b": 14,
+    "gate_error_2q": 0.0014979598577651299,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.0014979598577651299,
+    "reported_gate_error_2q": 0.001410332966110095
+   },
+   {
+    "a": 15,
+    "b": 19,
+    "gate_error_2q": 0.004223397922821892,
+    "gate_error_2q_z": 0.00025570689542031566,
+    "gate_error_2q_x": 0.004223397922821892,
+    "reported_gate_error_2q": 0.0019822697433850567
+   },
+   {
+    "a": 21,
+    "b": 22,
+    "gate_error_2q": 0.003131319397089549,
+    "gate_error_2q_z": 0.0001444258947057575,
+    "gate_error_2q_x": 0.003131319397089549,
+    "reported_gate_error_2q": 0.0018928599635402166
+   },
+   {
+    "a": 23,
+    "b": 24,
+    "gate_error_2q": 0.011588453173188351,
+    "gate_error_2q_z": 0.0002559212715897985,
+    "gate_error_2q_x": 0.011588453173188351,
+    "reported_gate_error_2q": 0.001738934399563269
+   },
+   {
+    "a": 25,
+    "b": 26,
+    "gate_error_2q": 0.01887660108916933,
+    "gate_error_2q_z": 2.108639620201913e-05,
+    "gate_error_2q_x": 0.01887660108916933,
+    "reported_gate_error_2q": 0.002159361253004116
+   },
+   {
+    "a": 27,
+    "b": 28,
+    "gate_error_2q": 0.0025117476070739553,
+    "gate_error_2q_z": 4.987950659141038e-05,
+    "gate_error_2q_x": 0.0025117476070739553,
+    "reported_gate_error_2q": 0.0014121629154738857
+   },
+   {
+    "a": 29,
+    "b": 30,
+    "gate_error_2q": 0.004443932848719578,
+    "gate_error_2q_z": 2.555557328165481e-05,
+    "gate_error_2q_x": 0.004443932848719578,
+    "reported_gate_error_2q": 0.0016409114218069454
+   },
+   {
+    "a": 31,
+    "b": 32,
+    "gate_error_2q": 0.15387870158787187,
+    "gate_error_2q_z": 0.00010227383624272779,
+    "gate_error_2q_x": 0.15387870158787187,
+    "reported_gate_error_2q": 0.003874842807561424
+   },
+   {
+    "a": 33,
+    "b": 34,
+    "gate_error_2q": 0.1632545924915333,
+    "gate_error_2q_z": 0.0003441349266578575,
+    "gate_error_2q_x": 0.1632545924915333,
+    "reported_gate_error_2q": 0.002258336049513421
+   },
+   {
+    "a": 40,
+    "b": 41,
+    "gate_error_2q": 0.007661240120495627,
+    "gate_error_2q_z": 0.00012701794517355758,
+    "gate_error_2q_x": 0.007661240120495627,
+    "reported_gate_error_2q": 0.0025639057386491193
+   },
+   {
+    "a": 43,
+    "b": 44,
+    "gate_error_2q": 0.02127968824237203,
+    "gate_error_2q_z": 7.667761118579364e-05,
+    "gate_error_2q_x": 0.02127968824237203,
+    "reported_gate_error_2q": 0.002331280486947085
+   },
+   {
+    "a": 45,
+    "b": 46,
+    "gate_error_2q": 0.09205328269143698,
+    "gate_error_2q_z": 0.00010182581088968856,
+    "gate_error_2q_x": 0.09205328269143698,
+    "reported_gate_error_2q": 0.02557966076505075
+   },
+   {
+    "a": 47,
+    "b": 48,
+    "gate_error_2q": 0.013336598081371998,
+    "gate_error_2q_z": 2.519494642561071e-05,
+    "gate_error_2q_x": 0.013336598081371998,
+    "reported_gate_error_2q": 0.0023418739473456407
+   },
+   {
+    "a": 49,
+    "b": 50,
+    "gate_error_2q": 0.03299208006998722,
+    "gate_error_2q_z": 7.491488220023879e-05,
+    "gate_error_2q_x": 0.03299208006998722,
+    "reported_gate_error_2q": 0.0018026075762634652
+   },
+   {
+    "a": 51,
+    "b": 52,
+    "gate_error_2q": 0.004387086632613446,
+    "gate_error_2q_z": 8.758655315888042e-05,
+    "gate_error_2q_x": 0.004387086632613446,
+    "reported_gate_error_2q": 0.0022362986558346065
+   },
+   {
+    "a": 53,
+    "b": 54,
+    "gate_error_2q": 0.005156321648658424,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.005156321648658424,
+    "reported_gate_error_2q": 0.0015898458779267377
+   },
+   {
+    "a": 55,
+    "b": 59,
+    "gate_error_2q": 0.027311529330874884,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.027311529330874884,
+    "reported_gate_error_2q": 0.0016301186587531769
+   },
+   {
+    "a": 61,
+    "b": 62,
+    "gate_error_2q": 0.0038644195907149292,
+    "gate_error_2q_z": 0.00022883556710473485,
+    "gate_error_2q_x": 0.0038644195907149292,
+    "reported_gate_error_2q": 0.001715066410520244
+   },
+   {
+    "a": 63,
+    "b": 64,
+    "gate_error_2q": 0.012350165475229824,
+    "gate_error_2q_z": 2.534951415089637e-05,
+    "gate_error_2q_x": 0.012350165475229824,
+    "reported_gate_error_2q": 0.0017533408856890698
+   },
+   {
+    "a": 65,
+    "b": 66,
+    "gate_error_2q": 0.003833171330829832,
+    "gate_error_2q_z": 7.773519287346264e-05,
+    "gate_error_2q_x": 0.003833171330829832,
+    "reported_gate_error_2q": 0.0021586164469299673
+   },
+   {
+    "a": 67,
+    "b": 68,
+    "gate_error_2q": 0.011089860685248754,
+    "gate_error_2q_z": 7.643005761692745e-05,
+    "gate_error_2q_x": 0.011089860685248754,
+    "reported_gate_error_2q": 0.0014426959711427711
+   },
+   {
+    "a": 69,
+    "b": 70,
+    "gate_error_2q": 0.007951073721897295,
+    "gate_error_2q_z": 3.328717350759014e-05,
+    "gate_error_2q_x": 0.007951073721897295,
+    "reported_gate_error_2q": 0.0028143174687115524
+   },
+   {
+    "a": 71,
+    "b": 72,
+    "gate_error_2q": 0.008622878034818648,
+    "gate_error_2q_z": 0.0005306794344376309,
+    "gate_error_2q_x": 0.008622878034818648,
+    "reported_gate_error_2q": 0.0012586132336421807
+   },
+   {
+    "a": 73,
+    "b": 74,
+    "gate_error_2q": 0.006280211397116098,
+    "gate_error_2q_z": 0.00017888769037932573,
+    "gate_error_2q_x": 0.006280211397116098,
+    "reported_gate_error_2q": 0.0012462856340532125
+   },
+   {
+    "a": 80,
+    "b": 81,
+    "gate_error_2q": 0.0027105485642472393,
+    "gate_error_2q_z": 0.00012870171006751363,
+    "gate_error_2q_x": 0.0027105485642472393,
+    "reported_gate_error_2q": 0.001322499445596731
+   },
+   {
+    "a": 83,
+    "b": 84,
+    "gate_error_2q": 0.036816872132161116,
+    "gate_error_2q_z": 0.0002086679824567783,
+    "gate_error_2q_x": 0.036816872132161116,
+    "reported_gate_error_2q": 0.002017439297377299
+   },
+   {
+    "a": 85,
+    "b": 86,
+    "gate_error_2q": 0.05526479022615571,
+    "gate_error_2q_z": 7.641737121877323e-05,
+    "gate_error_2q_x": 0.05526479022615571,
+    "reported_gate_error_2q": 0.051306856276297885
+   },
+   {
+    "a": 87,
+    "b": 88,
+    "gate_error_2q": 0.0488347477847223,
+    "gate_error_2q_z": 5.034192309838481e-05,
+    "gate_error_2q_x": 0.0488347477847223,
+    "reported_gate_error_2q": 0.002148250862107154
+   },
+   {
+    "a": 89,
+    "b": 90,
+    "gate_error_2q": 0.005252269376824326,
+    "gate_error_2q_z": 0.00015594311168376507,
+    "gate_error_2q_x": 0.005252269376824326,
+    "reported_gate_error_2q": 0.0018395040668187923
+   },
+   {
+    "a": 91,
+    "b": 92,
+    "gate_error_2q": 0.0235070913421338,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.0235070913421338,
+    "reported_gate_error_2q": 0.001790577125056897
+   },
+   {
+    "a": 93,
+    "b": 94,
+    "gate_error_2q": 0.04391492178367451,
+    "gate_error_2q_z": 7.666208035672639e-05,
+    "gate_error_2q_x": 0.04391492178367451,
+    "reported_gate_error_2q": 0.0010832013805051055
+   },
+   {
+    "a": 95,
+    "b": 99,
+    "gate_error_2q": 0.009222715785670688,
+    "gate_error_2q_z": 7.763923263559569e-05,
+    "gate_error_2q_x": 0.009222715785670688,
+    "reported_gate_error_2q": 0.002037947934159623
+   },
+   {
+    "a": 101,
+    "b": 102,
+    "gate_error_2q": 0.0040108698937530995,
+    "gate_error_2q_z": 0.0002821531550706302,
+    "gate_error_2q_x": 0.0040108698937530995,
+    "reported_gate_error_2q": 0.0013728453277163377
+   },
+   {
+    "a": 103,
+    "b": 104,
+    "gate_error_2q": 0.013428327692372344,
+    "gate_error_2q_z": 5.105179754794076e-05,
+    "gate_error_2q_x": 0.013428327692372344,
+    "reported_gate_error_2q": 0.0015883136190495417
+   },
+   {
+    "a": 105,
+    "b": 106,
+    "gate_error_2q": 0.0041436914905382816,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.0041436914905382816,
+    "reported_gate_error_2q": 0.0013718031906959915
+   },
+   {
+    "a": 107,
+    "b": 108,
+    "gate_error_2q": 0.01160005258263197,
+    "gate_error_2q_z": 7.17402251626531e-05,
+    "gate_error_2q_x": 0.01160005258263197,
+    "reported_gate_error_2q": 0.001690359012313375
+   },
+   {
+    "a": 109,
+    "b": 110,
+    "gate_error_2q": 0.008795343301868597,
+    "gate_error_2q_z": 7.634986617832684e-05,
+    "gate_error_2q_x": 0.008795343301868597,
+    "reported_gate_error_2q": 0.0016515047136219374
+   },
+   {
+    "a": 111,
+    "b": 112,
+    "gate_error_2q": 0.047688265216169645,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.047688265216169645,
+    "reported_gate_error_2q": 0.13197736928585646
+   },
+   {
+    "a": 113,
+    "b": 114,
+    "gate_error_2q": 0.04740805749128307,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.04740805749128307,
+    "reported_gate_error_2q": 0.003392634543226636
+   },
+   {
+    "a": 120,
+    "b": 121,
+    "gate_error_2q": 0.06028758350355523,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.06028758350355523,
+    "reported_gate_error_2q": 0.07333091214880402
+   },
+   {
+    "a": 123,
+    "b": 124,
+    "gate_error_2q": 0.009387713136128073,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.009387713136128073,
+    "reported_gate_error_2q": 0.0010954239069752014
+   },
+   {
+    "a": 125,
+    "b": 126,
+    "gate_error_2q": 0.002164879292648636,
+    "gate_error_2q_z": 0.0002820116501454084,
+    "gate_error_2q_x": 0.002164879292648636,
+    "reported_gate_error_2q": 0.0014004073107770354
+   },
+   {
+    "a": 127,
+    "b": 128,
+    "gate_error_2q": 0.007989351462391436,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.007989351462391436,
+    "reported_gate_error_2q": 0.0025913526596182124
+   },
+   {
+    "a": 129,
+    "b": 130,
+    "gate_error_2q": 0.0650496996013612,
+    "gate_error_2q_z": 0.0004506450859065314,
+    "gate_error_2q_x": 0.0650496996013612,
+    "reported_gate_error_2q": 0.004767562666773778
+   },
+   {
+    "a": 131,
+    "b": 132,
+    "gate_error_2q": 0.05548895102558826,
+    "gate_error_2q_z": 0.00016138626289341484,
+    "gate_error_2q_x": 0.05548895102558826,
+    "reported_gate_error_2q": 0.01376960166480462
+   },
+   {
+    "a": 133,
+    "b": 134,
+    "gate_error_2q": 0.007628609294867528,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.007628609294867528,
+    "reported_gate_error_2q": 0.0019126508585963209
+   },
+   {
+    "a": 135,
+    "b": 139,
+    "gate_error_2q": 0.006099163292035414,
+    "gate_error_2q_z": 9.589920542030228e-05,
+    "gate_error_2q_x": 0.006099163292035414,
+    "reported_gate_error_2q": 0.0017552035827642365
+   },
+   {
+    "a": 141,
+    "b": 142,
+    "gate_error_2q": 0.007329620464321729,
+    "gate_error_2q_z": 7.707665276290854e-05,
+    "gate_error_2q_x": 0.007329620464321729,
+    "reported_gate_error_2q": 0.0013462627801068827
+   },
+   {
+    "a": 143,
+    "b": 144,
+    "gate_error_2q": 0.0033228103235573014,
+    "gate_error_2q_z": 5.0529221550799086e-05,
+    "gate_error_2q_x": 0.0033228103235573014,
+    "reported_gate_error_2q": 0.0016078043141326825
+   },
+   {
+    "a": 145,
+    "b": 146,
+    "gate_error_2q": 0.001269439359570801,
+    "gate_error_2q_z": 0.001269439359570801,
+    "gate_error_2q_x": 0.0012201609234926414,
+    "reported_gate_error_2q": 1.0
+   },
+   {
+    "a": 147,
+    "b": 148,
+    "gate_error_2q": 0.002396682267214012,
+    "gate_error_2q_z": 5.0300549992665644e-05,
+    "gate_error_2q_x": 0.002396682267214012,
+    "reported_gate_error_2q": 0.0031454621498033797
+   },
+   {
+    "a": 149,
+    "b": 150,
+    "gate_error_2q": 0.02088091270318715,
+    "gate_error_2q_z": 5.027497769616307e-05,
+    "gate_error_2q_x": 0.02088091270318715,
+    "reported_gate_error_2q": 0.0037881626005962232
+   },
+   {
+    "a": 151,
+    "b": 152,
+    "gate_error_2q": 0.005165967580458397,
+    "gate_error_2q_z": 0.00012717165716025214,
+    "gate_error_2q_x": 0.005165967580458397,
+    "reported_gate_error_2q": 0.0013465096469629234
+   },
+   {
+    "a": 153,
+    "b": 154,
+    "gate_error_2q": 0.008660125025052201,
+    "gate_error_2q_z": 7.908027065428591e-05,
+    "gate_error_2q_x": 0.008660125025052201,
+    "reported_gate_error_2q": 0.004156475066669968
+   },
+   {
+    "a": 3,
+    "b": 16,
+    "gate_error_2q": 0.003772719137783098,
+    "gate_error_2q_z": 0.0002411958254620039,
+    "gate_error_2q_x": 0.003772719137783098,
+    "reported_gate_error_2q": 0.0012780670269809946
+   },
+   {
+    "a": 7,
+    "b": 17,
+    "gate_error_2q": 0.008090957219298756,
+    "gate_error_2q_z": 2.5141482945745253e-05,
+    "gate_error_2q_x": 0.008090957219298756,
+    "reported_gate_error_2q": 0.007247684512845021
+   },
+   {
+    "a": 11,
+    "b": 18,
+    "gate_error_2q": 0.003569058296474026,
+    "gate_error_2q_z": 5.0730342620264324e-05,
+    "gate_error_2q_x": 0.003569058296474026,
+    "reported_gate_error_2q": 0.002631558621452146
+   },
+   {
+    "a": 21,
+    "b": 36,
+    "gate_error_2q": 0.034718344328694695,
+    "gate_error_2q_z": 0.00020904651116648854,
+    "gate_error_2q_x": 0.034718344328694695,
+    "reported_gate_error_2q": 0.0012973714123640512
+   },
+   {
+    "a": 22,
+    "b": 23,
+    "gate_error_2q": 0.005385899199412125,
+    "gate_error_2q_z": 7.195874618493026e-05,
+    "gate_error_2q_x": 0.005385899199412125,
+    "reported_gate_error_2q": 0.0016403602278680374
+   },
+   {
+    "a": 25,
+    "b": 37,
+    "gate_error_2q": 0.006521882373983989,
+    "gate_error_2q_z": 3.260052326603535e-05,
+    "gate_error_2q_x": 0.006521882373983989,
+    "reported_gate_error_2q": 0.0025071443462857113
+   },
+   {
+    "a": 26,
+    "b": 27,
+    "gate_error_2q": 0.04851605404989878,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.04851605404989878,
+    "reported_gate_error_2q": 0.0017017450088605557
+   },
+   {
+    "a": 29,
+    "b": 38,
+    "gate_error_2q": 0.012372571121522125,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.012372571121522125,
+    "reported_gate_error_2q": 0.006784915343007403
+   },
+   {
+    "a": 30,
+    "b": 31,
+    "gate_error_2q": 0.13969266919341627,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.13969266919341627,
+    "reported_gate_error_2q": 0.003526306413675767
+   },
+   {
+    "a": 33,
+    "b": 39,
+    "gate_error_2q": 0.010602646885403577,
+    "gate_error_2q_z": 0.00010032740295096154,
+    "gate_error_2q_x": 0.010602646885403577,
+    "reported_gate_error_2q": 0.0024351751834619517
+   },
+   {
+    "a": 34,
+    "b": 35,
+    "gate_error_2q": 0.015420868813397437,
+    "gate_error_2q_z": 0.0005154417012159795,
+    "gate_error_2q_x": 0.015420868813397437,
+    "reported_gate_error_2q": 0.0015655917317551893
+   },
+   {
+    "a": 41,
+    "b": 42,
+    "gate_error_2q": 0.02494279848672709,
+    "gate_error_2q_z": 2.5245774268212173e-05,
+    "gate_error_2q_x": 0.02494279848672709,
+    "reported_gate_error_2q": 0.0025093962327117914
+   },
+   {
+    "a": 43,
+    "b": 56,
+    "gate_error_2q": 0.009423313136222466,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.009423313136222466,
+    "reported_gate_error_2q": 0.006036145695453493
+   },
+   {
+    "a": 44,
+    "b": 45,
+    "gate_error_2q": 0.03528302509787773,
+    "gate_error_2q_z": 7.573551930462052e-05,
+    "gate_error_2q_x": 0.03528302509787773,
+    "reported_gate_error_2q": 0.026863105815362
+   },
+   {
+    "a": 47,
+    "b": 57,
+    "gate_error_2q": 0.002467590296600486,
+    "gate_error_2q_z": 7.626109275671311e-05,
+    "gate_error_2q_x": 0.002467590296600486,
+    "reported_gate_error_2q": 0.0015662493567150104
+   },
+   {
+    "a": 48,
+    "b": 49,
+    "gate_error_2q": 0.03620750637534875,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.03620750637534875,
+    "reported_gate_error_2q": 0.001992021373760672
+   },
+   {
+    "a": 51,
+    "b": 58,
+    "gate_error_2q": 0.011804758145784744,
+    "gate_error_2q_z": 0.00021051644856173723,
+    "gate_error_2q_x": 0.011804758145784744,
+    "reported_gate_error_2q": 0.0022484922083375602
+   },
+   {
+    "a": 52,
+    "b": 53,
+    "gate_error_2q": 0.009724344768468951,
+    "gate_error_2q_z": 1.7412423188867265e-05,
+    "gate_error_2q_x": 0.009724344768468951,
+    "reported_gate_error_2q": 0.0019513892955760337
+   },
+   {
+    "a": 61,
+    "b": 76,
+    "gate_error_2q": 0.00452199103582962,
+    "gate_error_2q_z": 2.448141996014286e-06,
+    "gate_error_2q_x": 0.00452199103582962,
+    "reported_gate_error_2q": 0.00273966822002647
+   },
+   {
+    "a": 62,
+    "b": 63,
+    "gate_error_2q": 0.010089909724374735,
+    "gate_error_2q_z": 0.00017500601969400176,
+    "gate_error_2q_x": 0.010089909724374735,
+    "reported_gate_error_2q": 0.0017202665199690381
+   },
+   {
+    "a": 65,
+    "b": 77,
+    "gate_error_2q": 0.026595694114595503,
+    "gate_error_2q_z": 7.693875178271803e-05,
+    "gate_error_2q_x": 0.026595694114595503,
+    "reported_gate_error_2q": 0.005040428027580673
+   },
+   {
+    "a": 66,
+    "b": 67,
+    "gate_error_2q": 0.023201080009678576,
+    "gate_error_2q_z": 5.0606440458622615e-05,
+    "gate_error_2q_x": 0.023201080009678576,
+    "reported_gate_error_2q": 0.0024100957168829706
+   },
+   {
+    "a": 69,
+    "b": 78,
+    "gate_error_2q": 0.07796336732154108,
+    "gate_error_2q_z": 9.093158851525285e-05,
+    "gate_error_2q_x": 0.07796336732154108,
+    "reported_gate_error_2q": 0.002081242708162262
+   },
+   {
+    "a": 70,
+    "b": 71,
+    "gate_error_2q": 0.05441587808425419,
+    "gate_error_2q_z": 0.00016719033894152524,
+    "gate_error_2q_x": 0.05441587808425419,
+    "reported_gate_error_2q": 0.0018515499994616602
+   },
+   {
+    "a": 73,
+    "b": 79,
+    "gate_error_2q": 0.0021933949197987523,
+    "gate_error_2q_z": 0.00010350862564489915,
+    "gate_error_2q_x": 0.0021933949197987523,
+    "reported_gate_error_2q": 0.0012562934591085484
+   },
+   {
+    "a": 74,
+    "b": 75,
+    "gate_error_2q": 0.013525926296899193,
+    "gate_error_2q_z": 0.00037325930462051016,
+    "gate_error_2q_x": 0.013525926296899193,
+    "reported_gate_error_2q": 0.0013473267831752012
+   },
+   {
+    "a": 81,
+    "b": 82,
+    "gate_error_2q": 0.011479907531475209,
+    "gate_error_2q_z": 7.662567482968896e-05,
+    "gate_error_2q_x": 0.011479907531475209,
+    "reported_gate_error_2q": 0.0010817796942755309
+   },
+   {
+    "a": 83,
+    "b": 96,
+    "gate_error_2q": 0.030608195925884818,
+    "gate_error_2q_z": 1.6885367404850804e-05,
+    "gate_error_2q_x": 0.030608195925884818,
+    "reported_gate_error_2q": 0.0014786109912342804
+   },
+   {
+    "a": 84,
+    "b": 85,
+    "gate_error_2q": 0.02291856177394358,
+    "gate_error_2q_z": 3.5958121291645995e-07,
+    "gate_error_2q_x": 0.02291856177394358,
+    "reported_gate_error_2q": 0.03903231001709434
+   },
+   {
+    "a": 87,
+    "b": 97,
+    "gate_error_2q": 0.004446902880670844,
+    "gate_error_2q_z": 7.614955956791736e-05,
+    "gate_error_2q_x": 0.004446902880670844,
+    "reported_gate_error_2q": 0.001635590271512971
+   },
+   {
+    "a": 88,
+    "b": 89,
+    "gate_error_2q": 0.03260273416787107,
+    "gate_error_2q_z": 0.00012727528360900742,
+    "gate_error_2q_x": 0.03260273416787107,
+    "reported_gate_error_2q": 0.0020024511877118345
+   },
+   {
+    "a": 91,
+    "b": 98,
+    "gate_error_2q": 0.005804216090277481,
+    "gate_error_2q_z": 2.3657437803970005e-05,
+    "gate_error_2q_x": 0.005804216090277481,
+    "reported_gate_error_2q": 0.001985039971042074
+   },
+   {
+    "a": 92,
+    "b": 93,
+    "gate_error_2q": 0.03847679199784915,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.03847679199784915,
+    "reported_gate_error_2q": 0.001500179255204348
+   },
+   {
+    "a": 101,
+    "b": 116,
+    "gate_error_2q": 0.0014407003938080587,
+    "gate_error_2q_z": 2.7653707252994764e-06,
+    "gate_error_2q_x": 0.0014407003938080587,
+    "reported_gate_error_2q": 0.0011185793399101085
+   },
+   {
+    "a": 102,
+    "b": 103,
+    "gate_error_2q": 0.054982750967252914,
+    "gate_error_2q_z": 0.00010084508617769217,
+    "gate_error_2q_x": 0.054982750967252914,
+    "reported_gate_error_2q": 0.011863145231618244
+   },
+   {
+    "a": 105,
+    "b": 117,
+    "gate_error_2q": 0.010473963177911716,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.010473963177911716,
+    "reported_gate_error_2q": 0.001141488186713252
+   },
+   {
+    "a": 106,
+    "b": 107,
+    "gate_error_2q": 0.024335218011216297,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.024335218011216297,
+    "reported_gate_error_2q": 0.003009866577182857
+   },
+   {
+    "a": 109,
+    "b": 118,
+    "gate_error_2q": 0.007428368108079231,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.007428368108079231,
+    "reported_gate_error_2q": 0.0021921891929242987
+   },
+   {
+    "a": 110,
+    "b": 111,
+    "gate_error_2q": 0.10753770064970924,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.10753770064970924,
+    "reported_gate_error_2q": 0.0020974762938338054
+   },
+   {
+    "a": 113,
+    "b": 119,
+    "gate_error_2q": 0.0038381950524096764,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.0038381950524096764,
+    "reported_gate_error_2q": 0.005390954766405942
+   },
+   {
+    "a": 114,
+    "b": 115,
+    "gate_error_2q": 0.011940363889064165,
+    "gate_error_2q_z": 5.2068207061939376e-05,
+    "gate_error_2q_x": 0.011940363889064165,
+    "reported_gate_error_2q": 0.004778780514034381
+   },
+   {
+    "a": 121,
+    "b": 122,
+    "gate_error_2q": 0.05268087691103418,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.05268087691103418,
+    "reported_gate_error_2q": 0.03825322448322746
+   },
+   {
+    "a": 123,
+    "b": 136,
+    "gate_error_2q": 0.004123401544820826,
+    "gate_error_2q_z": 2.550332026440838e-05,
+    "gate_error_2q_x": 0.004123401544820826,
+    "reported_gate_error_2q": 0.0020391865282349264
+   },
+   {
+    "a": 124,
+    "b": 125,
+    "gate_error_2q": 0.0482411667122189,
+    "gate_error_2q_z": 2.5101277809636002e-05,
+    "gate_error_2q_x": 0.0482411667122189,
+    "reported_gate_error_2q": 0.0014006487033964288
+   },
+   {
+    "a": 127,
+    "b": 137,
+    "gate_error_2q": 0.0130383134756058,
+    "gate_error_2q_z": 2.0133505964303744e-05,
+    "gate_error_2q_x": 0.0130383134756058,
+    "reported_gate_error_2q": 0.0015586130099161932
+   },
+   {
+    "a": 128,
+    "b": 129,
+    "gate_error_2q": 0.03076837533665222,
+    "gate_error_2q_z": 0.000646708032129073,
+    "gate_error_2q_x": 0.03076837533665222,
+    "reported_gate_error_2q": 0.001804003356424666
+   },
+   {
+    "a": 131,
+    "b": 138,
+    "gate_error_2q": 0.0551117905058488,
+    "gate_error_2q_z": 0.00031343255613591747,
+    "gate_error_2q_x": 0.0551117905058488,
+    "reported_gate_error_2q": 0.02723930065382113
+   },
+   {
+    "a": 132,
+    "b": 133,
+    "gate_error_2q": 0.003507353378393696,
+    "gate_error_2q_z": 0.00023588823113251944,
+    "gate_error_2q_x": 0.003507353378393696,
+    "reported_gate_error_2q": 0.0016760461975999508
+   },
+   {
+    "a": 142,
+    "b": 143,
+    "gate_error_2q": 0.001973454813867126,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.001973454813867126,
+    "reported_gate_error_2q": 0.001323363405339062
+   },
+   {
+    "a": 146,
+    "b": 147,
+    "gate_error_2q": 0.027495817794316535,
+    "gate_error_2q_z": 0.0,
+    "gate_error_2q_x": 0.027495817794316535,
+    "reported_gate_error_2q": 1.0
+   },
+   {
+    "a": 150,
+    "b": 151,
+    "gate_error_2q": 0.04520732130635141,
+    "gate_error_2q_z": 5.0312099795002396e-05,
+    "gate_error_2q_x": 0.04520732130635141,
+    "reported_gate_error_2q": 0.0031040038336626885
+   },
+   {
+    "a": 154,
+    "b": 155,
+    "gate_error_2q": 0.005419657407720102,
+    "gate_error_2q_z": 2.4951176969545408e-05,
+    "gate_error_2q_x": 0.005419657407720102,
+    "reported_gate_error_2q": 0.0016492373915299452
+   }
+  ],
+  "two_q_gate": "cz",
+  "two_q_repeats": 20,
+  "shots": 2000,
+  "job_id": "dbag2e1gv2cc73e6qfqg",
+  "x_repeats": 100
+ },
+ "calibration_summary": {
+  "median_gate2q_measured_over_reported": 4.144989854647957,
+  "median_readout_measured_over_reported": 1.067343915343915,
+  "median_gate1q_measured_over_reported": 9.995178849669191,
+  "worst_readout_qubits": [
+   {
+    "qubit": 37,
+    "measured": 0.04149999999999999,
+    "reported": 0.00537109375
+   },
+   {
+    "qubit": 130,
+    "measured": 0.15225,
+    "reported": 0.021240234375
+   },
+   {
+    "qubit": 129,
+    "measured": 0.029500000000000012,
+    "reported": 0.004150390625
+   },
+   {
+    "qubit": 53,
+    "measured": 0.011500000000000003,
+    "reported": 0.00341796875
+   },
+   {
+    "qubit": 117,
+    "measured": 0.006499999999999977,
+    "reported": 0.001953125
+   }
+  ]
+ },
+ "layouts": {
+  "naive": {
+   "chain": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cost": 0.13729893006307242
+  },
+  "vendor": {
+   "chain": [
+    111,
+    110,
+    109,
+    118,
+    129
+   ],
+   "cost": 0.2291795783873351
+  },
+  "best": {
+   "chain": [
+    137,
+    147,
+    148,
+    149,
+    150
+   ],
+   "cost": 0.09939122448295906
+  }
+ },
+ "results": [
+  {
+   "layout": "naive",
+   "benchmark": "ghz",
+   "chain": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "scores": {
+    "raw": 0.71025,
+    "readout": 0.7408234787016893,
+    "zne": null,
+    "readout+zne": null,
+    "raw_by_factor": {
+     "1": 0.71025,
+     "3": 0.753,
+     "5": 0.756
+    },
+    "readout_by_factor": {
+     "1": 0.7408234787016893,
+     "3": 0.7841973927109983,
+     "5": 0.7937671309803385
+    },
+    "zne_ok": false,
+    "ci95": {
+     "raw": [
+      0.6959875,
+      0.72175
+     ],
+     "readout": [
+      0.7242454884481606,
+      0.7516507774437792
+     ],
+     "zne": null,
+     "readout+zne": null
+    },
+    "equal_budget": {
+     "shots_per_factor": [
+      1333,
+      1333,
+      1333
+     ],
+     "ci95": {
+      "zne": null,
+      "readout+zne": null
+     }
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 10.551675134318984,
+    "zne": null,
+    "readout+zne": null
+   },
+   "counts_by_factor": {
+    "1": {
+     "11111": 1602,
+     "00000": 1239,
+     "11110": 232,
+     "00001": 438,
+     "00010": 214,
+     "01000": 14,
+     "11001": 5,
+     "00011": 98,
+     "00111": 22,
+     "01111": 23,
+     "10111": 16,
+     "11100": 8,
+     "10001": 7,
+     "11011": 32,
+     "11000": 13,
+     "00100": 5,
+     "01110": 1,
+     "11010": 5,
+     "10000": 6,
+     "11101": 7,
+     "01001": 4,
+     "01010": 3,
+     "01011": 4,
+     "10010": 1,
+     "00110": 1
+    },
+    "3": {
+     "11111": 1709,
+     "00000": 1303,
+     "00010": 256,
+     "00001": 300,
+     "11000": 27,
+     "11011": 41,
+     "11101": 13,
+     "11010": 7,
+     "10000": 47,
+     "11110": 31,
+     "00111": 50,
+     "00011": 83,
+     "11001": 10,
+     "01000": 23,
+     "00110": 3,
+     "10111": 14,
+     "01111": 47,
+     "11100": 12,
+     "00101": 1,
+     "10011": 3,
+     "10010": 6,
+     "00100": 4,
+     "01001": 3,
+     "10001": 4,
+     "10110": 2,
+     "01011": 1
+    },
+    "5": {
+     "00000": 1352,
+     "11111": 1672,
+     "00010": 227,
+     "00001": 274,
+     "01000": 16,
+     "00011": 76,
+     "11000": 33,
+     "10000": 39,
+     "10001": 6,
+     "11110": 54,
+     "11100": 19,
+     "01001": 4,
+     "00111": 68,
+     "10111": 29,
+     "11011": 45,
+     "01101": 2,
+     "01111": 33,
+     "11101": 19,
+     "01011": 3,
+     "11001": 6,
+     "11010": 7,
+     "01110": 3,
+     "10010": 4,
+     "10011": 3,
+     "00110": 1,
+     "00101": 1,
+     "01010": 2,
+     "00100": 1,
+     "10101": 1
+    }
+   }
+  },
+  {
+   "layout": "naive",
+   "benchmark": "mirror",
+   "chain": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "scores": {
+    "raw": 0.5115,
+    "readout": 0.5170664479350593,
+    "zne": null,
+    "readout+zne": null,
+    "raw_by_factor": {
+     "1": 0.5115,
+     "3": 0.645,
+     "5": 0.62575
+    },
+    "readout_by_factor": {
+     "1": 0.5170664479350593,
+     "3": 0.6562124924830661,
+     "5": 0.6365563644325228
+    },
+    "zne_ok": false,
+    "ci95": {
+     "raw": [
+      0.49469375000000004,
+      0.5257750000000001
+     ],
+     "readout": [
+      0.4997698951041893,
+      0.5315467811793844
+     ],
+     "zne": null,
+     "readout+zne": null
+    },
+    "equal_budget": {
+     "shots_per_factor": [
+      1333,
+      1333,
+      1333
+     ],
+     "ci95": {
+      "zne": null,
+      "readout+zne": null
+     }
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 1.1394980419773464,
+    "zne": null,
+    "readout+zne": null
+   },
+   "counts_by_factor": {
+    "1": {
+     "00000": 2046,
+     "00001": 811,
+     "00010": 692,
+     "10010": 7,
+     "00011": 299,
+     "00110": 21,
+     "00111": 9,
+     "01001": 15,
+     "10001": 8,
+     "00100": 15,
+     "01010": 14,
+     "11010": 2,
+     "10000": 15,
+     "01000": 26,
+     "11110": 3,
+     "00101": 9,
+     "11011": 1,
+     "10011": 1,
+     "11100": 1,
+     "11111": 1,
+     "01110": 1,
+     "11000": 2,
+     "01011": 1
+    },
+    "3": {
+     "00010": 480,
+     "10010": 6,
+     "00000": 2580,
+     "00001": 562,
+     "11000": 26,
+     "00011": 109,
+     "00100": 46,
+     "10000": 33,
+     "00111": 13,
+     "01000": 45,
+     "00110": 39,
+     "01001": 11,
+     "11001": 8,
+     "10001": 6,
+     "01010": 13,
+     "10011": 5,
+     "01011": 4,
+     "11010": 4,
+     "00101": 8,
+     "11110": 1,
+     "01110": 1
+    },
+    "5": {
+     "00000": 2503,
+     "00010": 513,
+     "00011": 120,
+     "00100": 47,
+     "00001": 525,
+     "00110": 52,
+     "01000": 40,
+     "11011": 5,
+     "10000": 41,
+     "11001": 10,
+     "00101": 15,
+     "11000": 46,
+     "00111": 20,
+     "01100": 2,
+     "01010": 10,
+     "10001": 12,
+     "10010": 10,
+     "01001": 11,
+     "01110": 2,
+     "11010": 9,
+     "10100": 2,
+     "11100": 1,
+     "10111": 1,
+     "01111": 1,
+     "11111": 1,
+     "10011": 1
+    }
+   }
+  },
+  {
+   "layout": "vendor",
+   "benchmark": "ghz",
+   "chain": [
+    111,
+    110,
+    109,
+    118,
+    129
+   ],
+   "scores": {
+    "raw": 0.8905000000000001,
+    "readout": 0.9409017076019215,
+    "zne": 0.8997291666666671,
+    "readout+zne": 0.9498907702611857,
+    "raw_by_factor": {
+     "1": 0.8905000000000001,
+     "3": 0.851,
+     "5": 0.83675
+    },
+    "readout_by_factor": {
+     "1": 0.9409017076019215,
+     "3": 0.8993918184187748,
+     "5": 0.8861200458731695
+    },
+    "zne_ok": true,
+    "ci95": {
+     "raw": [
+      0.88149375,
+      0.8990125
+     ],
+     "readout": [
+      0.9310766111043768,
+      0.9491105636023883
+     ],
+     "zne": [
+      0.8906343750000003,
+      0.9112911458333335
+     ],
+     "readout+zne": [
+      0.9391375029747727,
+      0.9611888661066207
+     ]
+    },
+    "equal_budget": {
+     "shots_per_factor": [
+      1333,
+      1333,
+      1333
+     ],
+     "ci95": {
+      "zne": [
+       0.8799637409352341,
+       0.914869342335584
+      ],
+      "readout+zne": [
+       0.9254550893896806,
+       0.9645243800831124
+      ]
+     }
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 46.02895671408352,
+    "zne": 8.428462709284997,
+    "readout+zne": 54.23814635724722
+   },
+   "counts_by_factor": {
+    "1": {
+     "00000": 1866,
+     "11111": 1696,
+     "00111": 9,
+     "11100": 48,
+     "00011": 22,
+     "01111": 71,
+     "00001": 27,
+     "10000": 120,
+     "11110": 62,
+     "11101": 20,
+     "10001": 1,
+     "01100": 3,
+     "10111": 15,
+     "11000": 9,
+     "01110": 5,
+     "11011": 11,
+     "01000": 3,
+     "00010": 3,
+     "10011": 1,
+     "11010": 1,
+     "00100": 1,
+     "10100": 4,
+     "01011": 1,
+     "01101": 1
+    },
+    "3": {
+     "00000": 1830,
+     "11111": 1574,
+     "10000": 137,
+     "01101": 7,
+     "11110": 112,
+     "00001": 25,
+     "00010": 8,
+     "11100": 30,
+     "11101": 56,
+     "01000": 14,
+     "01111": 97,
+     "10111": 20,
+     "01110": 3,
+     "11011": 20,
+     "00011": 20,
+     "10100": 2,
+     "01001": 1,
+     "10101": 2,
+     "11000": 18,
+     "10011": 1,
+     "01011": 2,
+     "01010": 1,
+     "00101": 2,
+     "00111": 10,
+     "00100": 3,
+     "11001": 1,
+     "10001": 2,
+     "01100": 1,
+     "10010": 1
+    },
+    "5": {
+     "00000": 1730,
+     "11111": 1617,
+     "10000": 113,
+     "11100": 57,
+     "00010": 12,
+     "11110": 109,
+     "00001": 42,
+     "01111": 75,
+     "11000": 49,
+     "11011": 25,
+     "10100": 2,
+     "00011": 30,
+     "01100": 6,
+     "01110": 6,
+     "11101": 50,
+     "10111": 31,
+     "00100": 6,
+     "00111": 14,
+     "01000": 5,
+     "01011": 3,
+     "10011": 6,
+     "10110": 3,
+     "01101": 3,
+     "10101": 3,
+     "10001": 1,
+     "00110": 1,
+     "11001": 1
+    }
+   }
+  },
+  {
+   "layout": "vendor",
+   "benchmark": "mirror",
+   "chain": [
+    111,
+    110,
+    109,
+    118,
+    129
+   ],
+   "scores": {
+    "raw": 0.888,
+    "readout": 0.9281745448686709,
+    "zne": 0.9088541666666666,
+    "readout+zne": 0.9499752811055129,
+    "raw_by_factor": {
+     "1": 0.888,
+     "3": 0.85025,
+     "5": 0.80775
+    },
+    "readout_by_factor": {
+     "1": 0.9281745448686709,
+     "3": 0.8885934957378099,
+     "5": 0.8441879385955628
+    },
+    "zne_ok": true,
+    "ci95": {
+     "raw": [
+      0.87775,
+      0.89825625
+     ],
+     "readout": [
+      0.9168002571991286,
+      0.9393383439443213
+     ],
+     "zne": [
+      0.8972630208333336,
+      0.9212598958333336
+     ],
+     "readout+zne": [
+      0.9374172962173835,
+      0.9626370778208839
+     ]
+    },
+    "equal_budget": {
+     "shots_per_factor": [
+      1333,
+      1333,
+      1333
+     ],
+     "ci95": {
+      "zne": [
+       0.8885299449862465,
+       0.9301716054013502
+      ],
+      "readout+zne": [
+       0.9274848438634672,
+       0.9720290756300696
+      ]
+     }
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 35.87012934702759,
+    "zne": 18.619791666666625,
+    "readout+zne": 55.3350724156365
+   },
+   "counts_by_factor": {
+    "1": {
+     "00000": 3552,
+     "10000": 175,
+     "00100": 91,
+     "00001": 78,
+     "00110": 26,
+     "00101": 16,
+     "11001": 1,
+     "01000": 9,
+     "11000": 4,
+     "00111": 5,
+     "00010": 20,
+     "00011": 8,
+     "10010": 2,
+     "10100": 7,
+     "10001": 2,
+     "11100": 2,
+     "10111": 1,
+     "01001": 1
+    },
+    "3": {
+     "00000": 3401,
+     "11000": 44,
+     "11001": 4,
+     "10000": 184,
+     "00110": 42,
+     "01110": 2,
+     "00100": 76,
+     "01000": 46,
+     "00001": 79,
+     "00010": 56,
+     "10100": 8,
+     "10001": 3,
+     "00101": 11,
+     "00011": 28,
+     "11110": 2,
+     "00111": 2,
+     "01100": 4,
+     "10010": 3,
+     "10101": 1,
+     "10011": 1,
+     "11100": 3
+    },
+    "5": {
+     "10000": 192,
+     "00000": 3231,
+     "00110": 67,
+     "00100": 146,
+     "11000": 77,
+     "00001": 83,
+     "00111": 11,
+     "00101": 15,
+     "11010": 4,
+     "00011": 12,
+     "00010": 76,
+     "10010": 7,
+     "01100": 4,
+     "01000": 32,
+     "10110": 6,
+     "11100": 8,
+     "01010": 3,
+     "10100": 9,
+     "11110": 5,
+     "01110": 1,
+     "10001": 5,
+     "10111": 2,
+     "11001": 2,
+     "10101": 1,
+     "11011": 1
+    }
+   }
+  },
+  {
+   "layout": "best",
+   "benchmark": "ghz",
+   "chain": [
+    137,
+    147,
+    148,
+    149,
+    150
+   ],
+   "scores": {
+    "raw": 0.8872500000000001,
+    "readout": 0.9058309553521653,
+    "zne": 0.9229375000000002,
+    "readout+zne": 0.942526462118283,
+    "raw_by_factor": {
+     "1": 0.8872500000000001,
+     "3": 0.8202499999999999,
+     "5": 0.748
+    },
+    "readout_by_factor": {
+     "1": 0.9058309553521653,
+     "3": 0.8374991065243786,
+     "5": 0.7630962600512542
+    },
+    "zne_ok": true,
+    "ci95": {
+     "raw": [
+      0.8785000000000001,
+      0.89650625
+     ],
+     "readout": [
+      0.8968681695919071,
+      0.9152494946495158
+     ],
+     "zne": [
+      0.9130307291666667,
+      0.9342729166666668
+     ],
+     "readout+zne": [
+      0.9316701336853562,
+      0.9534585568239988
+     ]
+    },
+    "equal_budget": {
+     "shots_per_factor": [
+      1333,
+      1333,
+      1333
+     ],
+     "ci95": {
+      "zne": [
+       0.9032351837959492,
+       0.9438750312578144
+      ],
+      "readout+zne": [
+       0.9184292299754061,
+       0.9619941399789188
+      ]
+     }
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 16.47978301744143,
+    "zne": 31.6518847006653,
+    "readout+zne": 49.02568702286732
+   },
+   "counts_by_factor": {
+    "1": {
+     "00000": 1957,
+     "00001": 32,
+     "01000": 5,
+     "11111": 1592,
+     "11101": 276,
+     "11110": 27,
+     "00111": 14,
+     "01111": 23,
+     "00011": 8,
+     "11000": 10,
+     "11010": 2,
+     "11011": 8,
+     "00101": 2,
+     "10111": 12,
+     "10101": 2,
+     "10000": 11,
+     "01101": 3,
+     "11100": 13,
+     "00010": 2,
+     "11001": 1
+    },
+    "3": {
+     "00000": 1837,
+     "00111": 100,
+     "11111": 1444,
+     "11101": 295,
+     "11110": 41,
+     "01111": 28,
+     "00001": 32,
+     "00100": 4,
+     "11000": 108,
+     "00101": 21,
+     "00011": 8,
+     "01100": 1,
+     "10111": 12,
+     "01101": 8,
+     "00010": 3,
+     "11100": 14,
+     "11011": 15,
+     "11001": 2,
+     "00110": 2,
+     "10000": 9,
+     "01000": 8,
+     "10101": 5,
+     "10110": 1,
+     "10001": 1,
+     "01110": 1
+    },
+    "5": {
+     "00000": 1771,
+     "11111": 1221,
+     "11101": 219,
+     "11000": 231,
+     "11001": 9,
+     "10111": 18,
+     "00101": 55,
+     "10000": 16,
+     "11110": 41,
+     "01111": 28,
+     "00111": 238,
+     "00001": 46,
+     "00011": 18,
+     "01000": 11,
+     "11011": 19,
+     "11100": 31,
+     "00010": 9,
+     "00100": 4,
+     "01011": 1,
+     "00110": 3,
+     "10101": 1,
+     "01110": 1,
+     "01101": 5,
+     "10100": 1,
+     "10011": 1,
+     "10110": 2
+    }
+   }
+  },
+  {
+   "layout": "best",
+   "benchmark": "mirror",
+   "chain": [
+    137,
+    147,
+    148,
+    149,
+    150
+   ],
+   "scores": {
+    "raw": 0.92425,
+    "readout": 0.9347152149330841,
+    "zne": 0.9506458333333337,
+    "readout+zne": 0.9615390879123578,
+    "raw_by_factor": {
+     "1": 0.92425,
+     "3": 0.8525,
+     "5": 0.8035
+    },
+    "readout_by_factor": {
+     "1": 0.9347152149330841,
+     "3": 0.8622909924272993,
+     "5": 0.8123985417781999
+    },
+    "zne_ok": true,
+    "ci95": {
+     "raw": [
+      0.91749375,
+      0.93450625
+     ],
+     "readout": [
+      0.9277377426776654,
+      0.9451249303950918
+     ],
+     "zne": [
+      0.9392286458333337,
+      0.9625348958333335
+     ],
+     "readout+zne": [
+      0.9498580474173655,
+      0.973498625687009
+     ]
+    },
+    "equal_budget": {
+     "shots_per_factor": [
+      1333,
+      1333,
+      1333
+     ],
+     "ci95": {
+      "zne": [
+       0.9309202300575145,
+       0.970072205551388
+      ],
+      "readout+zne": [
+       0.9411738866647896,
+       0.9805143210849785
+      ]
+     }
+    }
+   },
+   "improvement_vs_raw_pct": {
+    "raw": 0.0,
+    "readout": 13.815465258196776,
+    "zne": 34.845984598460376,
+    "readout+zne": 49.22651869618185
+   },
+   "counts_by_factor": {
+    "1": {
+     "00000": 3697,
+     "11000": 59,
+     "00010": 48,
+     "00001": 82,
+     "10000": 35,
+     "00100": 38,
+     "00110": 33,
+     "00111": 2,
+     "01000": 4,
+     "11101": 1,
+     "00101": 1
+    },
+    "3": {
+     "00000": 3410,
+     "11000": 236,
+     "00100": 63,
+     "00001": 101,
+     "00010": 64,
+     "00110": 58,
+     "01000": 14,
+     "10000": 33,
+     "11100": 4,
+     "01001": 1,
+     "11001": 2,
+     "10100": 1,
+     "00101": 5,
+     "11011": 1,
+     "00111": 2,
+     "00011": 1,
+     "10001": 1,
+     "11110": 2,
+     "11010": 1
+    },
+    "5": {
+     "00000": 3214,
+     "11000": 258,
+     "00100": 77,
+     "10010": 2,
+     "10000": 58,
+     "00001": 156,
+     "11100": 11,
+     "00110": 75,
+     "00010": 74,
+     "00101": 13,
+     "11110": 4,
+     "11010": 11,
+     "01000": 19,
+     "11001": 14,
+     "00111": 3,
+     "00011": 5,
+     "01100": 1,
+     "10110": 1,
+     "10001": 2,
+     "11111": 1,
+     "10101": 1
+    }
+   }
+  }
+ ],
+ "entanglement": {
+  "naive": {
+   "raw": {
+    "population": 0.71025,
+    "coherence": 0.450304066437335,
+    "fidelity": 0.5802770332186675,
+    "ci95": [
+     0.5634153914556883,
+     0.5986509686267745
+    ],
+    "entangled": true
+   },
+   "readout": {
+    "population": 0.7408234787016893,
+    "coherence": 0.5008016323481004,
+    "fidelity": 0.6208125555248949,
+    "ci95": [
+     0.6016077764850001,
+     0.6407104319957144
+    ],
+    "entangled": true
+   }
+  },
+  "vendor": {
+   "raw": {
+    "population": 0.8905000000000001,
+    "coherence": 0.8374232220777021,
+    "fidelity": 0.863961611038851,
+    "ci95": [
+     0.8526973606026819,
+     0.8732187386534982
+    ],
+    "entangled": true
+   },
+   "readout": {
+    "population": 0.9409017076019215,
+    "coherence": 0.9412539572052189,
+    "fidelity": 0.9410778324035702,
+    "ci95": [
+     0.9264890030370051,
+     0.9480968978781822
+    ],
+    "entangled": true
+   }
+  },
+  "best": {
+   "raw": {
+    "population": 0.8872500000000001,
+    "coherence": 0.7792782335276666,
+    "fidelity": 0.8332641167638333,
+    "ci95": [
+     0.8222275277204543,
+     0.8423221097292064
+    ],
+    "entangled": true
+   },
+   "readout": {
+    "population": 0.9058309553521653,
+    "coherence": 0.8142558939404392,
+    "fidelity": 0.8600434246463022,
+    "ci95": [
+     0.8484239563402464,
+     0.8687464905733919
+    ],
+    "entangled": true
+   }
+  }
+ },
+ "rb": {
+  "best": {
+   "lengths_1q": [
+    1,
+    20,
+    50,
+    100
+   ],
+   "lengths_2q": [
+    1,
+    4,
+    8,
+    16
+   ],
+   "sequences": 4,
+   "pulses_per_1q_clifford": 0.8274285714285714,
+   "two_q_gates_per_2q_clifford": 1.4621212121212122,
+   "qubits": [
+    {
+     "qubit": 137,
+     "survival": [
+      0.9864999999999999,
+      0.9855,
+      0.9825,
+      0.9795
+     ],
+     "p": 0.9998492677556284,
+     "epc": 7.536612218578265e-05,
+     "error_per_pulse": 9.108474711679533e-05,
+     "reported": 0.00028389411716313285
+    },
+    {
+     "qubit": 147,
+     "survival": [
+      0.996,
+      0.9815,
+      0.9634999999999999,
+      0.9024999999999999
+     ],
+     "p": 0.9978960997549208,
+     "epc": 0.0010519501225396133,
+     "error_per_pulse": 0.0012713485596991183,
+     "reported": 0.0013408791594328464
+    },
+    {
+     "qubit": 148,
+     "survival": [
+      1.0,
+      0.9964999999999999,
+      0.992,
+      0.98
+     ],
+     "p": 0.9995897300782062,
+     "epc": 0.0002051349608969133,
+     "error_per_pulse": 0.0002479186336806618,
+     "reported": 0.00014532363458147706
+    },
+    {
+     "qubit": 149,
+     "survival": [
+      0.9985,
+      0.992,
+      0.9849999999999999,
+      0.9735
+     ],
+     "p": 0.9994910629333531,
+     "epc": 0.00025446853332344865,
+     "error_per_pulse": 0.00030754139041162646,
+     "reported": 0.0002586803072975079
+    },
+    {
+     "qubit": 150,
+     "survival": [
+      0.998,
+      0.995,
+      0.986,
+      0.971
+     ],
+     "p": 0.9994223188858028,
+     "epc": 0.0002888405570986019,
+     "error_per_pulse": 0.00034908216500176335,
+     "reported": 0.00034549333111274485
+    }
+   ],
+   "edges": [
+    {
+     "a": 137,
+     "b": 147,
+     "survival": [
+      0.9804999999999999,
+      0.9615,
+      0.9474999999999999,
+      0.8785000000000001
+     ],
+     "p": 0.9900696687555912,
+     "epc": 0.007447748433306589,
+     "error_per_2q_gate": 0.005093796855940257,
+     "reported": 0.0022904799595962477
+    },
+    {
+     "a": 148,
+     "b": 149,
+     "survival": [
+      0.9835,
+      0.964,
+      0.9624999999999999,
+      0.9235
+     ],
+     "p": 0.9946421192020406,
+     "epc": 0.004018410598469552,
+     "error_per_2q_gate": 0.0027483429999895378,
+     "reported": 0.0029066653006921406
+    },
+    {
+     "a": 147,
+     "b": 148,
+     "survival": [
+      0.9835,
+      0.9614999999999999,
+      0.9415,
+      0.9045
+     ],
+     "p": 0.9925927074480329,
+     "epc": 0.005555469413975361,
+     "error_per_2q_gate": 0.0037995956613717497,
+     "reported": 0.0031454621498033797
+    },
+    {
+     "a": 149,
+     "b": 150,
+     "survival": [
+      0.972,
+      0.9475,
+      0.9490000000000001,
+      0.892
+     ],
+     "p": 0.9926139635147452,
+     "epc": 0.005539527363941116,
+     "error_per_2q_gate": 0.003788692290363872,
+     "reported": 0.0037881626005962232
+    }
+   ]
+  },
+  "vendor": {
+   "lengths_1q": [
+    1,
+    20,
+    50,
+    100
+   ],
+   "lengths_2q": [
+    1,
+    4,
+    8,
+    16
+   ],
+   "sequences": 4,
+   "pulses_per_1q_clifford": 0.8274285714285714,
+   "two_q_gates_per_2q_clifford": 1.4621212121212122,
+   "qubits": [
+    {
+     "qubit": 111,
+     "survival": [
+      0.9975,
+      0.9824999999999999,
+      0.976,
+      0.974
+     ],
+     "p": 0.9995718786708621,
+     "epc": 0.00021406066456897133,
+     "error_per_pulse": 0.0002587059136710634,
+     "reported": 0.0002397338683146266
+    },
+    {
+     "qubit": 110,
+     "survival": [
+      0.997,
+      0.984,
+      0.972,
+      0.966
+     ],
+     "p": 0.9993816087994654,
+     "epc": 0.0003091956002673202,
+     "error_per_pulse": 0.0003736825279473828,
+     "reported": 0.0003190445160829458
+    },
+    {
+     "qubit": 109,
+     "survival": [
+      0.995,
+      0.9835,
+      0.971,
+      0.9715
+     ],
+     "p": 0.9995332459799333,
+     "epc": 0.0002333770100333421,
+     "error_per_pulse": 0.00028205094444637343,
+     "reported": 0.00018969835826079746
+    },
+    {
+     "qubit": 118,
+     "survival": [
+      0.9970000000000001,
+      0.9944999999999999,
+      0.9825,
+      0.978
+     ],
+     "p": 0.9995830578937873,
+     "epc": 0.0002084710531063405,
+     "error_per_pulse": 0.0002519505130774143,
+     "reported": 0.00021757732813234467
+    },
+    {
+     "qubit": 129,
+     "survival": [
+      0.958,
+      0.9464999999999999,
+      0.9425,
+      0.9195
+     ],
+     "p": 0.9991600444920993,
+     "epc": 0.0004199777539503624,
+     "error_per_pulse": 0.0005075697993184629,
+     "reported": 0.00021361087877182965
+    }
+   ],
+   "edges": [
+    {
+     "a": 110,
+     "b": 111,
+     "survival": [
+      0.9875,
+      0.9404999999999999,
+      0.929,
+      0.878
+     ],
+     "p": 0.9901527678765035,
+     "epc": 0.007385424092622356,
+     "error_per_2q_gate": 0.005051170882000782,
+     "reported": 0.0020974762938338054
+    },
+    {
+     "a": 109,
+     "b": 118,
+     "survival": [
+      0.9689999999999999,
+      0.9584999999999999,
+      0.9365000000000001,
+      0.9105
+     ],
+     "p": 0.9942615641831388,
+     "epc": 0.004303826862645882,
+     "error_per_2q_gate": 0.0029435499785971835,
+     "reported": 0.0021921891929242987
+    },
+    {
+     "a": 109,
+     "b": 110,
+     "survival": [
+      0.9784999999999999,
+      0.9435,
+      0.9375,
+      0.9225000000000001
+     ],
+     "p": 0.9954086056321017,
+     "epc": 0.003443545775923762,
+     "error_per_2q_gate": 0.002355171204258739,
+     "reported": 0.0016515047136219374
+    },
+    {
+     "a": 118,
+     "b": 129,
+     "survival": [
+      0.94,
+      0.908,
+      0.8935,
+      0.8925000000000001
+     ],
+     "p": 0.9958894392723375,
+     "epc": 0.0030829205457468534,
+     "error_per_2q_gate": 0.0021085259691118376,
+     "reported": 0.001631283637676173
+    }
+   ]
+  }
+ },
+ "benchmark_job_id": "dbagekc24mrc7385casg",
+ "methods": [
+  "raw",
+  "readout",
+  "zne",
+  "readout+zne"
+ ],
+ "notes": "Score = probability of the known-correct output (1.0 is perfect). ZNE is reported as null when added noise did not lower the score (zne_ok false). ci95 = bootstrap interval over shots only. GHZ score counts all-0/all-1 outcomes, so it detects bit flips but not loss of entanglement. Layout 'vendor' is chosen from IBM's reported numbers only. entanglement: GHZ fidelity from population plus parity oscillation; F > 0.5 (whole interval) means genuine entanglement. rb: randomized benchmarking on the selected and vendor chains, run simultaneously (includes crosstalk); per-gate errors divide the error per Clifford by the average gate count per Clifford (approximate). equal_budget: ZNE intervals when it gets a third of the shots per noise level, i.e. the same total as raw. Two-qubit gate errors used for chain selection are measured by repeated-gate decay (includes crosstalk from parallel edges); vendor values are only a fallback."
+}
