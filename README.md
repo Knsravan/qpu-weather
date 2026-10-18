@@ -4,7 +4,7 @@
 
 > Quantum chips are moody. Vendors publish "usually accurate" numbers. This project rides the bus every day and writes down what really happens.
 
-**Status:** four real-hardware runs so far: three on IBM `ibm_fez` (2026-10-09, 2026-10-13) and one on IBM `ibm_kingston` (2026-10-12). That is too few for a drift trend, and two different chips cannot share one trend line, so the weekly GitHub Action now stays on `ibm_fez`. Simulator output is deliberately never published.
+**Status:** five real-hardware runs so far: three on IBM `ibm_fez` (2026-10-09, 2026-10-13) and two on IBM `ibm_kingston` (2026-10-12, 2026-10-18; the second was a manual run while `ibm_fez` was in maintenance). That is too few for a drift trend, and two different chips cannot share one trend line, so the weekly GitHub Action now stays on `ibm_fez`. Simulator output is deliberately never published.
 
 ---
 
@@ -29,7 +29,7 @@
 - **Readout mitigation:** invert the per-qubit confusion matrices measured in the same run.
 - **ZNE:** deliberately add noise by folding the circuit (`C → C C† C`, 1×/3×/5× noise), then extrapolate the score back to zero noise. Folding happens *after* compilation so the compiler can't cancel it. If adding noise did **not** lower the score, ZNE's basic assumption is broken and no ZNE number is reported for that case.
 
-## Real results so far (4 runs, 2 chips, not a trend)
+## Real results so far (5 runs, 2 chips, not a trend)
 5-qubit chains, 4000 shots. Raw score = probability of the known-correct answer (1.0 = perfect), with no fix applied:
 
 | Run | Chip | best chain: GHZ / mirror | first 5 qubits: GHZ / mirror |
@@ -38,13 +38,17 @@
 | 2026-10-09 14:48 | `ibm_fez` | 0.929 / 0.913 | 0.821 / 0.776 |
 | 2026-10-12 11:01 | `ibm_kingston` | 0.931 / 0.923 | 0.669 / 0.371 |
 | 2026-10-13 09:34 | `ibm_fez` | 0.941 / 0.897 | 0.835 / 0.831 |
+| 2026-10-18 17:26 | `ibm_kingston` | 0.887 / 0.924 | 0.710 / 0.511 |
 
 What it suggests, no more:
 - **Picking qubits by measured error helped in every run.** The 2026-10-12 gap is unusually large because the first-5 chain broke down (see below), so don't read it as typical.
-- **Readout error matched IBM's figure** each time (median 1.00×, 1.01×, 0.98×, 0.95×), but single qubits can be far worse than advertised (2026-10-09: q90 measured 5.8% vs IBM's 0.4%).
-- **The "best" chain changes every run** (24,25,37,45,46 → 94,95,99,115,114 → 151–155 → 137,147,146,145,144). It is advice for that run, not a fixed property of the chip.
-- **Readout + ZNE was the best fix on the best chain in all eight cases**, and on every chain in the 2026-10-13 run. On `ibm_kingston` the first-5 chain behaved strangely: its score went *up* when noise was added (mirror 0.37 → 0.54 → 0.51). ZNE cannot work there and the dashboard leaves those cases out. Possible causes, not proven: the chip changed between the calibration and benchmark jobs, or steady (coherent) errors partly cancel when the circuit is folded.
-- **Our chain vs the chain IBM's own numbers would pick: no clear winner yet (one run).** On 2026-10-13 (`ibm_fez`), raw GHZ was 0.941 (95% range 0.935–0.948) for ours vs 0.927 (0.918–0.934) for IBM's pick, only just apart; raw mirror was 0.897 vs 0.891 with overlapping ranges, so a tie. After readout+ZNE, IBM's pick scored higher on mirror (0.974 vs 0.953). So far, measuring the chip ourselves clearly beats "first 5 qubits" but has **not** been shown to beat trusting IBM's numbers. The ranges cover shot noise only; more weekly runs are needed.
+- **Readout error matched IBM's figure** each time (median 1.00×, 1.01×, 0.98×, 0.95×, 1.07×), but single qubits can be far worse than advertised (2026-10-09: q90 measured 5.8% vs IBM's 0.4%).
+- **The "best" chain changes every run** (24,25,37,45,46 → 94,95,99,115,114 → 151–155 → 137,147,146,145,144 → 137,147,148,149,150). It is advice for that run, not a fixed property of the chip.
+- **Readout + ZNE was the best fix on the best chain in all ten cases**, and on every chain where ZNE was valid. On `ibm_kingston` the first-5 chain behaved strangely in both runs: its score went *up* when noise was added (2026-10-12 mirror 0.37 → 0.54 → 0.51). ZNE cannot work there and the dashboard leaves those cases out. Possible causes, not proven: the chip changed between the calibration and benchmark jobs, or steady (coherent) errors partly cancel when the circuit is folded.
+- **Our chain vs the chain IBM's own numbers would pick: no clear winner yet (two runs).** On 2026-10-13 (`ibm_fez`), raw GHZ was 0.941 (95% range 0.935–0.948) for ours vs 0.927 (0.918–0.934) for IBM's pick, only just apart; raw mirror was 0.897 vs 0.891 with overlapping ranges, so a tie. After readout+ZNE, IBM's pick scored higher on mirror (0.974 vs 0.953). So far, measuring the chip ourselves clearly beats "first 5 qubits" but has **not** been shown to beat trusting IBM's numbers. On 2026-10-18 (`ibm_kingston`) raw GHZ was a tie (0.887 vs 0.891) and raw mirror favoured ours (0.924, range 0.917–0.935, vs 0.888, 0.878–0.898); after readout+ZNE the ranges overlapped on both, and IBM's pick had the higher entanglement fidelity (0.86 vs 0.83 raw). The ranges cover shot noise only; more weekly runs are needed.
+- **First randomized-benchmarking results (2026-10-18, `ibm_kingston`, 10 qubits and 8 couplings on the two chains):** two-qubit error per gate was a median 1.3× IBM's figure (range 0.9–2.4×), much closer than the quick decay test used for chain selection (4.1× on the same run). Single-qubit errors were a median 1.2× IBM's (0.3–2.4×). One run, one chip.
+- **Entanglement check (same run):** all three chains passed (fidelity above 0.5 over the whole range): ours 0.83, IBM's pick 0.86, first 5 qubits only 0.58.
+- **Same-shot comparison (same run):** when ZNE gets only as many shots in total as raw, readout+ZNE stayed clearly ahead of readout alone on GHZ for our chain but not on mirror, and not on either benchmark for IBM's pick. Its lead in the main table partly comes from using three times the shots.
 
 The raw data is in `data/runs/`.
 
