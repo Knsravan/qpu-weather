@@ -116,7 +116,7 @@ Schema 3 (from 2026-10-14) adds `entanglement`, `rb` and per-result `scores.equa
 - Free-plan quota changes; do not assume limits. Default run is small (2 jobs; benchmark job is 18 circuits since the vendor layout).
 - The dashboard shows drift and the which-fix average for the selected run's chip only; different chips never share a line or an average.
 
-## 10. Status (as of 2026-10-13)
+## 10. Status (as of 2026-10-18)
 Done:
 - **First real-hardware run succeeded** (run #4, `ibm_fez`, 2026-10-09; file in `data/runs/`): auth with only `IBM_QUANTUM_TOKEN` worked (`IBM_INSTANCE` optional), `SamplerV2` results through the `c` register worked, readout error matched IBM (median 1.00x), best chain beat naive, readout+zne best in all four cases. The first attempts failed on a deleted/invalid API key and an exhausted instance quota, which led to the quota guard and queue timeout.
 - Workflow is now **weekly** (Mondays 03:17 UTC), 90 min timeout, with `check_quota` + `wait_until_running` (30 min queue limit per job; raised from 10 min after run #7 on 2026-10-13 was cancelled while `ibm_fez` was busy. Queue time is not billed; a run uses roughly 20-40 s of QPU time).
@@ -128,9 +128,10 @@ NOT done / unverified:
 - 2-qubit measurement (`twoq.py`) ran on real hardware in run #5 (176 edges measured; see limitations for how to read it). Chain picks differ between runs 7 minutes apart ([24,25,37,45,46] before it, [94,95,99,115,114] with it), so the 'best chain' is a per-run recommendation, not a stable property.
 - Run #5 also showed readout+zne mirror score of exactly 1.000 on the best chain: that is ZNE's extrapolation clipped at 1.0, not a perfect chip.
 - First-run caveat: the 1q gate-sequence number (X^100) was ~13x IBM's figure and uncorrelated with it, so it is relabelled and only used for ranking. Do not present it as measured-vs-reported.
-- Four real runs exist: three on `ibm_fez` (2026-10-09 ×2, 2026-10-13) and one on `ibm_kingston` (2026-10-12, picked by least-busy). The workflow now defaults to `IBM_BACKEND=ibm_fez` (repo variable overrides) so history stays on one chip. No drift history yet.
+- Five real runs exist: three on `ibm_fez` (2026-10-09 ×2, 2026-10-13) and two on `ibm_kingston` (2026-10-12, picked by least-busy; 2026-10-18, manual `backend` input because `ibm_fez` was in maintenance and run #9 on 2026-10-15 timed out in the queue). The workflow now defaults to `IBM_BACKEND=ibm_fez` (repo variable overrides) so history stays on one chip. No drift history yet.
 - Run 3 (`ibm_kingston`): best chain [151..155] raw 0.931/0.923 (GHZ/mirror); naive [0..4] broke down at 0.669/0.371 and its score ROSE with folding, so ZNE is invalid there (now detected, see Step 4). Cause unknown: chip change between jobs, or coherent errors cancelling under folding. Readout+zne still best on the best chain in all 6 best-chain cases so far.
 - Run 2026-10-13 (`ibm_fez`, schema 2, first with vendor layout, ZNE check and ci95; manual trigger, the earlier attempt hit the old 10-min queue limit): best [137,147,146,145,144] vs vendor [98,111,110,109,118] vs naive [0..4]. Raw GHZ 0.941 [0.935–0.948] vs 0.927 [0.918–0.934] vs 0.835; raw mirror 0.897 [0.888–0.906] vs 0.891 [0.883–0.902] vs 0.831. Best vs vendor: GHZ barely separated, mirror a tie; after readout+zne vendor was higher on mirror (0.974 vs 0.953). **No evidence yet that our pick beats IBM's.** zne_ok true everywhere; readout+zne best in all six cases. Readout ratio 0.95×, 2q ratio 2.32×.
+- Run 2026-10-18 (`ibm_kingston`, schema 3, first with RB, entanglement and equal_budget): best [137,147,148,149,150] vs vendor [111,110,109,118,129] vs naive [0..4]. Raw GHZ 0.887 vs 0.891 vs 0.710; raw mirror 0.924 [0.917–0.935] vs 0.888 [0.878–0.898] vs 0.511. Naive zne_ok false again (both benchmarks). After readout+zne best vs vendor overlap (GHZ 0.943 vs 0.950, mirror 0.962 vs 0.950). Entanglement F raw 0.83 / 0.86 / 0.58, all `entangled`. RB 2q per-gate median 1.3× IBM (0.9–2.4×, 8 couplings) vs decay test 4.1× on the same run; RB 1q median 1.2× (0.3–2.4×). Equal budget: readout+zne still clearly ahead of readout only on best-chain GHZ. Readout ratio 1.07×.
 
 ## 11. Repo layout
 ```
@@ -170,7 +171,7 @@ Python 3.13 locally, CI uses 3.12. Fake backend for dev/tests: `FakeLagosV2` (7 
 2. ~~Aggregate + README status~~ Done for the first run; keep the README results section to real numbers only and refresh it as runs accumulate.
 3. ~~Measure 2-qubit gate error directly~~ Done and run on real hardware (`twoq.py`, used in chain selection; rough indicator only: ~2.6x IBM's figure, rank correlation ~0.4). Possible upgrade: randomized benchmarking.
 4. ~~Add a vendor-guided layout~~ Done in code (2026-10-13). **Top priority now:** check its first hardware result (the next weekly run) and, after several runs, whether `best` actually beats `vendor` beyond the ci95 ranges. Until then 'best chain beats the first five qubits' does NOT show it beats a vendor-guided choice.
-4b. ~~Parity-oscillation GHZ check~~, ~~randomized benchmarking on the chosen chains~~, ~~equal-budget mitigation comparison~~: done in code 2026-10-14 (limitations #5, #2, #4), simulator-tested only; the next hardware run is the first. Check its QPU seconds on the IBM usage page (expected roughly double).
+4b. ~~Parity-oscillation GHZ check~~, ~~randomized benchmarking on the chosen chains~~, ~~equal-budget mitigation comparison~~: done in code 2026-10-14 (limitations #5, #2, #4); first hardware run 2026-10-18 (`ibm_kingston`), see Status. Check its QPU seconds on the IBM usage page (expected roughly double).
 4. Add dynamical decoupling and Pauli twirling to the mitigation comparison.
 5. Per-qubit stability score over time on the dashboard; more devices if access allows.
 6. ~~Pin the repo~~ Done by the owner. Later (about 4 weeks of weekly runs): add a short 'what I learned' note to the README from the real run files (drift, best-chain stability, which fix wins).
